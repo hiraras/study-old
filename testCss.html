@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.container > .div1{
+				color: red;
+			}
+			.div2{
+				overflow: hidden;
+			}
+			.div2:after{
+				height: 100px;
+				display: inline-block;
+			}
+			.select{
+				width: 200px;
+				padding: 6px 8px;
+				border-radius: 4px;
+			}
+			.select option{
+				height: 20px;
+				line-height: 20px;
+				padding: 4px 6px;
+			}
+			table{
+				border: 1px solid black;
+			}
+			table td,table th{
+				border: 1px solid black;
+				text-align: center;
+				padding: 4px 6px;
+			}
+			.button{
+				background: blue;
+				color: white;
+			}
+			.testDisplayNone{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="div1">
+				<div class="div2">div2</div>
+			</div>
+		</div>
+		<select class='select'>
+			<option>123</option>
+		</select>
+		<table>
+			<tr>
+				<th colspan='2'>1234</th>
+			</tr>
+			<tr>
+				<td colspan='2'>1235</td>
+			</tr>
+			<tr>
+				<th rowspan='2'>123</th>
+				<td>456</td>
+			</tr>
+			<tr>
+				<td>789</td>
+			</tr>
+		</table>
+		<button class='button'>123</button>
+		<!-- 设置display为none的元素在页面里修改样式为可见后，点击事件还是有效的 -->
+		<div class='testDisplayNone' id='testDisplayNone'>123</div>
+	</body>
+	<script type="text/javascript">
+		var testDisplayNoneElem = document.getElementById('testDisplayNone');
+		testDisplayNoneElem.addEventListener('click', function(){
+			console.log(1246);
+		}, false);
+	</script>
+</html>

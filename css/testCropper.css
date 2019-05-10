@@ -1,0 +1,43 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.container{
+	width: 800px;
+	height: 600px;
+}
+.inputImage_area{
+	position: relative;
+	float: right;
+	height: 40px;
+	width: 100px;
+	border-radius: 10px;
+	border: 0;
+	background: cornflowerblue;
+}
+.inputImage_title{
+	text-align: center;
+	color: white;
+	line-height: 40px;
+}
+.inputImage{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 40px;
+	opacity: 0;
+	filter: alpha(Opacity = 0);
+	cursor: pointer;
+}
+.img-preview{
+	width: 200px;
+	height: 200px;
+}
+
+.preview_container{
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+	background: #333333;
+}

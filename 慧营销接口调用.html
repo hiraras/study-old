@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<button id='btn'>点击</button>
+		<button id='btn2'>点击2</button>
+	</body>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script>
+		var btn = document.getElementById('btn');
+		var btn2 = document.getElementById('btn2');
+		btn.onclick = function(){
+			$.ajax({
+				url: 'http://127.0.0.1:3366/callout',
+				async: true,
+				type: 'GET',
+				data: {
+					phone: '17826877713',
+					callback: 'obj.callback',
+					recordId: 'fjeioajfoaeijf'
+				},
+				success: function(data){
+					eval(data);
+					console.log(data);
+				}
+			})
+		}
+		btn2.onclick = function(){
+			$.ajax({
+				url: 'http://127.0.0.1:3366/callstatus',
+				async: true,
+				type: 'GET',
+				data: {
+					newcall: '2',
+					callback: 'obj.callback'
+				},
+				success: function(data){
+//					eval(data);
+					console.log(data);
+				},
+				error: function(data) {
+					console.log(data);
+				}
+			})
+		}
+		var obj = {
+			callback: function() {
+				console.log(1);
+			}
+		}
+		function callback(data){
+			console.log(data);
+		}
+		
+	</script>
+</html>
+
+
+

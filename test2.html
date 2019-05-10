@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#testCssPath{
+				background: url(img/1.jpg);
+			}
+			.msg_child{
+				border: 1px solid black;
+			}
+			.test_background_img{
+				background: url(img/1.jpg) center center;
+				width: 600px;
+				height: 400px;
+				background-size: 100%;
+			}
+		</style>
+		<!--css和js文件内所指的相对路劲的参照不一样，js文件内的路劲是相对于html页面（相当于引入后直接属于html文件的一部分，引入）
+			而css文件的参照则为它本身（引用）
+		-->
+		<link rel="stylesheet" type="text/css" href="css/test2.css"/>
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<!--<script src="./js/test.js"></script>-->
+	</head>
+	<body>
+		<canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
+			Your browser does not support the HTML5 canvas tag.
+		</canvas>
+		<button onclick="copy()">复制</button>
+		<div style="height: 60px;background: green;position: relative;top: 200px;"></div>
+		<div style="height: 60px;background: blue;"></div>
+		<div style="text-align: center;width: 1200px;margin: 0 auto;">
+			eoifjoiefjoi
+		</div>
+		<div style="height: 300px;background: black;margin-top: 300px;">
+			<div style="height: 50%;background: red;"></div>
+		</div>
+		<div id="content" style="border: 1px solid black;height: 600px;width: 800px;">
+			
+		</div>
+		<div>
+			<textarea name="" rows="20" cols="50" id="myText"></textarea>
+			<img src="img/01.jpg" width="60px" height="45px" id="myImg1"/>
+			<div contenteditable="true" style="width: 300px; height: 200px;border: 1px solid black;" id="myText2" >
+				
+			</div>
+			<button id="sendBtn">发送</button>
+		</div>
+		<!--absolute相对于父position定位元素，relative相对于原位置-->
+		<div style="width: 400px;height: 300px;background: red;position: relative;">
+			<div style="width: 50px;height: 50px;background: blue;position: absolute;right: 20px;top: 20px;"></div>
+			<div style="width: 100px;height: 100px;background: black;"></div>
+		</div>
+		<div style="color: #FF0000\0;color: #000000\9\0;width: 300px;height: 200px;border: 1px solid black;">ojawefoijaewf</div>
+		<div style="width: 600px;height: 400px;border: 2px solid black;position: relative;">
+			<div style="position: absolute;z-index: 10;">
+				
+			</div>
+			<img src="img/2.jpg" style="position: absolute;z-index: 19;top: 0;" />
+			<div style="position: relative;z-index: 20;">
+				<input type="text" name="" id="" value="" style="background: none;" />
+			</div>
+		</div>
+		<div style="width: 600px;height: 400px;border: 2px solid black;position: relative;" id="testCssPath">
+			<div style="border: 1px solid blue;height: 300px;" id="listMsg">
+				
+			</div>
+			<select name="num" id="num">
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+			</select>
+			<div>
+				<div id="prev" style="float: left;font-size: 28px;background: white;border: 1px solid black;"><</div>
+				<div id="next" style="float: right;font-size: 28px;background: white;border: 1px solid black;">></div>
+			</div>
+		</div>
+		<div contenteditable="true" style="width: 300px;height: 200px;border: 1px solid blue;" id="divEditer">
+			
+		</div>
+		<div class="test_background_img">
+			
+		</div>
+		
+		<img src='http://pt.img.jiayouxueba.com/Fto5o-5ea0sNMlW_75VgGJCv2AcJ' height='80px' width='80px' />
+	</body>
+	<script>
+		//当前页面
+		var c=document.getElementById("myCanvas");
+		var ctx=c.getContext("2d");	
+		ctx.fillStyle="green";
+		ctx.fillRect(10,10,50,50);
+		var a = 0 && " ";
+		//当前所显示的信息条数
+//		console.log(a);
+		function copy()
+		{
+			var imgData=ctx.getImageData(10,10,50,50);
+			console.log(imgData.data);
+			ctx.putImageData(imgData,10,70);
+			ctx.readAsDataURL();
+		}
+		$("#sendBtn").on("click",function(){
+			var text = $("#myText2").html();
+			console.log(text);
+			var img = $("#myImg1");
+			console.log(img.attr("src"));
+			
+			var img2 = new Image();
+			img2.src = img.attr("src");
+			img2.style.width = img.attr("width");
+			img2.style.height = img.attr("height");
+			$("#myText2").html("");
+			$("#content").html(img2);
+//			console.log("click");
+		});
+		console.log("abd"<"abe");//true
+		console.log("abd">"abe");//false
+		var a = "#" + (0x000000 + 1000).toString(16);
+		var b = 0x3e8.toString(10);
+		console.log(a);
+		console.log(b);
+//		sessionStorage.setItem("username","17826877713");
+		
+		{
+			let obj = {};
+			obj.a = 1;
+			console.log(obj["a"]);//1
+			let obj2 = {};
+			obj2["a"] = 1;
+			console.log(obj2.a,obj2["a"]);//1  1
+		}
+		$("#divEditer").html("aeiojfioaewjfiowaejfio <img src='img/01.jpg' width='50px' height='40px' />");
+		$("#myText2").html("<img src='img/01.jpg' width='50px' height='40px' />");
+		
+		function abc(){
+			console.log(this.a);
+		}
+		var obj={a: 1111111};
+		abc.bind(obj)();
+		{
+			let obj = {};
+			obj['abx'] = 'abx';
+			let key = 'abx';
+			console.log(obj[key]);
+		}
+		{
+			let s = Symbol();
+			let obj = {
+				a:1,
+				b:2
+			}
+			obj[s] = 'jffjjf';
+			console.log(obj[s]);//'jffjjf'
+			console.log(obj.s);//undefined
+		}
+		
+		{
+			let arr = [1,23,4,5,6,4,4];
+			arr.a = 99;
+			for(let value of arr){
+				console.log(value);//1 23 4 5 6 4 4
+			}
+			for(let key in arr){
+				console.log(arr[key]);////1 23 4 5 6 4 4 99
+			}
+		}
+		{
+			let a = b = [1,2];
+			b = [3,4];
+			console.log(b);
+		}
+		{
+			let [a,b] = [1,[2,3]];
+			console.log(b);
+		}
+		{
+			let arr = [1,2,3,4,5,6];
+			for(let i in arr){
+				console.log(i);//typeof string
+			}
+			for(let i of arr){
+				console.log(i);//typeof number
+			}
+			let obj = {
+				a: 1,
+				b: 2
+			}
+			Object.prototype.c = 3;
+			for(let i in obj){
+				console.log(i);//依次输出:a,b,c,会将原型链上继承的属性也遍历
+			}
+			
+			/*
+			for(let i of obj){
+				console.log(i);//报错:obj is not iterable,应该是for of 不能遍历对象,只能遍历迭代器
+			}
+			*/
+		}
+	</script>
+</html>

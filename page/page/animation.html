@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			@keyframes move{
+				from{width: 100px;height: 100px;background: black;}
+				50%{width: 400px;height: 400px;background: yellow;}
+				to{width: 200px;height: 200px;background: green;}
+			}
+			.move{
+				width: 100px;
+				height: 100px;
+				/*step(n)以一步步的方式运动，运动n步*/
+				animation: move 2s forwards steps(4);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="move">
+			
+		</div>
+		<div>ae6faef</div>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="400px" height="300px" style="border: 1px solid black;">
+			您的浏览器不支持canvas标签
+		</canvas>
+		<img src="" id="img" alt="" />
+		<input type="file" id="file" onchange="fileChange(this.files)" />
+	</body>
+	<script>
+		var canvas = document.getElementById("myCanvas");
+		var context = canvas.getContext("2d");
+		var img = new Image();
+		img.src = "../img/01.jpg";
+		context.beginPath();
+		context.rect(10,10,100,100);
+		context.stroke();
+		context.save();
+		context.clip();
+		context.fillRect(0,0,50,50);
+		context.closePath();
+		context.restore();
+		context.beginPath();
+		img.onload = function(){
+			context.drawImage(img,0,0,60,60);
+			var ctxUrl = canvas.toDataURL("image/png");
+			document.getElementById("img").src = ctxUrl;
+		}
+		
+		function fileChange(files){
+			//输出所选第一个文件的大小
+			console.log(files[0].size);
+			
+			var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");   
+            window.location.href=image; 
+		}
+		
+	</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图</title>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			ul{
+				overflow: hidden;
+				position: relative;
+				width: 600px;
+				height: 300px;
+			}
+			ul li{
+				list-style: none;
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 600px;
+				height: 300px;
+				transition: all 1s;
+			}
+			ul li img{
+				width: 600px;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li><img src="img/1.jpg"/></li>
+			<li><img src="img/2.jpg"/></li>
+			<li><img src="img/3.jpg"/></li>
+		</ul>
+	</body>
+	<script src="./js/jquery-1.8.3.min.js"></script>
+	<script>
+		var currIndex = 0;
+		var imgArr = $('li');
+		var imgNum = imgArr.length;
+		changeIndex(-1);
+		
+		function changeIndex(index){
+			if(index == -1){
+				var tempImg = $(imgArr[imgNum - 1]).clone();
+				$('ul').prepend(tempImg);
+			}
+		}
+	</script>
+</html>

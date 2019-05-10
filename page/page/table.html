@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div onmouseover="testMouseOver()" style="width:400px;height:300px;background-color: red;">
+			<img src="../img/2.jpg" alt="" height=200px;width=300px; />
+		</div>
+		<form>
+		<!--  label标签的for对应于input的id值，而不是name值 -->
+			<label for="myInput">input:</label>
+			<input type="text" name="myInput" id="myInput" />
+		</form>
+		<!-- 不能实现在textarea里插入图片，会显示出图片那一行的源代码
+		<textarea name="myTxtArea" rows="" cols="">
+			<img src="../img/2.jpg" alt="" />
+		</textarea>
+		-->
+	</body>
+	<script type="text/javascript">
+		function testMouseOver(e){
+			e = e||event;
+			var target = e.target||e.srcElement;
+			console.log(target.tagName);
+		}
+		try{
+			var tab = document.createElement("table");
+		}catch(e){
+			var tab= document.createElement("<table width=500 border=1 id=tab></table>");
+		}
+		
+		tab.width = 500;
+		tab.border = 1;
+		tab.id = "tab";
+		var row,cell;
+		for(var i=0;i<3;i++){
+			//insertRow()和insertCell()中的-1不能省略，表示新增的行或列插入到最后面,0表示插入到最前面
+			row = tab.insertRow(-1);
+			for(var j=0;j<3;j++){
+				cell = row.insertCell(-1);
+				cell.innerHTML = "我是单元格"+i+"*"+j;
+			}
+		}
+		document.body.appendChild(tab);
+		tab.onmouseover = function(e){
+			e = e||event;
+			var target = e.target||e.srcElement;
+			if(target.tagName.toLowerCase() == "td"){
+				//target.cellIndex保存的是当前单元格的所在列数
+				console.log(target.cellIndex);
+				target.style.backgroundColor = "blue";
+				var cells = target.parentNode.cells;
+				for(var i=0;i<cells.length;i++){
+					cells[i].style.backgroundColor = "red";
+				}
+			}
+		}
+//		alert("点击确定后执行删除行列操作!");
+//		tab.deleteRow(2);
+//		tab.rows[0].deleteCell(1);
+		
+		//为数组拓展一个包括中文排序的函数:第一个参数为1时是中文排序，否则为默认排序，第二个参数为排序方向，正序或反序，默认为正序,0为反序
+		Array.prototype.xsort = function(sType,bDirect){
+			switch(sType){
+				case 1:this.sort(function(a,b){return a.localeCompare(b);});
+				break;
+				default:this.sort();
+			}
+			if(bDirect==undefined){
+				bDirect = 1;
+			}
+			if(!bDirect){
+				this.reverse();
+			}
+		}
+	</script>
+</html>

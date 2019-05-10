@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>flex 布局</title>
+		<style>
+			/*flex布局意为弹性布局，任何一个容器都可以指定为flex布局*/
+			/*以下是个例子*/
+			.box{
+				display: flex;
+				display: inline-flex;
+				/*webkit内核浏览器必须加上前缀-webkit-flex*/
+				display: -webkit-flex;
+				/*设为flex布局后，子元素的float、clear和vertical-align都将失效*/
+			}
+			/*
+				容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。
+				主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；
+				交叉轴的开始位置叫做cross start，结束位置叫做cross end。
+				项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。
+			*/
+			
+			.contain{
+				border: 2px solid black;
+				background: black;
+				width: 800px;
+				height: 400px;
+				display: flex;
+				overflow: hidden;
+			}
+			.example{
+				flex-grow: 1;
+				background: cornflowerblue;
+				border: 2px solid gray;
+				display: flex;
+				/*font-size: 12px;*/
+			}
+			.item{
+				border: 1px solid black;
+				background: yellow;
+				width: 100%;
+				height: 80px;
+			}
+			.set_width .item{
+				width: 80px;
+			}
+			.test_box{
+				display: flex;
+				display: -webkit-flex;
+				width: 600px;
+				height: 400px;
+				background: cornflowerblue;
+				flex-wrap: wrap;
+				align-content: space-between;
+			}
+			.test_item{
+				background: yellow;
+				border: 1px solid black;
+				width: 120px;
+				height: 120px;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>容器的属性：</h2>
+		<h3>flex-direction:决定主轴方向</h3>
+		<div class="contain">
+			<div class="example" style="flex-direction: row;">
+				row:
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example" style="flex-direction: row-reverse;">
+				row-reverse:
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example" style="flex-direction: column;">
+				column:
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example" style="flex-direction: column-reverse;">
+				column-reverse:
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+		</div>
+		<h3>flex-wrap:设置如果一条轴线排不下，如何换行</h3>
+		<div class="contain" style="">
+			<div class="example set_width" style="flex-wrap: nowrap;">
+				nowrap:
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example set_width" style="flex-wrap: wrap;">
+				wrap:
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example set_width" style="flex-wrap: wrap-reverse;">
+				wrap-reverse:
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+		</div>
+		<h3>flex-flow:flex-direction属性和flex-wrap属性的简写形式,默认值为row nowrap</h3>
+		<div class="contain">
+			<div class="example set_width" style="flex-flow: row-reverse wrap-reverse;">
+				<p>row-reverse wrap-reverse: </p>
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+		</div>
+		<h3>justify-content:属性定义了项目在主轴上的对齐方式</h3>
+		<div class="contain" style="flex-direction: column;">
+			<div class="example set_width" style="justify-content: flex-start;width: 100%;">
+				flex-start:左对齐
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example set_width" style="justify-content: flex-end;">
+				flex-end:右对齐
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example set_width" style="justify-content: center;">
+				center:居中对齐
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example set_width" style="justify-content: space-between;">
+				space-between:两端对齐（间隔相等）
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+			<div class="example set_width" style="justify-content: space-around;">
+				space-around:项目两侧间隔相等
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+				<div class="item">4</div>
+			</div>
+		</div>
+		
+		<h3>align-items属性定义项目在交叉轴上如何对齐</h3>
+		<div class="contain" style="flex-wrap: wrap;display: flex;flex-direction: column;flex-wrap: nowrap;">
+			<div class="example set_width" style="align-items: flex-start;">
+				flex-start:交叉轴起点
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+			</div>
+			<div class="example set_width" style="align-items: flex-end;">
+				flex-end:交叉轴终点
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+			</div>
+			<div class="example set_width" style="align-items: center;">
+				center:交叉轴中点
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+			</div>
+			<div class="example set_width" style="align-items: baseline;">
+				baseline:项目第一行文字的基线
+				<div class="item" style="font-size: 32px;">1</div>
+				<div class="item" style="font-size: 16px;">2</div>
+				<div class="item" style="font-size: 24px;">3</div>
+			</div>
+			<div class="example set_width" style="align-items: stretch;">
+				stretch：如果项目未设置高度或设为auto，将占满整个容器的高度。
+				<div class="item">1</div>
+				<div class="item">2</div>
+				<div class="item">3</div>
+			</div>
+		</div>
+		<div class="test_box">
+			<div class="test_item" style="flex-grow: 1;flex-shrink: 1;">1</div>
+			<div class="test_item" style="order: -1;flex-grow: 1;flex-shrink: 2;">2</div>
+			<div class="test_item" style="order: 1;flex-shrink: 0;">3</div>
+			<div class="test_item" style="width: 250px;flex-basis: 300px;text-align: center;">
+				445645648198165465498
+				<br />
+				16561681981981981esfse
+			</div>
+		</div>
+		<div style="display: flex;display: -webkit-flex;align-items: stretch;width: 600px;background: cornflowerblue;height: 200px;">
+			<div style="width: 200px;background: yellow;height: 200px;">1</div>
+			<div style="width: 200px;background: red;height: auto;">2</div>
+			<div style="width: 200px;background: brown;height: 200px;">3</div>
+		</div>
+		
+		<div style="display: -moz-box;display: -webkit-box;width: 700px;height: 200px;border: 1px solid black;">
+			<div style="-moz-box-flex: 1;-webkit-box-flex: 1;border: 1px solid red;"></div>
+			<div style="-moz-box-flex: 2.5;-webkit-box-flex: 2.5;border: 1px solid blue;"></div>
+		</div>
+		<div style="display: flex;display: -webkit-flex;width: 600px;background: cornflowerblue;height: 200px;">
+			<div style="width: 200px;background: yellow;height: 200px;flex: 1">1</div>
+			<div style="width: 200px;background: yellow;height: 200px;">1</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/jquery-1.8.3.min.js"></script>
+	</head>
+	<body>
+		<div class="time">
+			<span class="day"></span>
+			<span class="hour"></span>
+			<span class="minute"></span>
+			<span class="second"></span>
+	</body>
+		</div>
+		
+	<script>
+		var s = 100030;
+		function transformSecond(){
+			var day = Math.floor(s / 86400),
+				hour = Math.floor(s % 86400 / 3600),
+				minute = Math.floor(s % 3600 / 60),
+				second = Math.floor(s % 60) < 10 ? "0" + Math.floor(s % 60) : Math.floor(s % 60);
+				
+			var arr = [day,hour,minute,second];
+			$(".time").children().each(function(index, ele){
+//				ele.html(arr[index]+":");
+				$(ele).html(arr[index]+":");
+			});
+			var str = $(".time").children().last().html();
+			$(".time").children().last().html(str.substr(0,str.length - 1));
+			s--;
+		}
+		setInterval(transformSecond,1000);
+		{
+			let arr = [1,2,3,4,5,6,7];
+			//数组改变length属性会改变数组内容，字符串不会
+			arr.length = 3;
+			console.log(arr);//[1, 2, 3]
+			let str = "aewfaewfaewf";
+			str.length = 5;
+			console.log(str);//aewfaewfaewf
+		}
+		
+	</script>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.msg_child{
+				border: 1px solid black;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="../css/test2.css"/>
+		<script src="../js/jquery-1.8.3.min.js"></script>
+	</head>
+	<body>
+		<div style="width: 600px;height: 400px;border: 2px solid black;position: relative;" id="testCssPath">
+			<div style="border: 1px solid blue;height: 300px;" id="listMsg">
+				
+			</div>
+			<select name="num" id="num">
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+			</select>
+			<div>
+				<div id="prev" style="float: left;font-size: 28px;background: white;border: 1px solid black;"><</div>
+					<input type="text" id="choiceNum" />
+					<button id="choiceNumBtn">确定</button>
+				<div id="next" style="float: right;font-size: 28px;background: white;border: 1px solid black;">></div>
+			</div>
+		</div>
+	</body>
+	<script>
+		//当前页面
+		var index = 0;
+		//当前页面显示数据的数量
+		var msgNum;
+		var arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
+		$("#choiceNumBtn").on("click",function(){
+			var n = $("#choiceNum").val();
+			if(arr.length % msgNum != 0){
+				if(n <= Math.floor(arr.length / msgNum) + 1 && n > 0){
+					index = n - 1;
+				}
+			}else{
+				if(n <= Math.floor(arr.length / msgNum) && n > 0){
+					index = n - 1;
+				}
+			}
+			removeChild();
+			addChild();
+			freshMsg();
+		});
+		//当所选范围改变时触发
+		$("#num").on("change",function(e){
+			msgNum = $("#num").val();
+//			var n = msgNum * index;
+			index = 0;
+			removeChild();
+			addChild();
+			freshMsg();
+		});
+		//刷新子元素内的数据值
+		function freshMsg(){
+			//当前页面第一条数据的索引
+			var n = msgNum * index;
+			$(".msg_child").each(function(index,ele){
+				$(this).html(arr[n+index]);
+			})
+		}
+		//向div内添加子元素(数据)
+		function addChild(){
+			var $div;
+			var n;
+			//是否有不完整的页面
+			if(arr.length % msgNum != 0){
+				if(index == Math.floor(arr.length / msgNum)){
+					n = arr.length % msgNum;
+				}else{
+					n = msgNum;
+				}
+			}else{
+				n = msgNum;
+			}
+			for(var i=0;i<n;i++){
+				$div = $("<div></div>");
+				$div.addClass("msg_child");
+				$("#listMsg").append($div);
+			}
+		}
+		//删除div内所有子元素
+		function removeChild(){
+			$("#listMsg").children().remove();
+		}
+		//下一页按钮
+		$("#next").on("click",function(){
+			if(arr.length % msgNum != 0){
+				if(index < Math.floor(arr.length / msgNum) - 1){
+					//倒数第二页之前
+					index ++;
+					freshMsg();
+				}else if(index == Math.floor(arr.length / msgNum) - 1){
+					//最后一页之前一页
+					index ++;
+					removeChild();
+					addChild();
+					freshMsg();
+				}else{
+					//最后一页
+				}
+			}else{
+				if(index != arr.length / msgNum - 1){
+					index ++;
+					freshMsg();
+				}
+			}
+		});
+		//前一页按钮
+		$("#prev").on("click",function(){
+			if(arr.length % msgNum != 0){
+				if(index == Math.floor(arr.length / msgNum)){
+					//当前为最后一页
+					index --;
+					removeChild();
+					addChild();
+					freshMsg();
+				}else if(index > 0){
+					//不是第一页或最后一页
+					index --;
+					freshMsg();
+				}else{
+					//第一页
+				}
+			}else{
+				if(index != 0){
+					index --;
+					freshMsg();
+				}
+			}
+		});
+		//初始化页面
+		function init(){
+			msgNum = $("#num").val();
+			addChild();
+			freshMsg();
+		}
+		init();
+	</script>
+
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.11.2.min.js"></script>
+	</head>
+	<body>
+		<input type='file' id="fileInput" />
+		<button id="btn">上传</button>
+		<button id="btn2">请求</button>
+	</body>
+	<script>
+		$('#btn').click(function(){
+			var file = $('#fileInput');
+			var loadFile = file[0].files[0];
+			console.log(loadFile);
+			var formData = new FormData();
+			formData.append('file', loadFile);
+			$.ajax({
+				url: 'http://dev3.jiayouxueba.cn/riskctrl/external/v1/taboo_word/1/import',
+				data: formData,
+				contentType: false,//'multipart/form-data'不知为何不行;设置为false,浏览器自动变为multipart/form-data,并且不会对boundary进行操作;
+				//					boundary防止上传文件中出现分界符,导致服务器无法正确识别文件起始位置;enctype是为了在提交表单前对表单数据进行相应的编码
+				processData: false,
+				type: 'POST',
+				success: function(e){
+					console.log(e);
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		});
+		
+		$('#btn2').click(function(){
+			var obj = {
+				actionID: "abcd123",
+				id: '1',
+			    tenantId: '10001',
+			}
+			var data = JSON.stringify(obj);
+			console.log(data);
+			var obj2 = {};
+			obj2[data] = " ";
+			$.ajax({
+				url: 'http://121.196.203.208:8098/v20171207/query/queryUser',
+				data: data,
+				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+				type: 'POST',
+				success: function(e){
+					console.log(e);
+				},
+				error: function(e){
+					console.log(e);
+				}
+			})
+		});
+		
+	</script>
+</html>

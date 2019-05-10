@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- 下面这个meta设置网页默认的脚本语言，http-equiv为属性，content为值  
+			 如果默认脚本语言为其他语言（例如：VBscript）那么要是想用javacript，则在script标签中type属性中要规定type为text/javascript
+			 如果没有设置默认的脚本语言，也没有在script标签中规定语言，默认的脚本语言是JScript，因为JScript和JavaScript使用相同的解释
+			 引擎，所以可以认定默认的脚本语言为JavaScript，但是如果第一个脚本块石VBScript，那么默认的脚本语言会变成VBScript，此时要
+			 注意，内建事件（onclick、onblur等）中定义的JavaScript脚本，必须使用javascript:前缀.
+		-->
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../css/test.css"/>
+		<title></title>
+		<style>
+			*{padding: 0;margin: 0;}
+			/*p{color:red!important;}*/
+			/*
+			p{
+				color:green;
+				border-bottom: dotted purple;
+				position:fixed;
+				left:100px;
+				top:200px;
+			}
+			*/
+			.div2{
+				width:100%;
+				height:100px;
+				background-color: red;
+				color:blue;
+			}
+			.div1{
+				width:100%;
+				height:150px;
+				background-color: greenyellow;
+				
+			}
+			p{
+				color:red;
+			}
+			.testAbsolute{
+				width: 100px;
+				height: 30px;
+				background: black;
+				position: absolute;
+				margin-top: 20px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<a href="http://baidu.com">aaa</a>
+		<button onclick="jumpToHash()">点击跳转到链接（js方法）</button>
+		<div class="testAbsolute"></div>
+		<div class="testAbsolute"></div>
+		<div class="div1" onmousemove="mouseMove()"></div>
+		<br />
+		<div class="div2"></div>
+		<p>三年级时，我还是一个胆小如鼠的小女孩。</p>
+		<div style="border:2px solid darkgoldenrod;height:60px;width:60px;">
+			<div style="border:2px solid darkgoldenrod;height:60px;width:60px;position: absolute;left:200px;"></div>
+		</div>
+		<br />
+		
+		
+		<!------------------------------以下为css学习的相关内容--------------------------------------->
+		
+		
+		<!--
+        	class中两个类名之间用空格隔开，表示同时使用两个css，当两个类定义两个同一个属性
+        	例如background-color，则与class中的类名顺序无关，与style标签中的顺序有关（从
+        	上往下依次执行，相同属性覆盖）
+        -->
+        <div>
+        	<------------------------------以下为css学习的相关内容--------------------------------------->
+        </div>
+        <br />
+		<div class="div2 div1">asdf
+			<p>afeaff</p>
+		</div>
+		<div class="abc">
+			<img src="../img/2.jpg" alt="" height="60px" width="30px" class="testImgCss"/>
+			<br />
+			<div>111111</div>
+			啊 啊 啊
+			<br />
+			aaaaaaaaaaaaaaaaaaaaaaaaaaaaa~~~~
+			<br />~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			
+		</div>
+		<div id="linkDiv">
+			<a href="http://www.baidu.com" target="_blank">这是一个链接，用来做样式实验</a>
+		</div>
+		<div id="liebiaoDiv">
+			<ul>
+				<li>苹果</li>
+				<li>香蕉</li>
+				<li>西瓜</li>
+			</ul>
+			<br />
+			<ol>
+				<li>可乐</li>
+				<li>雪碧</li>
+				<li>西瓜汁</li>
+			</ol>
+		</div>
+		
+		<br />
+		<div id="tableDiv">
+			<table>
+				<caption>这是标题</caption>
+				<tr>
+					<th>tr1 th1</th>
+					<th>tr1 th2</th>
+					<th>tr1 th3</th>
+				</tr>
+				<tr>
+					<td>tr2 td1</td>
+					<td>tr2 td2</td>
+					<td>tr2 td3</td>
+				</tr>
+				<tr>
+					<td>tr3 td1</td>
+					<td>tr3 td2</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<div style="height: 20px;"></div>
+		<div style="position: relative;">
+			<div class="outDiv">
+				<div class="innerDiv"></div>
+			</div>
+		</div>
+		
+		
+		<br />
+		<div class="borderDiv"></div>
+		
+		<div>
+			some text   d
+			asdf
+			<p>Some more 
+				text.</p>
+		</div>
+		<br />
+		<div class="positionOuter">
+			aiwejfoieawjfoiaewjfoweajfoiewajfo
+			<div class="positionInner"></div>
+		</div>
+		<br />
+		<div class="positionOuter2">
+			
+			<div class="positionInner2"></div>
+		</div>
+		<br />
+		<div class="divFloat">
+			<img src="../img/2.jpg" alt="第一个img" title="第一个img" style="clear:left" />
+			<img src="../img/2.jpg" alt="第二个img" title="第二个img" style="float:left;" />
+			<p>
+				awereawfaewfewafewafawereawereawfaewfewafewafawere
+				awereawfaewfewafewafawereawereawfaewfewafewafawere
+				awereawfaewfewafewafawereawereawfaewfewafewafawere
+			</p>
+			<div style="background: red;width:20px;height:20px">ddd</div>
+		</div>
+		<br />
+		
+		<div class="divFloat1"></div>
+		<div class="divFloat2"></div>
+		<div class="divFloat3"></div>
+		<div style="width:60px;height:60px;background:green;float:left"></div>
+		<div class="outFloatDiv">
+			<span class="innerFloatDiv">safdasf</span>
+		</div>
+		<div style="width:60px;height:60px;background:green;float:left"></div>
+		<br />
+		<div class="shuxing">
+			<img src="../img/2.jpg" alt="" value="" />
+		</div>
+		<br />
+		<div class="a b">
+			class="a b"为同时应用两个类选择器
+			<br />
+			class="a" class="b"只会应用a选择器
+		</div>
+		<br />
+		<div class="inputFocus">
+			<input type="text" />
+		</div>
+		<div>
+			<------------------------css高级------------------------------->
+		</div>
+		<br />
+		<div>
+			<------------------------对齐------------------------------->
+		</div>
+		<div class="positionFatherDiv">
+			<div class="alignDiv"></div>
+		</div>
+		<div>
+			<------------------------行高------------------------------->
+		</div>
+		<div class="lineHeightDiv">
+			aeowfoaijgoasdnpawefowaeiphfpiqoeutpnado
+			aeowfoaijgoasdnpawefowaeiphfpiqoeutpnado
+			aeowfoaijgoasdnpawefowaeiphfpiqoeutpnado
+			aeowfoaijgoasdnpawefowaeiphfpiqoeutpnado
+			aeowfoaijgoasdnpawefowaeiphfpiqoeutpnado
+		</div>
+		<div>
+			<------------------------一个简单的无表格页面------------------------------->
+		</div>
+		<br />
+		<div class="testContainerDiv">
+			<div class="testHeaderDiv"><h3>This is Header </h3></div>
+			<div class="testSummaryDiv">
+				This is Summary This is Summary This is Summary 
+				This is Summary This is Summary This is Summary 
+				This is Summary This is Summary This is Summary 
+			</div>
+			<div class="testContentDiv">
+				This is Content This is Content This is Content 
+				This is Content This is Content This is Content 
+				This is Content This is Content This is Content 
+			</div>
+			<div class="testFooterDiv">This is Footer</div>
+		</div>
+		<div class="testHiddenDiv">
+			这个div用来测试隐藏元素的css样式
+		</div>
+		<br />
+		
+		<div>
+			<p>请把鼠标移动到单词上，可以看到鼠标指针发生变化：</p>
+			<span style="cursor:auto">
+			Auto</span><br />
+			<span style="cursor:crosshair">
+			Crosshair</span><br />
+			<span style="cursor:default">
+			Default</span><br />
+			<span style="cursor:pointer">
+			Pointer</span><br />
+			<span style="cursor:move">
+			Move</span><br />
+			<span style="cursor:e-resize">
+			e-resize</span><br />
+			<span style="cursor:ne-resize">
+			ne-resize</span><br />
+			<span style="cursor:nw-resize">
+			nw-resize</span><br />
+			<span style="cursor:n-resize">
+			n-resize</span><br />
+			<span style="cursor:se-resize">
+			se-resize</span><br />
+			<span style="cursor:sw-resize">
+			sw-resize</span><br />
+			<span style="cursor:s-resize">
+			s-resize</span><br />
+			<span style="cursor:w-resize">
+			w-resize</span><br />
+			<span style="cursor:text">
+			text</span><br />
+			<span style="cursor:wait">
+			wait</span><br />
+			<span style="cursor:help">
+			help</span>
+		</div>
+		<br />
+		<div>
+			<------------------------导航条------------------------------>
+		</div>
+		<br />
+		<div class="daohangtiaoDiv">
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
+		</div>
+		<br />
+		<br />
+		<div>
+			<-------------------------透明图像-------------------------->
+		</div>
+		<div class="opacityImg">
+			<img src="../img/1.jpg" alt="xxx" width="300px" height="200px" />
+		</div>
+		<br />
+		<div>
+			<-------------------------媒介-------------------------->
+				<br />
+				详见（省略）：http://www.w3school.com.cn/css/css_mediatypes.asp
+				
+		</div>
+		<br />
+		<div>
+			<-------------------------以下为css3-------------------------->
+		</div>
+		<br />
+		<div>
+			<-------------------------边框-------------------------->
+		</div>
+		<br />
+		<div class="borderOfCss3">
+			
+		</div>
+		<br />
+		<div class="backgroundOfCss3_1">
+			
+		</div>
+		<div class="backgroundOfCss3_2">
+			
+		</div>
+		<br />
+		<div class="textNewPropertyOfCss3">
+			<p>啊啊啊啊啊啊啊啊啊 啊啊啊啊啊啊啊</p>
+		</div>
+		<br />
+		<div>
+			<-----------------------2d转化---------------------------->
+		</div>
+		<br />
+		<div class="changeShapeOf2d">
+			<div class="d1">translate()</div>
+			<div class="d2">rotate()</div>
+			<div class="d3">scale()</div>
+			<div class="d4">skew()</div>
+			<div class="d5">matrix()</div>
+		</div>
+		<br />
+		<div>
+			<-----------------------3d转化---------------------------->
+		</div>
+		<br />
+		<div class="changeShapeOf3d">
+			<div class="d1">rotateX()</div>
+			<div class="d2">rotateY()</div>
+			<div class="d3">translate3d()</div>
+			<div class="d4">scale3d()</div>
+			
+		</div>
+		<br />
+		<div class="transitionOfCss3">
+			<div class="d1">
+				
+			</div>
+			<br />
+			<div class="d2">
+				
+			</div>
+			<br />
+		</div>
+		<br />
+		<div class="animationOfCss3">
+			<div class="d1">
+				
+			</div>
+		</div>
+		<br />
+		<div class="columnOfCss3">
+		人民网北京2月24日电 (记者 刘阳)国家发展改革委近日发出通知，决定自2月25日零时起将汽、柴油价格每吨分别提高300元和290元，折算到90号汽油和0号柴油（全国平均）每升零售价格分别提高0.22元和0.25元。
+		
+		此次国内成品油价格调整幅度，是按照现行国内成品油价格形成机制，根据国际市场油价变化情况确定的。去年11月16日国内成品油价格调整以来，受市场预期欧美经济复苏前景向好以及中东局势持续动荡等因素影响，国际市场原油价格先抑后扬，2月上旬WTI和布伦特原油期货价格再次回升至每桶95美元和115美元以上。虽然近两日价格有所回落，但国内油价挂钩的国际市场三种原油连续22个工作日移动平均价格上涨幅度已超过4%，达到国内成品油价格调整的边界条件。
+		
+		通知指出，这次成品油调价后，国家将按照已建立的补贴机制，继续对种粮农民、渔业（含远洋渔业）、林业、城市公交、农村道路客运（含岛际和农村水路客运）等给予补贴。同时，为保证市场物价基本稳定，防止连锁涨价，对与居民生活密切相关的铁路客运、城市公交、农村道路客运（含岛际和农村水路客运）价格不作调整。
+		
+		通知要求，中石油、中石化、中海油三大公司要组织好成品油生产和调运，保持合理库存，加强综合协调和应急调度，保障成品油供应。各级价格主管部门要加大市场监督检查力度，依法查处不执行国家价格政策，以及囤积居奇、造谣惑众、合谋涨价、搭车涨价等违法行为，维护正常市场秩序。
+		</div>
+		<br />
+		<div class="resizeOfCss3">resize 属性规定是否可由用户调整元素尺寸。</div>
+		<br />
+		<div class="outlineOffsetOfCss3">
+			
+		</div>
+		<!-- ----------------------------以上为css学习的相关内容------------------------------------- -->
+		<tt>afawefef</tt>
+		<abc>awefaefwwaefaegwaeg</abc>
+		<!-- 当超链接地址链接到不是网页页面的文件时，下载该文件或直接执行文件,如果是文本文件（如word）则在浏览器中打开文件-->
+		<a href="../files/abc.docx">点击下载</a>
+		<br />
+		<select name="like" size="3">
+			<option value="a">1</option>
+			<option value="b">2</option>
+			<option value="c">3</option>
+			<option value="d">4</option>
+		</select>
+		<a href="#" name="link1">asdf</a>
+		<div style="color:blue;height: 200px;width: 250px;float: right;background-color: red;">
+			<span style="float:left">aaaaaaaaaaaaaaaaaa</span>
+		</div>
+		<div style="clear: both;"></div>
+		<hr />
+		<div style="position:relative;width:10px;height:54px;border:1px solid red;left:30px;"></div>
+		<div style="border:1px outset;width:200px;height:150px;position: relative;
+			left:30px;display: inline-block;">
+			awefawefweaf
+		</div>
+		<fieldset>
+			<legend>aesofi</legend>
+			<p>这是一个p</p>
+			<p>这是一个p</p>
+			<p>这是一个p</p>
+			<p>这是一个p</p>
+			<p>这是一个p</p>
+			<p>这是一个p</p>
+		</fieldset>
+	</body>
+	<script>
+		var a = 0;
+		var b = "0";
+		//==：若两个参数类型不同，尝试数值转化再进行比较，===：当两个参数数值类型相同下才进行比较
+		//输出1
+		if(a==b){
+			console.log(1);
+		}else{
+			console.log(0);
+		}
+		//输出0
+		if(a===b){
+			console.log(1);
+		}else{
+			console.log(0);
+		}
+		function mouseMove(){
+			console.log("mousemove");
+		}
+		function jumpToHash(){
+			location.hash = "link1";
+		}
+		
+		console.log(localStorage);
+	</script>
+</html>

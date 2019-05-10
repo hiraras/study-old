@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<style>
+				#dragger{
+					width:100px;
+					height:100px;
+					background:#ccc;
+					position:relative;
+					top: 100px;
+				}
+			</style>
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="div1" style="border:solid 2px;float:left;height:200px;width:300px"
+			 ondrop="dragEnd(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+			<img src="../img/2.jpg" id="myImg" alt="error" draggable="true" 
+				ondragstart="drag(event)" width="300px" height="200px" />
+			
+		</div>
+		<div id="div2" style="border:solid 2px;float:left;height:200px;width:300px" 
+		ondrop="dragEnd(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+		</div>
+		<hr />
+		
+		<div id="dragger"></div>
+	</body>
+	<script type="text/javascript">
+		
+		var flag = false;
+		function drag(ev){
+			ev = ev||window.event;
+			//console.log("startdrag");
+			//与ev.dataTransfer.getData("text1")方法一起存取数据
+			ev.dataTransfer.setData("text1",ev.target.id);
+			ev.dataTransfer.setData("text2","abc");
+			//ev.dataTransfer.setData("text2",ev.target.parent.id);
+//			console.log(typeof ev.target.parentNode.id);
+		}
+		function allowDrop(ev){
+			
+			ev.preventDefault();
+			//alert(1);
+		}
+		function dragLeave(ev){
+			flag = true;
+			
+		}
+	
+		function dragEnd(ev){
+			
+			ev.preventDefault();
+			var data = ev.dataTransfer.getData("text1");
+//			var data2 = ev.dataTransfer.getData("text2");
+//			console.log(data2);
+			//var data2 = ev.dataTransfer.getData("text");
+			//alert(data2);
+			var oDiv = document.getElementById(data).parentNode;
+			var originDivId = oDiv.id;
+//			console.log(originDivId);
+//			console.log(ev.target.id);
+			//dragleave执行时刻有些模糊，不是很懂具体的机制，想到目标就是在两个div内移动，故直接判断是否为目标div
+			//ev.target所指向的目标：当鼠标释放时鼠标位置所在的元素
+			if(ev.target.id=="div2"||ev.target.id=="div1"){
+				ev.target.appendChild(document.getElementById(data));
+			}else{
+				
+			}
+			//flag = false;
+		}
+		
+		var dragger = document.getElementById("dragger");
+		dragger.onmousedown = function(e){
+			e = e||event;
+			//获取当前元素的位置
+			//做下兼容
+			var style = this.currentStyle||window.getComputedStyle(this,null);
+			var offX = parseInt(style.left)||0;
+			var offY = parseInt(style.top)||0;
+			//获取鼠标的位置
+			var mouseX = event.clientX;
+			var mouseY = event.clientY;
+			//计算差值，以解决开始拖动时元素闪一下的问题(鼠标位置减去元素位置即为鼠标相对于元素位置，之后移动时每次偏移这么多就可以保证开始拖动时，不会闪)
+			var offXL = mouseX-offX;
+			var offYL = mouseY-offY;
+			if(!document.onmousemove){
+//				console.log(document.onmousemove)//null
+				document.onmousemove = function(){
+//					console.log(event);
+					
+					dragger.style.left = event.clientX - offXL + "px";
+					dragger.style.top = event.clientY - offYL + "px";
+				}
+			}else{	
+//				this.style.left = event.clientX + "px";
+//				this.style.top = event.clientY + "px";
+			}
+			return function(){
+				console.log("aaa");
+			}
+		}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		}
+		
+	</script>
+</html>

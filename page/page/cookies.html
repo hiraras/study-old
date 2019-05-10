@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//判断浏览器是否支持cookie
+		//var canCookie = navigator.cookieEnabled;
+		var time = new Date(new Date().getTime()+1*1000);
+		var time2 = new Date(new Date().getTime()+1*2000);
+		//正文之外的属性都是只写的
+		document.cookie = "xxx;expires=" + time.toGMTString();
+		document.cookie = "zzz;expires=" + time2.toGMTString();//覆盖
+		document.cookie = "zzz=1;expires=" + time.toGMTString();//不覆盖
+		console.log(document.cookie);//typeof =string
+		for(var i in document.cookie.split(";")){
+			console.log(document.cookie.split(";")[i]);
+		}
+	</script>
+</html>

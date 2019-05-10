@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src = "../../js/jquery-1.8.3.min.js"></script>
+		<script src="../../js/jquery-ui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../css/jquery-ui.css"/>
+		<title></title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			ul{
+				list-style: none;
+			}
+			p:first-child{
+				color:yellowgreen;
+			}
+			.class1{
+				
+			}
+			#myInputs{
+				width:100px;
+				height:40px;
+				overflow: auto;
+				
+			}
+			#jQuery_anime_area div{
+				float: left;
+				margin-right: 20px;
+			}
+			#jQuery_drag_area div{
+				width:60px;
+				height:60px;
+				background: gray;
+				float: left;
+				margin-right:20px;
+			}
+			#jQuery_drop_area{
+				position: absolute;
+				width: 70%;
+				height: 300px;
+			}
+			#jQuery_resize_area{
+				position: absolute;
+				width: 70%;
+				height: 300px;
+			}
+			#jQuery_sort_area{
+				position: absolute;
+				width: 70%;
+				height: 300px;
+			}
+			#jQuery_select_area{
+				position: absolute;
+				width: 70%;
+				height: 300px;
+			}
+			#sliderList li{
+				float: left;
+				margin-right: 22px;
+				font-size: 12px;
+			}
+			div[id^='jQuery_']{
+				border:2px solid black;
+			}
+			.dropActive{
+				background: #0000FF;
+			}
+			.dropHover{
+				background: #008000;
+			}
+			.dropEnd{
+				background: #F1A899;
+			}
+			.resizeHelper{
+				border: 1px dashed blue;
+			}
+			.sortItem{
+				height: 40px;
+				width: 120px;
+				line-height: 40px;
+				text-align: center;
+				border: 1px solid black;
+			}
+			.selectItem{
+				height: 40px;
+				width: 120px;
+				line-height: 40px;
+				text-align: center;
+				border: 1px solid black;
+			}
+			.ui-selecting{
+				background: cornflowerblue;
+			}
+			.ui-selected{
+				background: plum;
+			}
+			.effectDiv1_class1{
+				width: 50px;height: 50px;background: blue;
+			}
+			.effectDiv1_class2{
+				width: 200px;height: 200px;background: yellow;
+			}
+			.effectDiv1_class3{
+				width: 400px;height: 400px;background: purple;
+			}
+			.effectDiv2_class1{
+				width: 50px;height: 50px;background: red;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="myInputs">
+			<div>
+				<div>caicaiwoshishui</div>
+				<input type="text" value = "abc" />
+				<input type="button" value="按钮" id="btn" name="btn" />
+				<input type="button" value="按钮" id="btn2" name="btn" />
+				
+				<input type="hidden" />
+				<input type="radio" name="myRadio" id="myRadio" value="" />
+			</div>
+			<input type="button" value="按钮" id="btn3" />
+		</div>
+		<input type="button" value="按钮" onclick="testTrigger()" />
+		<input type="button" value="按钮" id="btn4" />
+		<div id="resizeDiv" style="background: purple;height: 30px;width:40px;"></div>
+		<a href="#">这是第一个链接</a>
+		<a href="#">这是第二个链接</a>
+		<div style="display: none;">
+		</div>
+		<div>
+			<div style="position:relative" id="myDiv">
+				<p id="myP" class="class1">awef<span>ergregef</span></p>
+				<p class="class1"> grgrg</p>
+				<p>1</p>
+				<p></p>
+				
+				<span></span>
+				<p name="abc"></p>
+				<p name="cab"></p>
+				<p name="ab c"></p>
+				<p name="c ab"></p>
+				<p name="abasdf"></p>
+				<p name="asdfab"></p>
+			</div>
+		</div>
+		<div>
+			<div>
+			
+				<ul>
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+				</ul>
+				
+				<ul>
+					<li>4</li>
+					<li>5</li>
+					<li>6</li>
+				</ul>
+				
+			</div>
+		</div>
+		<span>
+			<ul>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+			</ul>
+			
+		</span>
+		<div style="position: absolute;top:400px;">
+			<p id="myP2">
+				<span>这是myP2</span>
+			
+			</p>
+		</div>
+		<textarea name="" rows="10" cols="40" id="myTextArea"></textarea>
+		<hr />
+		<input type="button" name="" id="ajaxBtn" value="发送" />
+		<textarea name="" rows="10" cols="40" id="ajaxTextArea"></textarea>
+		<div id="ajaxContent"></div>
+		
+		<!-- ----------------------jQuery动画----------------------- -->
+		<div id="jQuery_anime_area">
+			jQuery动画:
+			<hr />
+			<input type="button" value="开始" id="anime_btn" />
+			<input type="button" value="停止" id="stop_btn" />
+			<br />
+			<div style="background: darkgray;height:70px;width:70px;margin-top:20px;" 
+				 id="hide_show_div">hide<br/>+<br/>show</div>
+			<div style="background: darkgray;height:70px;width:70px;margin-top:20px;"
+				 id="toggle_div">toggle()</div>
+			<div style="background: darkgray;height:70px;width:70px;margin-top:20px;"
+				 id="slide_div">slide</div>
+			<div style="background: darkgray;height:70px;width:70px;margin-top:20px;"
+				 id="fade_div">fade</div>
+			<div style="background: darkgray;height:70px;width:70px;margin-top:20px;"
+				 id="animate_div">animate()</div>
+			<div style="background: darkgray;height:70px;width:70px;margin-top:20px;"
+				 id="queue_div">queue</div>
+		</div>
+		<br /><br /><br /><br />
+		<br /><br /><br />
+		
+		<!-- ---------------------jQuery页面交互组件---------------------- -->
+		<p style="text-align: center;border:2px solid black;line-height: 50px;">
+			jQuery页面交互组件
+		</p>
+		<br />
+		<!-- ---------------------拖动组件---------------------- -->
+		<div id="jQuery_drag_area" style="position: absolute;">
+			拖放组件:
+			<div id="ui_drag1">revert</div>
+			<div id="ui_drag2" style="width:120px;height:140px;">
+				handle<br />+<br />cancel
+				<span style="height: 100px;width:100%;background: purple;">
+					11
+					<p style="background: yellow;">这是p1</p>
+				<p style="background: yellow;" id="cancelP">这是p2</p>
+				<img src="../../img/1.jpg" width="30px" height="30px"/>
+				</span>
+			</div>
+			<div id="ui_drag3">helper</div>
+			<div id="ui_drag4" style="width:100px;height:100px;clear:left;">
+				containment
+			</div>
+			<div id="ui_drag5" style="width:70px;height:70px;">
+				自动吸附
+			</div>
+		</div>
+		<!-- ---------------------投放组件---------------------- -->
+		<br /><br /><br /><br /><br /><br /><br />
+		<br /><br /><br /><br /><br /><br />
+		<div id="jQuery_drop_area">
+			<div></div>
+			<div id="dropTarget" style="border:1px solid black;width:170px;height:170px;">
+				<div id="dropTargetInner" style="width: 100px;height:100px;"></div>
+			</div>
+			<img src="../../img/1.jpg" width="80px" height="80px" id="dropImg1"/>
+			<img src="../../img/2.jpg" width="80px" height="80px" id="dropImg2"/>
+		</div>
+		<!-- ---------------------尺寸调整组件---------------------- -->
+		<br /><br /><br /><br /><br /><br /><br />
+		<br /><br /><br /><br /><br /><br /><br /><br />
+		<div id="jQuery_resize_area">
+			<div id="resizeDiv" style="height: 100px;width: 100px;position: absolute;border: 2px solid red;">ewafewf</div>
+			<img src="../../img/2.jpg" id="resizeImg"/>
+		</div>
+		<!-- ---------------------排序组件---------------------- -->
+		<br /><br /><br /><br /><br /><br /><br />
+		<br /><br /><br /><br /><br /><br /><br /><br />
+		<div id="jQuery_sort_area">
+			<div>
+				<ul id="sortList1" style="float: left;">
+					<li class="sortItem">星期一</li>
+					<li class="sortItem">星期二</li>
+					<li class="sortItem">星期三</li>
+					<li class="sortItem">星期四</li>
+					<li class="sortItem">星期五</li>
+					<li class="sortItem">星期六</li>
+					<li class="sortItem">星期七</li>
+				</ul>
+				<ul id="sortList2" style="float: left;">
+					<li class="sortItem">一星球</li>
+					<li class="sortItem">二星球</li>
+					<li class="sortItem">三星球</li>
+					<li class="sortItem">四星球</li>
+					<li class="sortItem">五星球</li>
+					<li class="sortItem">六星球</li>
+					<li class="sortItem">七星球</li>
+				</ul>
+				<input type="button" name="sortBtn" id="sortBtn" value="按钮" />
+			</div>
+		</div>
+		<!-- ---------------------选择组件---------------------- -->
+		<br /><br /><br /><br /><br /><br /><br />
+		<br /><br /><br /><br /><br /><br /><br /><br />
+		<div id="jQuery_select_area">
+			<ul id="selectList" style="float: left;">
+				<li class="selectItem">一星球</li>
+				<li class="selectItem">二星球</li>
+				<li class="selectItem">三星球</li>
+				<li class="selectItem">四星球</li>
+				<li class="selectItem">五星球</li>
+				<li class="selectItem">六星球</li>
+				<li class="selectItem">七星球</li>
+			</ul>
+			<input type="button" value="按钮" id="selectBtn" />
+		</div>
+		
+		<!-- ---------------------jQuery页面工具集---------------------- -->
+		<br /><br /><br /><br /><br /><br /><br />
+		<br /><br /><br /><br /><br /><br /><br /><br />
+		<p style="text-align: center;border:2px solid black;line-height: 50px;">
+			jQuery页面工具集
+		</p>
+		<!-- ---------------------折叠面板---------------------- -->
+		<div id="jQuery_accoradion_area" style="">
+			<div>
+				<h1>标题1</h1>
+				<div>
+					ierjgjaerogijwaepgijweogpi
+					<br/>
+					jweaopgijergijroigjeroagjoaergjapoigj
+				</div>
+			</div>
+			<div>
+				<h1>标题2</h1>
+				<div>
+					<ul>
+						<li>1</li>
+						<li>2</li>
+						<li>3</li>
+						<li>4</li>
+						<li>5</li>
+						<li>6</li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		<!-- ---------------------自动完成---------------------- -->
+		<div id="jQuery_autocomplete_area" style="height:200px;">
+			输入值以展开自动完成提示框:
+			<br />
+			<input type="text" id="searchBox" />
+			
+		</div>
+		<!-- ---------------------按钮组件---------------------- -->
+		<div id="jQuery_button_area" style="height:200px;">
+			<input type="button" name="" id="" value="btn1" />
+			<input type="submit" value="submit" />
+			<button>button1</button>
+			<input type="checkbox" id="check1" /><label for="check1">check1</label>
+			<input type="radio" id="check2" /><label for="check2">check2</label>
+			<a href="#">anchor</a>
+			<div>div</div>
+		</div>
+		<!-- ---------------------日期选择器---------------------- -->
+		<div id="jQuery_datepicker_area" style="height:200px;">
+			请输入日期:
+			<br />
+			<input type="text" name="" id="inputDate" value="" />
+			<input type="text" name="" id="inputDate2" value="" />
+			<input type="button" value="show" id="datepickerBtn" />
+		</div>
+		<!-- ---------------------对话框组件---------------------- -->
+		<div id="jQuery_dialog_area" style="height:200px;">
+			<input type="button" onclick="showDialog()" value="showDialog" />
+			<div id="dialogDiv" title="对话框">
+				这是这个对话框的内容
+			</div>
+		</div>
+		<!-- ---------------------进度条组件---------------------- -->
+		<div id="jQuery_progressbar_area" style="height:200px;">
+			<div id="progressbarDiv" style="height: 30px;width: 300px;"></div>
+			<span id="progress">当前进度：0%</span>
+			<br />
+			<input type="button" id="progressbarStart" value="开始" />
+		</div>
+		<!-- ---------------------滑块组件---------------------- -->
+		<div id="jQuery_slider_area" style="height:200px;">
+			<br />
+			<div id="sliderDiv" style="width: 300px;margin-left: 60px;"></div>
+			<ul style="list-style: none;margin-left: 56px;" id="sliderList">
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+				<li>7</li>
+				<li>8</li>
+				<li>9</li>
+				<li>10</li>
+				<li>11</li>
+				<li>12</li>
+			</ul>
+			<span id="sliderValue">
+				第一个滑块值为:3
+			</span>
+		</div>
+		<!-- ---------------------选项卡组件---------------------- -->
+		<div id="jQuery_tabs_area" style="width: 400px;">
+			<div id="tabsDiv">
+				<ul>
+					<li><a href="#tabs-1">标题1</a></li>
+					<li><a href="#tabs-2">标题2</a></li>
+					<li><a href="#tabs-3">标题3</a></li>
+				</ul>
+				<div id="tabs-1">
+					
+					<p>这是tabs1</p>
+				</div>
+				<div id="tabs-2">
+					<p>这是tabs2</p>
+				</div>
+				<div id="tabs-3">
+					<p>这是tabs3</p>
+				</div>
+			</div>
+		</div>
+		<!-- ----------------------jQuery页面动画效果组件----------------------- -->
+		<div id="jQuery_effect_area">
+			<div id="effectDiv1" class="effectDiv1_class1"></div>
+			<div id="effectDiv2" class="effectDiv2_class1"></div>
+			
+			<input type="button" id="effectBtn" value="切换" />
+			<input type="button" id="effectBtn2" value="开关" />
+		</div>
+		
+		<!-- ------------------------------------------------------------ -->
+		<div id="makeArrayDiv">
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>4</div>
+		</div>
+		<!-- ------------------------------------------------------------ -->
+		<div id="calendar">
+			  <p>Date:<input type="text" id="datepicker"></p> 
+			  <input type="button" name="showCalendar" id="showCalendar" value="显示日历" />
+		</div>
+	</body>
+	<script>
+		
+		//可以把$复制给某个变量，然后就能使用这个变量来代替$使用jquery函数了
+//		var jj = $("input[type='text']");
+//		console.log(jj.val());
+		var jq = $;
+		//当放弃了$时，jQuery还是可用的,若noConflict函数中的参数为true，则同时放弃$和jQuery
+//		$.noConflict(true);   
+		jq("input[type='button']").click(function(){
+//			console.log(1);
+			console.log(jq("input[type='text']").val());
+		})
+		/*
+		 * 相邻同辈元素选择器:
+		 * $("prev~siblings"),例如$("div~input")会选择所有与div同辈的,在div后面的input元素
+		 * 
+		 */
+//		console.log($("input")[0])//typeof为object
+		//选择所有type=hidden的input元素和display=none的元素
+		console.log($(":hidden"));
+		//<button></button>元素同时属于$(":submit")和$(":reset")返回的元素数组
+		
+		/*
+		 简单过滤选择器:
+		不可以进行如下操作:$(selector:gt(0):lt(2))，这样使用的只有gt(0)
+		:first选择器:对当前jQuery集合进行过滤并选择出第一个匹配元素
+		:last选择器:对当前jQuery集合进行过滤并选择出最后一个匹配元素
+		:odd选择器:用于选择索引为奇数(从0开始计数)的所有元素
+		:even选择器:用于选择索引为偶数(从0开始计数)的所有元素
+		:eq(index)选择器:用于从匹配的集合中选择索引等于给定值的元素
+		:gt(index)选择器:用于从匹配的集合中选择索引大于给定值的所有元素
+		:lt(index)选择器:用于从匹配的集合中选择索引小于给定值的所有元素
+		:not(selector2)选择器:用于从匹配的集合中去除所有与给定选择器匹配的元素
+		:header选择器:用于选择所有诸如h1、h2、h3之类的标题元素
+		:animated选择器用于选择所有正在执行动画效果的元素
+		内容过滤选择器：
+		:contains(text)选择器：用于选择包含给定文本的所有元素（即从选定的集合中选择包含有text文本内容的元素）
+		:has(selector2)选择器：用于选择含有给定子元素的元素
+		:empty选择器：用于选择所有没有子元素且没有文本的元素
+		:parent选择器：用于选择包含子元素或包含文本的元素与:empty选择器作用相反
+		属性过滤选择器:
+		$(selector[attribute])选择器:用于选择包含指定属性的元素
+		$(selector[attribute=value])选择器:用于选择attribute=value的所有元素
+		$(selector[attribute*=value])选择器:用于选择属性值包含给定子字符串value的所有元素
+		例如：$("p[name*=ab]")可以选择<p name="abc"></p><p name="cab"></p>
+		$(selector[attribute~=value])选择器:用于选择属性值包含给定单词value的所有元素
+		例如：$("p[name~=ab]")可以选择<p name="ab c"></p><p name="c ab"></p>
+		$(selectot[attribute!=value]):选择不包含指定属性或包含指定属性但值不等于value的所有元素
+		$(selector[attribute^=value]):选择属性值的开始部分等于value的所有属性
+		例如：$("p[name^=ab]")可以选择<p name="ab c"></p><p name="abasdf"></p>
+		$(selector[attribute$=value]):选择属性值的结束部分等于value的所有属性
+		例如：$("p[name$=ab]")可以选择<p name="c ab"></p><p name="asdfab"></p>
+		$(selector[selector2][selector3][selector3]):复合属性选择器用于选择同时满足多个条件的所有元素
+		例如：$("input[id][type=text]")表示选择有id属性，并且type属性值为text的所有input标签
+		$(selector:first-child):类似于伪类，若其为其父级（不能是body）的第一个子元素，则选择它
+		$(selector:last-child):类似于伪类，若其为其父级（不能是body）的最后一个子元素，则选择它
+		$(selector:nth-child(index/odd/even)):类似于伪类，若其为其父级（不能是body）的第指定个子元素，则选择它，
+		索引为1开始，odd为奇数索引，even为偶数索引
+		$(selector:only-child):类似于伪类，若其为其父级（不能是body）中的惟一一个子元素则选择它
+		*/
+		console.log($("input[name=btn]"));
+		console.log($("input:gt(0)"));
+		console.log($("input:not(:first,:last)"));
+		console.log($("input:not(:gt(1),:lt(1))"));
+		console.log($("p:parent"));
+		console.log($("p[name*=ab]"));
+		console.log($("p[name~=ab]"));
+		console.log($("p[name!=abc]"));
+		console.log($("p[name^=ab]"));
+		console.log($("p[name$=ab]"));
+		$("ul:first-child").css("color","blue");
+		$("ul:last-child").css("color","red");
+		$("div:first-child").css("color","yellow");
+		$("ul:last-child").css("color","gray");
+		console.log($("p:nth-child(6)").attr("name"));
+		$("ul:only-child").css("font-size","24px");
+		console.log($("#myDiv").children("p:even[class=class1]"));
+		
+		/*
+		 * 对选出的jQuery集合进行进一步操作
+		 * 搜索父元素
+		 * parents(selector)方法返回选中的集合经过selector筛选后的祖先元素
+		 * closest(selector[,context])方法从元素自身开始逐级向上匹配元素，返回最先匹配到的元素并停止
+		 * （若当前元素本身就匹配，直接返回元素本身）,若没有匹配到则返回一个空的jQuery对象
+		 * parents()和closest()方法的区别:
+		 * 1.前者从父级开始，后者从自身开始;
+		 * 2.前者先遍历到根节点，然后根据选择器进行筛选,后者遍历到满足选择器的内容后直接返回;
+		 * 3.前者可能返回0个 、1个、多个元素，后者返回0个或1个元素
+		 * parent([selector])方法返回集合中每个元素的父元素（不包括所有的祖先元素）,selector表示用来筛选的表达式
+		 * parentsUntil()方法返回集合中每个元素的祖先元素，直到找到给定选择器匹配的元素（但不包括该元素）
+		 * offsetParent()方法返回祖先元素中离该元素最近的，采用了position定位的元素
+		 * 搜索同辈元素
+		 * next("selector")方法获取紧跟在集合中每个元素之后的单个同辈元素,并在选择器中筛选
+		 * nextAll("selector")方法获取跟在集合中每个元素之后的所有同辈元素,并在选择器中筛选
+		 * nextUntil("selecotr")方法获取跟在集合中每个元素之后的所有同辈元素直到选择器表示的元素（不包括该元素）
+		 * prev("selector")方法获取紧跟在集合中每个元素之前的单个同辈元素,并在选择器中筛选
+		 * prevAll("selector")方法获取跟在集合中每个元素之前的所有同辈元素,并在选择器中筛选
+		 * prevUntil("selecotr")方法获取跟在集合中每个元素之前的所有同辈元素直到选择器表示的元素（不包括该元素）
+		 * siblings("selector")方法获取集合中每个元素的所有同辈元素（不包括自身）
+		 * 搜索子元素
+		 * children("selector")方法获取集合中每个元素的所有子元素(不包括孙子)
+		 * find("selector")方法获取集合中所有后代元素(不管哪一代)，并通过选择器筛选
+		 * 串联操作
+		 * andSelf()方法把堆栈中之前的元素集添加到当前集合中
+		 * 例如：$("#div1").find().addSelf()表示把id=div1的元素的所有后代元素找出，
+		 * 然后把id=div1的元素也添加到形成的集合中
+		 * end()方法用于结束当前链中最近的一次筛选操作，并将匹配元素集合返回到前一次的状态
+		 * 例如：$("select").find("option").end()
+		 * 表示选取所有select元素，然后查找并选取option元素，然后再选取select元素（回到前一步）
+		 * add(expr(表达式))方法将方法中匹配的元素添加到另一个集合当中
+		 * contents()方法用于从每个匹配元素中查找所有子节点（包括文本节点）或者文档内容（对于iframe元素）
+		 * contents()与children()的区别：
+		 * 1.前者还包括了文本节点以及所生成的jQuery对象中的页面元素，如果页面元素是iframe元素，则返回iframe中的文档内容
+		 * 2.前者没有筛选条件，而后者筛选条件可有可无
+		 * 过滤操作
+		 * eq(index)方法用于获取集合中第index个元素，从0开始算起
+		 * filter(expr)方法用于筛选出与指定表达式匹配的元素集合，用于缩小匹配的范围，用逗号分隔多个表达式，多个表达式之间是"或"的关系
+		 * 例如：$("input").filter(".class,:first")表示选择input标签，然后筛选其中带有class类的元素或领域中第一个元素
+		 * filter(function)方法用于筛选集合中的元素在function中返回为true的元素，若为false则删除该元素
+		 * has(expr)方法用于保留包含特定后代的元素，去掉那些不含有制定后代的元素
+		 * 例如：$("div").has("p")表示在选择的div元素中，保留包含p元素的元素，删除不包含的元素
+		 * hasClass(class)方法类似于has()方法，但参数为类名
+		 * is(expr)方法用一个表示式来检查当前选择的元素集合，如果其中至少有一个元素符合给定的表达式，就返回true，否则返回false
+		 * 注意：在jQuery1.3版本中才对所有表达式提供了支持，在先前版本中，如果提供了复杂的表达式，如层级选择器（如+、~和>）,始终返回true
+		 * map(callback)方法用于将集合中的元素转换成其他数组（不论是否是元素数组）,可以用这个方法来建立一个列表
+		 * not(expr)方法用于删除与指定的那个表达式匹配的元素
+		 * slice(start[,end])方法用于选取一个匹配的子集，start表示开始位置，从0开始，如果是负数则可以从尾部开始算起
+		 * end是可选的，表示结束的位置（不包括结束位置的元素），如果不指定，就是截取直到结尾.
+		 */
+		console.log($("span").parent("div:first-child"));
+		console.log($("p:first").parentsUntil("html"));
+		console.log($("#myP").offsetParent());
+		$("#myP").siblings().css("color","purple");
+//		console.log($("#myP").siblings());
+		console.log($("div:hidden").next().children());
+		console.log($("#myP").add("li"));
+		//is()方法
+		console.log($("#myP").parents("div:first").is("#myDiv"));//true
+		//map()方法例子:
+		var result = $("p").map(function(){
+			//text()函数返回元素在网页中的文字
+			return $(this).text();
+		})
+		console.log(result);
+		//获取所有p元素，再删除id为myP的元素
+		console.log($("p").not("#myP"));
+		console.log($("p").slice(1,3).map(function(){
+			if($(this).html()!=""){
+				return $(this).html();
+			}
+		}))
+		
+//		document.getElementsByTagName("style")[0].style.display = "block";
+//		document.getElementsByTagName("style")[0].style.visibility = "true";
+		
+		/*DOM操作
+		 * text()方法获得一个元素节点的文本节点
+		 * 创建一个有属性有内容的p标签:$("<p id='abcx'>aewfawefew</p>")
+		 * after()方法在指定元素后面插入新元素:oldEle.after(newEle);在oldEle元素后插入newEle元素
+		 * 也可以让已有节点移到另一个节点后面
+		 * remove([selector])方法删除文档中所匹配的节点，包含子节点，也可以指定一个选择器来进行过滤
+		 * 删除后返回被删除的元素，注意:返回的元素除了这个节点本身保留之外，其他如绑定的事件、附加的数据等都会被移除
+		 * 还有$("p").remove("#myP");和var $ele = $("#myP").remove();
+		 * 虽然两句都删除了目标的id=myP的元素，但是前者返回$("p")的元素集合，后者返回id=myP的元素
+		 * detach()方法与remove()方法类似，但是它不会删除返回元素中绑定的事件、附加数据等
+		 * empty()方法删除指定集合中所有的子节点，不删除自身，且该方法没有参数
+		 * clone([true])方法克隆指定节点，参数若为true则克隆节点的并且包括它绑定的事件，不带参数只克隆节点不克隆绑定的事件
+		 * replaceAll()方法用于替换节点,语法如下:$(content).replaceAll(selector);
+		 * 用$(content)的内容替换掉selector选择出来的元素
+		 * replaceWith()方法用于替换节点,语法如下:$(selector).replaceWith(content);
+		 * 用content的内容替换掉$(selector)选择出来的元素
+		 * 两个方法出了替换的元素位置相反，其他一样
+		 * 内部插入
+		 * append()方法$(selector).append(content)向选择出的节点内部（子）最后插入content
+		 * （可以是元素节点、html内容也可以是jQuery对象,不是选择器啊啊啊!）
+		 * 另一种形式:$(selector).append(function(){index[,html]})
+		 * index为遍历的索引值(从0开始)，html为当前元素的html内容
+		 * appendTo()方法将指定内容（子）插入到集合元素内部的最后,和append()方法只有内容和集合的位置的差别
+		 * prepend()方法和append()方法完全一致，除了是往指定集合的内部最前面插入元素
+		 * prependTo()方法和appendTo()方法一致，除了是往指定集合的内部最前面插入元素,和prepend()方法只有内容和集合的位置的差别
+		 * 外部插入
+		 * after()方法:$(selector).after(content)或$(selector).after(function(index[,html]){})
+		 * 在指定元素后面（兄弟）插入元素,第二种方式使用方法和append()方法的形式一样
+		 * insertAfter()方法和after()方法用法相同，除了内容和集合的位置颠倒
+		 * before()方法和after()方法使用方式完全相同，除了结果是在前方添加内容
+		 * insertBefore()和before()方法用法相同，除了内容和集合的位置颠倒
+		 * 包裹操作
+		 * wrap()方法:$(selector).wrap(content)将选择的集合用content包裹
+		 * content可以是元素节点(document.createElement("b"))
+		 * HTML字符串("<b></b>")或者函数（此函数没有参数，函数返回的内容就是去包裹的内容）
+		 * unwrap()方法删除指定元素的父节点
+		 * wrapAll()方法和wrap()方法用法相同（不过没有function回调函数），wrapAll()方法是把集合整个包裹起来，
+		 * 而wrap()方法是把集合中的每个元素分别包裹一次
+		 * wrapInner()方法使用方法和wrap()方法相同,把选定元素内部的元素全部包裹起来效果如id=myP2演示的那样
+		 */
+//		$("#myP").attr("id","myP2");
+//		console.log($("#myP2"));
+		//两种删除#myP元素的方法
+//		var $ele = $("p").remove("#myP");
+//		var $ele = $("#myP").remove();
+//		console.log($ele.html());
+//		console.log($("p"));
+		$("#myP").empty();
+		console.log($("#myP"));
+		
+//		$("#myP").replaceAll("p");
+		
+		$("#myP").append("<p>这是一个新建的p元素</p>");
+		$("p").append(function(index,html){
+			if(index == 1){
+				return html;
+			}
+		})
+		//两种方法都行
+		var str = "<p>这是内部方法中的测试字符串</p>";
+//		var str = $("<p>这是appendTo方法中的测试字符串</p>");
+		$(str).appendTo("p:eq(3)");
+//		$("a").appendTo("p:eq(4)");
+//		var $a = $("a");
+//		$("p:eq(4)").prepend($a);
+		
+		var str2 = "<p>这是外部插入方法中的测试字符串</p>";
+		//遍历选择器集合中的元素，添加函数返回值
+		$("p").after(function(index,html){
+			if(index == 5){
+				return str2;
+			}
+		})
+		
+		//使用wrap(),得到加粗的效果
+		$("#myP").wrap("<b></b>");
+		$("#myP2").wrapInner("<b></b>");
+		//unwrap()方法
+//		$("#myDiv").unwrap();
+		
+		/*
+		 * jQuery中的html操作
+		 * html()设置或返回匹配元素的html内容
+		 * 注意：没有参数时它只取元素集合中的第一个元素的html内容返回，设置时会对每个元素都进行内容的设置
+		 * html()参数还能是一个回调函数:html(function(index,html){})
+		 * index参数为集合的索引，html为当前遍历的元素的html内容
+		 * text()方法，不带参数时，返回集合中所有元素的文本内容，结果是由所有匹配元素的文本组合起来的文本
+		 * text(str)方法设置集合中每个元素的文本内容
+		 * 提示：text()方法在必要时会对str中的字符串进行转义，以便在html文档中正确的呈现字符串的内容
+		 * 为此，将调用DOM中的createTextNode()方法，此时某些特殊字符就会被替换为对应的html实体，
+		 * 如："<"被替换为"&lt;"等
+		 * text()方法和html()方法的区别
+		 * 1.在都没有参数的时候，text()方法对集合中的所有元素都有操作，而html()只对第一个元素有操作
+		 * 2.text()方法对HTML文档和XML文档都有效，而html()方法只对HTML文档有效
+		 * val()方法专门用来操作表单元素，不带参数时返回第一个匹配元素的值，如果是可多选元素（select加option等）则返回一个数组
+		 * 元素属性:HTMl元素属性在转换为DOM的元素属性时会有一些细微的区别例如：src会被转成绝对路径，class变成className等
+		 * attr()方法用于设置和获取元素属性值,只有一个参数时返回第一个元素的属性值的对应的属性值，两个参数则设置属性,
+		 * 要同时设置多个属性,则传入对象例如$("p").attr({id:"aa",name:"abc"});
+		 * 注意：当设置多个属性时，属性名可以使用引号，但是设置class属性时，必须使用引号
+		 * 还有这种形式:attr(attribute,function(index,attr){})
+		 * index为索引值，attr为当前属性的旧值
+		 * removeAttr()方法可以删除元素属性
+		 * 元素样式:
+		 * addClass()方法有两种形式:addClass(className)和addClass(function(index,oldClassName))
+		 * 用来向集合中的元素添加css类，必须有参数
+		 * removeClass()方法可以从所匹配的元素中删除一个、多个或者全部样式类
+		 * 有两种格式：removeClass([className]),removeClass(function(index,oldClassName))
+		 * 用法和addClass()方法类似,只是当没有参数的时候，删除全部类
+		 * toggleClass()方法有三种形式
+		 * toggleClass(className)、toggleClass(className,switch)
+		 * 和toggleClass(function(index,oldClass)[,switch])
+		 * 第一种：每次调用检测是否含有类，若有删除，没有则添加
+		 * 第二种：switch为true则确定为添加类，false则确定为删除类
+		 * 第三种：和前面一些回调函数用法相同
+		 * 元素css
+		 * css()方法：当只有属性名时，返回第一个元素的对应样式值
+		 * 注意：css格式使用连字符（-）来分隔不同单词，如background-color
+		 * DOM格式使用驼峰式大小写如backgroundColor
+		 * 当使用css格式时，如果属性名称中只包含一个单词，引号可以省略，但如果使用了连字符，必须使用引号将属性名括起来
+		 * 在使用DOM格式时，引号是可选的。由于float和class是JavaScript中的保留字，因此建议始终给这两个属性添加引号
+		 * 参数有两个时，可以设置相应的css样式，若要同时设置多个样式，则使用对象的方式
+		 * 例如：{"color":"yellow","width":"30px"}
+		 * 还可以使用回调函数的形式css(cssName,function(index,value){})
+		 * 使用方法和前面的回调函数类似
+		 * 元素css位置
+		 * offset()方法可以控制元素相对于文档的当前坐标
+		 * 不带参数时，返回匹配集合中第1个元素的坐标，带参数coordinates(包含top和left的对象)时，对元素进行重新定位
+		 * 如果它的position属性为static则该属性将被更改为relative
+		 * 设置的top和left相对于文档，即它的relative是相对于body的!!!
+		 * position()方法用于获取匹配元素相对于父元素的当前偏移量，用法和offset()类似,不能用来设置位置
+		 * scrollLeft()方法和scrollTop()方法分别用于获取元素的滚动条距左端和顶端的距离
+		 * 还可给这两个方法一个参数，用来设置元素内的滚动条滚动到指定位置
+		 * 元素css尺寸
+		 * height()方法和width()方法，没有参数时获取元素高宽（只有包括内容）
+		 * css()方法虽然也能获取，但是返回值带单位（px），height()和width()方法不带单位
+		 * 有参数时设置元素的高宽
+		 * innerHeight()方法和innerWidth()方法包含内容和内边距（padding），同时它们只读，即不可以设置值
+		 * outerHeight(boolean)方法和outerWidth(boolean)方法参数为true时，包含外边距（margin）
+		 * 参数为false时，只包含到边框，默认为false
+		 */
+		
+		console.log($("#myDiv p:first-child"));
+		//val()方法用在表单元素上
+		console.log($("#myP2").val());//type=string，value=""
+		$("#myP2").css("color","#000000");
+//		console.log($("#myP2").attr("id"))
+//		console.log($("#myP2").attr())//报错,需要参数
+		$("#myP2").offset({top:400,left:80});
+		console.log($("#myP2").css("position"));
+		$("#myP2").click(function(){
+			alert($(this).html());
+		});
+		
+		/*
+		 * jQuery事件响应
+		 * ready()方法不管被绑定在哪个jQuery对象上面（也可以是多个对象同时绑定），都在所有DOM元素加载完成后同时触发
+		 * 写作：$(document).ready(handler)或$().ready(handler)或$(handler)
+		 * 键盘事件：
+		 * keydown()、keypress()、keyup()事件：先执行keydown()再执行keypress()最后执行keyup()，
+		 * 三个事件可以对键盘事件进行监听。在文本框中输入时，当键盘被放开时，文本才被输入，即keyup()事件被执行时，按键被输入文本框
+		 * 鼠标事件：
+		 * mousedown():鼠标被按下时触发,左中右键都有触发
+		 * mouseup():鼠标弹起时触发，左中右键都有触发
+		 * click():鼠标被点击时触发，只有左键触发，触发时间在mouseup()事件之后
+		 * dblclick():鼠标被双击时触发，只有左键触发,执行时，会先执行两次mousedown()、mouseup()和click()
+		 * mousemove():鼠标在被绑定元素上移动时触发，不管鼠标是否被按下
+		 * mouseover():鼠标经过被绑定元素时触发，不管鼠标是否被按下
+		 * mouseout():鼠标从被绑定元素离开时触发，不管鼠标是否被按下
+		 * 表单事件：
+		 * focus():控件获得焦点时触发,没有参数时,获得焦点，有函数参数时，执行函数
+		 * blur():控件失去焦点时触发,没有参数时,失去焦点，有函数参数时，执行函数
+		 * change():控件值发生改变时触发(失去焦点时，若值和获得焦点前不一样再触发，若没有焦点状态下改变了值，也不触发)
+		 * select():控件内容被选中时触发,没有函数参数时，选中元素，
+		 * submit():表单提交时触发
+		 * focusin():当前元素或其子元素获得焦点时触发,就是可以在表单元素的祖先元素上检测焦点
+		 * focusout():当前元素或其子元素失去焦点时触发,就是可以在表单元素的祖先元素上检测焦点
+		 * 其他事件：
+		 * load():当该元素加载就绪后触发，注意：$(document).ready()是页面加载完成后执行，可能相关的其他资源文件没有加载完
+		 * 而$(window).load()是整个页面和其他相关资源都加载完成了再触发
+		 * unload():当该元素被卸载后触发
+		 * error():当该元素发生错误（如：图片的显示错误）时触发
+		 * resize():当浏览器对象(window)的大小发生改变时触发
+		 * scroll():当容器对象的滚动条位置发生变化时触发,所有可以包含子元素的控件都可以使用该事件，如：div、window、td、span等
+		 * jQuery事件集合特性：
+		 * 在JavaScript事件机制中，一个事件只能绑定一个事件处理程序,例如：onclick=func1;onclick=func2;
+		 * 这两句执行后只有func2绑定到了onclick上，而jQuery实现了一个事件绑定了多个事件处理程序
+		 * 绑定事件:
+		 * 1.$("#button").click(function(){})最直接的方式
+		 * 2.bind(map)方法可以一次为对象绑定多个事件
+		 * 例如：同时为所有文本框添加焦点获取和丢失的事件
+		 * $("input[type=text]").bind({
+		 * 	focus:function(){
+		 * 	
+		 * 	},
+		 * 	blur:function(){
+		 * 	
+		 * 	}
+		 * })
+		 * 3.bind(type[,data],fn)方法绑定的同时传递参数
+		 * 例如：
+		 * $("btn").bind(
+		 * 	"click",
+		 * 	{
+		 * 		arg1 : "1",
+		 * 		arg2 : "2"
+		 * 	},
+		 * 	function(event){
+		 	* //通过event.data.参数获取传递进来的参数
+		 * 		console.log(event.data.arg1+":"+event.data.arg2)
+		 * 	}
+		 * )
+		 * one(type[,data],fn)方法和上一个方法用法类似，但是该事件处理程序只能执行一次，执行一次后自动失效
+		 * hover(mouseoverFunc,mouseoutFunc)方法当鼠标"盘旋"在元素上时调用
+		 * 第一个参数为鼠标移入时执行的函数，第二个为鼠标离开时执行的函数
+		 * toggle(fn1,fn2[,fn....])方法依次循环执行各个参数（函数）
+		 * live(type,fn)方法为某一类（name=xxx或class=xxx等）元素添加事件而不管属性是不是在将来添加的
+		 * 例如执行某个函数后才为某个元素添加了name=btn属性，而之前没有，那么在添加了新属性后也会绑定上事件处理程序
+		 * unbind([type][,data])方法，当没有参数时，删除元素上所有的事件处理程序，若只有type则只删除
+		 * 指定类型的所有事件处理程序例如click，若还指定了data，则删除指定事件处理程序上的指定函数保留其他函数
+		 * die([type][,data])用法和unbind()方法类似，但是对应的是删除live()方法绑定的事件处理程序
+		 * 模拟操作（程序员自己调用某个操作（如：点击某个按钮）来模仿用户操作）
+		 * $("#btn").click()，模拟点击了id=btn的按钮
+		 * trigger(type[,data])方法第一个参数用于指定要触发的事件类型，可以是click、focus等。
+		 * 第二个data可选，用于指定触发事件处理程序所需要的参数,注意：如果有参数，则必须把默认参数event加在第一个位置
+		 * 例如：trigger("click",["value1","value2"]);其中后面一个参数为数组
+		 * triggerHandler(type[,data])方法将触发对象的指定事件类型的所有处理程序
+		 * trigger()方法和triggerHandler()方法非常类似但有如下区别：
+		 * 1.triggerHandler()方法不会触发浏览器的默认事件
+		 * 2.triggerHandler()方法只触发jQuery对象集合中第一个元素的事件处理程序
+		 * 3.triggerHandler()方法不会触发事件冒泡
+		 * 4.triggerHandler()方法返回的是事件处理程序的返回值，而不是可链接的jQuery对象
+		 * 
+		 */
+		
+		$("#myTextArea").keydown(function(e){
+			console.log(e);
+		})
+		$("#myTextArea").blur(function(){
+			console.log("lose the focus");
+		});
+		//对同一个对象连续绑定多个鼠标事件
+		$("#myP").mousemove(function(){
+			console.log("mousemove");
+		})
+		.mousedown(function(){
+			console.log("mousedown");
+		})
+		.mouseup(function(){
+			console.log("mouseup");
+		})
+		.click(function(){
+			console.log("click");
+		})
+		.dblclick(function(){
+			console.log("dblclick");
+		})
+		.mouseover(function(){
+			console.log("mouseover");
+		})
+		.mouseout(function(){
+			console.log("mouseout");
+		})
+		//冒泡型事件流，即先响应内部元素的单击事件，再响应祖先的单击事件
+		$(document).click(function(){
+			console.log("document_click");
+		})
+		var myTextArea = document.getElementById("myTextArea");
+		//获得焦点事件
+//		myTextArea.focus();
+		//focus()方法没有参数时，获得焦点，有函数时，当获得焦点时执行函数
+		$("#myTextArea").focus(function(){
+			console.log("getFocus")
+		})
+		$("#myTextArea").focus();
+		$("#myTextArea").blur();
+		$("#myTextArea").change(function(){
+			console.log("textarea is value is change")
+		})
+		$("#btn").click(function(){
+			$("#myTextArea").val("abc");
+			$("#resizeDiv").height("100px").width("150px");
+		})
+		//p元素没有focus()事件
+		$("#myP").focus();
+		$("#myP").focus(function(){
+			console.log("myP have get the focus")
+		});
+		$("#myTextArea").select(function(){
+			var selection =  document.selection;
+			//若selection存在，并且类型为text则得到被选择的内容
+			if(selection && selection.type == 'text'){
+				var word = selection.createRange();
+				var text = word.text;
+				console.log(text);
+			}else{
+				console.log("not have selection");
+			}
+		})
+		$("#myInputs").focusin(function(){
+			console.log($(this).attr("id"));
+		})
+		$(window).resize(function(){
+			console.log("window is size is change");
+			//变换窗口大小时，给btn2添加name=btn属性
+			$("#btn2").attr("name","btn");
+		})
+		$("#myInputs").scroll(function(){
+			console.log("scroll is change the position");
+		})
+		$("input[name=btn]").live("click",function(event,arg1,arg2){
+			console.log("this is btn"+$(this).attr("id")+"   "+arg1+":"+arg2);
+		
+		})
+		//测试trigger()方法
+		function testTrigger(){
+			$("input[name=btn]").trigger("click",[11,22]);
+		}
+		
+		/*
+		 * Ajax
+		 * $.ajax()方法只有一个object类型的参数,该参数对象所有属性都是可选值,常用属性如下：
+		 * 1.url:发送请求的地址，该属性为字符串类型
+		 * 2.type:请求方式，默认为GET
+		 * 3.timeout:设置请求超时时间
+		 * 4.data:发送到服务器的数据，"键/值"对形式。该属性可以是对象或字符串，如果是对象自动转化成字符串
+		 * 5.dataTpye:预期服务器返回的数据类型，该属性为字符串类型，可选值如下：
+			 * xml：返回xml文档，可用jQuery处理
+			 * html：返回纯文本html信息，包含的标签会在文本插入DOM的时候执行
+			 * script：返回纯文本JavaScript代码
+			 * json：返回JSON格式数据
+			 * jsonp：返回JSONP格式数据
+			 * text：返回纯文本字符串
+		 * 6.contentType:发送信息至服务器时内容编码类型，该属性为字符串类型，默认值为
+		 * "application/x-www-form-urlencoded",一般不用设置，因为默认值适用于大多数场合
+		 * 7.beforeSend:请求发送前的时间，该属性为其设置事件处理程序，可用于发送前修改XMLHttpRequest的参数
+		 * 如头信息等，该事件处理程序的语法格式如下:
+		 * function(XMLHttpRequest){
+		 * 		this;//this关键字用于访问$.ajax()方法的options参数对象
+		 * }
+		 * 该函数有一个唯一的参数XMLHttpRequest，可以操作当前请求使用的XMLHttpRequest对象。如果返回false，终止发送
+		 * 8.complete:请求完成后的事件，无论请求成功与否，都将触发该事件
+		 * function(XMLHttpRequest,textStatus){
+		 * 		this;//this关键字用于访问$.ajax()方法的options参数对象
+		 * }
+		 * 第一个参数用于访问当前使用的XMLHttpRequest对象，第二个参数返回当前请求的执行状态（success或error等）
+		 * 9.success：请求执行成功时的事件
+		 * function(data,textStatus){
+		 * 		this;//this关键字用于访问$.ajax()方法的options参数对象
+		 * }
+		 * 第一个参数用于访问该请求返回的数据，第二个参数是描述执行状态的字符串
+		 * 10.error:请求执行失败时的事件
+		 * function(XMLHttpRequest,textStatus，errorThrown){
+		 * 		this;//this关键字用于访问$.ajax()方法的options参数对象
+		 * }
+		 * 前两个参数和其他一样，第三个参数为捕获的错误对象
+		 * 11.global:是否触发全局Ajax事件，该属性为Boolean类型，默认为false
+		 * 另外$.ajax()方法执行请求返回的的HTML内容会在加载到DOM以后执行
+		 * 
+		 * load()方法能远程载入HTML代码并直接插入DOM中
+		 * load(url[,data][,callback])
+		 * 分别对应：请求的路径、请求附加的参数（"键/值"对的集合）、请求完成时的回调函数，无论请求成功或失败都执行
+		 * $.get()方法是jQuery的一个全局方法，该方法使用GET方式来进行异步请求
+		 * $.get(url[,data][,callback][,type]);
+		 * 分别对应：请求的路径、请求附加的参数（"键/值"对的集合）、响应成功时执行的函数、
+		 * 第四个参数表示设置返回内容的格式，可选值有xml,html,script,json,jsonp,text等默认为html
+		 * callback函数：
+		 * function（data,textStatus）{
+		 * 	//data为请求结果,textStatus:相应状态可能是success等
+		 * }
+		 * $.get()方法返回一个XMLHttpRequest对象，可以对请求和相应信息进行进一步操作
+		 * $.post()方法和$.get()方法用法类似，主要区别如下
+		 * 1.在服务器端可能会为同一个URL的不同请求方式进行不同操作（特别是在MVC模式下的应用程序更为常见），所以不同的请求
+		 * 方式可能会被服务器响应为不同的结果
+		 * 2.$.post()方法使用POST方式请求服务器，没有数据传递限制，而$.get()方法使用GET方式请求服务器，
+		 * 数据添加到url后面传递，url是有长度限制的（取决于浏览器）所以$.get()方法发送的数据有长度限制
+		 * 3.同2，因为$.get()方法在URL中保存，会被浏览器的缓存功能保存，若有敏感数据，就会有失安全
+		 * $.getJSON()方法是jQuery中的一个全局方法，该方法通过GET方式请求载入JSON数据
+		 * $.getJSON(url[,data][,callback]);
+		 * 分别对应：异步请求的url地址，附加的参数列表("键/值"对形式),响应成功时调用的函数
+		 * $.getScript()方法:在处理一些外部JavaScript文件较多的页面时，这些JavaScript文件在页面
+		 * 加载时全部加在会很大程度地影响页面载入速度，所以开发人员会将一些不常用的JavaScript文件在页面执行时动态
+		 * 加载，$.getScript()方法就是这样用的
+		 * 该方法是jQuery中的一个全局方法，使用GET方式载入一个JavaScript文件，并执行里面的JavaScript代码
+		 * $.getScript(url[,callback]);
+		 * 分别对应：待载入的js文件地址，载入成功时的回调函数,该方法的返回值是一个XMLHttpRequest对象
+		 * serialize()方法能将表单内容序列化成一个字符串，格式如下：
+		 * var data = $("form").serialize();
+		 * serializeArray()方法可以将页面表单序列化成一个JSON的对象，该对象以"键/值"对集合的形式封装了表单里的所有元素值
+		 * var jsonData = $("form").serializeArray();
+		 * 设置全局Ajax默认选项：
+		 * 在应用程序中，经常需要编写大量的Ajax方法来实现各种功能，每次都在$.ajax()方法中设置大量参数，非常不方便，
+		 * jQuery提供了$.ajaxSetup()方法可以设置全局的Ajax默认参数项.格式如下：
+		 * $.ajaxSetup([options]),其中的options参数可选，所有配置选项都可以随意设置，
+		 * 该参数选项和$.ajax()方法的参数选项完全一致
+		 * Ajax全局事件
+		 * 对于一些公有特性的Ajax事件处理逻辑，jQuery还提供了一系列全局事件函数，能够为各种Ajax事件注册回调函数
+		 * （注意：在jQuery的$.ajax()方法和$.ajaxSetup()方法中的options参数匹配项中，有一个global属性,
+		 * 可以配置Ajax请求是否触发全局Ajax事件,设置为false,则不触发全局Ajax事件）,例如：
+		 * ajaxComplete(callback)：请求完成时触发
+		 * ajaxError(callback)：请求出现错误时触发
+		 * ajaxSend(callback)：请求发送前触发
+		 * ajaxStart(callback)：请求开始时触发
+		 * ajaxStop(callback)：请求结束时触发
+		 * ajaxSuccess(callback)：请求成功时触发
+		 * 以上几个函数的参数callback都是触发事件时执行的事件处理程序,其中ajaxStart()方法和ajaxStop()方法
+		 * 的事件处理程序是一个无参函数，其余都可以有3个参数，格式如下：
+		 * function(event,XHR,settings){
+		 * 		event是触发的事件对象
+		 * 		XHR是XMLHttpRequest对象
+		 * 		settings是Ajax请求配置参数
+		 * }
+		 * 
+		 * 
+		 */
+		/*
+		//使用js来应用ajax
+		function createXMLR(){
+			var xmlRequest;
+			if(window.ActiveXObject){
+				//对于XMLHttpRequest对象，ie将其作为ActiveX控件集成到浏览器中的，而其他主流浏览器则直接作为一般js对象
+				//所以先判断是否支持ActiveX对象，适用于ie
+				xmlRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}else if(window.XMLHttpRequest){
+				//适用于其他主流浏览器（FF、chrome、Safari等）
+				xmlRequest = new XMLHttpRequest();
+			}
+			return xmlRequest;
+		}
+		//因为不能跨域访问，这里最后会报错= =
+		$("#ajaxBtn").click(function(){
+			var xhr = createXMLR();
+			xhr.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var content = this.responseText;
+					$("#ajaxTextArea").val(content);
+					$("#ajaxContent").html(content);
+				}
+			}
+			xhr.open("GET","https://www.baidu.com/?tn=57095150_2_oem_dg");
+			xhr.send(null);
+		})
+		*/
+		/*
+		 * jQuery动画
+		 * 基本效果
+		 * hide()方法用于隐藏被选元素,有两种形式，如下：
+		 * hide()和hide(speed[,callback]);speed参数可以是slow、normal、fast或者表示动画时长的毫秒数
+		 * 第一种是没有动画的隐藏，即直接把被选元素的display属性设置为none，
+		 * 第二种指定隐藏动画的速度，并在方法执行完成后可以调用一个回调函数
+		 * show()方法和hide()方法类似，没有参数时将display设置为block，有参数时指定动画播放速度（时间），并可选回调
+		 * toggle()方法可以将被选元素交替显示隐藏
+		 * 没有参数时单纯的隐藏和显示被选元素，参数为true时显示元素，false时隐藏元素
+		 * 或者指定动画的速度，并可选择调用回调函数：toggle(speed[,callback]);
+		 * 滑动效果
+		 * slideUp(speed[,callback])只调整元素的高度，最后设置display为none来达到"滑动"的方式隐藏元素
+		 * slideDown(speed[,callback])和slideUp()方法类似，设置display为block,然后调整元素高度
+		 * slideToggle(speed[,callback])交替切换slideUp()和slideDown()动画效果
+		 * 淡入淡出效果
+		 * fadeIn(speed[,callback]);参数使用和上面方法类似，增加透明度使动画显示
+		 * fadeOut(speed[,callback]);参数使用同上，降低元素的透明度，最后设置display为none
+		 * fadeTo(speed,opacity[,callback]);指定匹配元素的最终透明度，使元素从当前透明度向最终透明度过渡
+		 * 其中opacity为最终透明度，取值为0~1
+		 * animate(styles,speed[,easing][,callback])方法，将选定元素从当前样式过渡到设置的样式
+		 * 第一个参数为需要过渡的styles（对象）属性，第二个为动画速度，第三个用于指定在不同的动画点中设置动画速度有
+		 * "swing"和"linear"选项，最后一个为回调函数
+		 * 注意：若style属性集中属性使用的是"hide","show"或"toggle"这样的字符串值，则会为该属性调用默认的动画形式
+		 * animate(styles,options)方法是上一个方法的重载，options参数是可选的，用于规定动画的额外选项
+		 * 包括speed，easing，callback，step（指定动画的每一步完成后执行的函数）和queue（指定动画是否进入效果队列）
+		 * stop()方法用于停止所有在指定元素上正在运行的动画。如果队列中有等待执行的动画（并且stopAll没有设为true）
+		 * 他们就会马上执行，格式如下：
+		 * stop(stopAll,gotoEnd);stopAll参数可选，若为true（默认），可以立即结束所有动画，
+		 * 若为false，保存当前的样式，再执行动画队列的下一个动画
+		 * 参数gotoEnd让当前正在执行的动画立即完成，并重新设置show和hide的原始样式，调用回调函数等
+		 * 默认为false，当为false时，只停止动画而不把元素样式设置为当前动画最终样式，也不调用回调函数
+		 * 动画队列（在一个元素上添加的多个一次执行的动画）
+		 * queue()方法用于将动画函数添加到队列 中，格式如下：
+		 * queue(name,callback);name表示队列函数，callback表示动画完成后执行的函数
+		 * queue(name,queue);将队列用一个新的队列（函数数组）来代替，name表示队列函数，queue表示函数数组
+		 * dequeue()方法将函数数组中的第一个函数取出，并执行。当再次执行dequeue()函数的时候，得到的下一个函数，
+		 * 如果不执行dequeue，那么队列中的下一个函数永远不会执行。格式如下：
+		 * dequeue(name);name可选，表示队列名词
+		 * delay()方法用于设置一个延时来推迟执行队列中的项目，将队列中的函数延时执行，它既可以推迟动画队列的执行，
+		 * 也可以用于自定义队列，格式如下：
+		 * delay(duration[,queueName]);
+		 * duration表示延时时间（毫秒），queueName表示队列名称，默认fx（动画队列）
+		 * clearQueue()方法用于停止队列中所有未执行的函数，格式如下：
+		 * clearQueue(name);name表示要停止的队列名称
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+		$("#anime_btn").bind("click",function(){
+			//可以指定隐藏动画的时间
+			$("#hide_show_div").hide("normal",function(){
+				$(this).show("normal",function(){
+					$("#toggle_div").toggle("normal",function(){
+						$("#slide_div").slideUp("normal",function(){
+							$(this).slideDown("normal",function(){
+								jQueryAnimeFunc1();
+							});
+						});
+					});
+				})
+			});
+		})
+		function jQueryAnimeFunc1(){
+			//两个元素的两个动画同时执行
+			$("#fade_div").fadeOut("normal").fadeIn("normal").fadeTo("2000",0.5);
+			//同一个元素的两个动画先执行第一个，再执行第二个
+			$("#animate_div").animate(
+				{
+					height:"100px",
+					width:"100px",
+					opacity:0.4
+				},2000,"swing",function(){
+					console.log("this anime is complete!");
+				}
+			);
+			$("#animate_div").animate(
+				{
+					marginLeft:"100px"
+				},2000,"swing",function(){
+					console.log("this anime is complete!");
+				}
+			);
+		}
+		$("#stop_btn").click(function(){
+			//停止动画并使动画立即完成
+			$("#animate_div").stop(false,true);
+		})
+		
+		function testQueueFunc1(){
+			//参数speed只能使用数值类型，而不能使用字符串
+			$("#queue_div").animate({"height":"100px"},2000);
+			console.log(1);
+		}
+		function testQueueFunc2(){
+			$("#queue_div").animate(
+				{width:"100px"},
+				2000
+			)
+			console.log(2);
+		}
+		function testQueueFunc3(){
+			$("#queue_div").animate(
+				{opacity:"0.4"},
+				2000
+			)
+			console.log(3);
+		}
+		$("#queue_div").queue(testQueueFunc3);
+		$("#queue_div").queue(testQueueFunc1);
+		$("#queue_div").queue(testQueueFunc2);
+//		console.log($("#queue_div").queue());
+//		$("#queue_div").clearQueue();
+		for(var i=0;i<3;i++){
+			//立即执行了队列中的函数，先是立即输出了3，1，2，然后依次执行三个动画
+			$("#queue_div").dequeue();
+			if(i==0){
+				$("#queue_div").delay(3000);
+			}
+//			$("#queue_div").clearQueue();
+		}
+//		console.log($("#myDiv").queue(testQueueFunc3));
+		
+		/*
+		 * 页面交互组件
+		 * 拖动组件：
+		 * $(selector).draggable(options);
+		 * 其中options是可选的，其值是一组"键/值"对，用来设置拖动组件的各种配置和选型信息
+		 * options部分参数如下：
+		 * handle:selector可用来设置元素中哪部分为可拖动手柄，其他部位不允许拖动,若重复出现handle，则后面的覆盖前面的
+		 * cancel:selector可用来设置元素中哪部分为不可拖动手柄，也可取消handle指定的部分元素
+		 * helper值为"original"时（默认）拖动对象随光标移动
+		 * 为"clone"时，创建一个副本，副本随光标移动
+		 * 为"DOM元素的函数"时，函数返回的对象随光标移动
+		 * axis属性值为x时只能在水平方向上拖动，值为y时只能在垂直方向上移动
+		 * containment属性可以用来限制元素的可拖动范围，值可以为parent、document、window或某个选择符
+		 * 也可以是一个数组定义的区域如：[x1,y1,x2,y2]
+		 * snap属性为false（默认）时，不吸附，为true时可吸附所有可拖动元素,也可为一个选择器，吸附选择器集合元素
+		 * snapMode属性用于设置吸附模式，默认为both（里外都可吸附），inner（在元素内部吸附），outer（外部吸附）
+		 * snapTolerance:设置离目标多少像素的时候进行吸附动作，默认为20
+		 * grid:值为一个[x,y]数组，其中x代表水平大小，y代表垂直大小（像素）,指定该属性后，元素以这个数组为格子进行移动
+		 * revert属性用来设置拖动后的元素是否返回原来的位置（以动画形式）
+		 * revertDruation属性配合revert属性设置返回动画的持续时间（毫秒）,revert为false时，忽略该属性
+		 * $(selector).draggable("disable")可用来屏蔽所选元素的拖动效果
+		 * $(selector).draggable("enable")可用来重新启用所选元素的拖动效果
+		 * $(selector).draggable("destroy")可用来完全删除所选元素的拖动效果
+		 * $(selector).draggable("option",optionName[,name])
+		 * 可用来获取、设置或者修改属性，属性名接收一个字符串
+		 * draggable()还有三个回调函数，如下：
+		 * $(selector).draggable({
+		 *  开始拖动时触发的事件
+		 * 	start:function(event,ui){
+		 * 	
+		 * 	}
+		 *  拖动时触发的事件
+		 * 	drag:function(event,ui){
+		 * 	
+		 *  }
+		 *  拖动结束时触发的事件
+		 * 	stop:function(event,ui){
+		 * 	
+		 *  }
+		 * 	
+		 * })
+		 * 参数event表示原生的浏览器事件对象，参数ui则是一个包含附加信息的jQuery对象具有如下属性：
+		 * helper:一个jQuery对象，表示可拖动助手元素（拖动过程中跟随鼠标的元素）
+		 * position:一个包含top属性和left属性的对象，表示可拖动助手相对于原始对象的位置
+		 * offset:一个包含top属性和left属性的对象，表示可拖动助手相对于文档的绝对位置
+		 * 投放组件：
+		 * $(selector).droppable(options);
+		 * options部分参数如下：
+		 * accept属性接受一个jQuery选择符或者函数，如果是选择符，则匹配该选择符的所有元素，如果是一个函数，
+		 * 则对页面上每个拖动元素调用该函数，即把可拖动元素作为第一个参数传递到函数，只有使该函数返回true的元素才能接受
+		 * activeClass设置在可接受的元素处于拖动状态时应用于对象的css类
+		 * hoverClass设置在可接受的元素进入到（光标所在位置）投放对象内部时应用于对象的css类
+		 * greedy属性用来控制嵌套投放元素的事件传播，默认为false
+		 * 当两个投放目标，一个包含另一个时，当把目标元素拖到内部元素时，投放事件会传播到外部的投放元素，如果要
+		 * 阻止事件的传播，则可以将嵌套的投放元素的greedy设置为true，这样就能阻止传播
+		 * 投放组件的方法
+		 * 投放组件的方法和拖动的方法一样，有disable、enable、destroy和option方法,用法也类似
+		 * 投放事件的回调函数：
+		 * activate事件：当可接受的对象开始拖动时触发
+		 * deactivate事件：当可接受的对象停止拖动时触发此事件
+		 * over事件：当可接受的对象位于目标对象上方时触发此事件
+		 * out事件：当可接受的对象溢出目标对象时触发此事件
+		 * drop事件：当可接受的对象放置在目标对象上方时触发此事件
+		 * 格式：
+		 * eventName:function(event,ui){
+		 * 	
+		 * }
+		 * event表示事件对象，参数ui则是一个包含附加信息的jQuery对象，具有以下属性：
+		 * draggable：表示当前可拖动元素
+		 * helper：一个jQuery对象，表示可拖动助手元素
+		 * position：一个包含top和left属性的对象，表示可拖动助手相对于原始对象的位置
+		 * offset：一个包含top和left属性的对象，表示可拖动助手相对于页面的绝对位置
+		 * 
+		 * 尺寸调整组件:
+		 * $(selector).resizable(options);
+		 * options和拖动组件和投放组件的options用法类似，部分参数如下：
+		 * delay属性：设置鼠标按下大于delay代表的时间（毫秒）才有效
+		 * distance属性：设置调整的大小超过distance代表的距离（px）才有效
+		 * ghost属性设置为true，在调整过程中显示一个半透明的辅助元素
+		 * animate属性设置为true，在调整好之后以动画形式使当前元素变换为调整好之后的大小
+		 * animateDuration属性设置animate的持续时间
+		 * helper属性设置一个css样式类，
+		 * 尺寸调整组件有4个方法，即disable、enable、destroy和option和上面的用法类似
+		 * 尺寸调整组件的回调函数:
+		 * start事件：开始拖动改变大小时触发
+		 * resize事件：拖动过程中，鼠标每移动1像素触发一次
+		 * stop事件：停止拖动时触发
+		 * eventName: function(event,ui){
+		 * 	
+		 * }
+		 * ui参数有一下属性：
+		 * helper：表示可拖动助手元素
+		 * originalPosition：一个包含top和left属性的对象，表示开始调整前元素相对于原始对象的位置
+		 * originSize：一个包含width和height属性的对象，表示开始调整前元素的尺寸大小
+		 * position：一个包含top和left属性的对象，表示当前元素相对于原始对象的位置
+		 * size：一个包含width和height属性的对象，表示当前元素的尺寸大小
+		 * 排序组件:
+		 * $(selector).sortable(options);
+		 * options部分参数如下：
+		 * connectWith属性：设置一个选择符，连接两个列表进行排序
+		 * 注意：这是单方面的连接，即表一连接到表二后，表二不能向表一添加
+		 * dropOnEmpty属性：决定是否允许将元素从一个列表移到另一个空列表，默认为true
+		 * 排序组件的方法：
+		 * disable、enable、destroy和option方法和前面类似
+		 * serialize()方法可以将可排序元素的id属性序列化为一个可提交的表单或Ajax字符串,格式如下：
+		 * $(selector).sortable("serialize"[,options]);
+		 * toArray()方法可以将可排序元素的id序列化为一个字符串数组,格式如下：
+		 * $(selector).sortable("toArray");
+		 * refresh()方法用于刷新可排序列表,格式如下：
+		 * $(selector).sortable("refresh");
+		 * refreshPositions()方法用于刷新可排序元素的缓存位置,格式如下：
+		 * $(selector).sortable("refreshPositions");
+		 * cancel()方法用于取消当前可排序对象中元素的顺序改变,若有别的列表添加进来则重新保存当前排序,格式如下：
+		 * $(selector).sortable("cancel");
+		 * 排序事件回调函数
+		 * start事件：当开始排序时触发
+		 * sort事件：在排序过程中触发
+		 * change事件：在排序过程中，当元素的位置发生变化时触发
+		 * beforestop事件：当停止排序但占位符或者辅助元素仍然可用时触发
+		 * stop事件：当排序过程停止时触发
+		 * update事件：当停止排序过程且元素位置已经发生变化时触发
+		 * receive事件：当连接的排序列表已从一个列表接收到一个元素时触发
+		 * remove事件：当从列表中移出一个可排序元素并将其放置到另一个列表时触发
+		 * over事件：当一个可排序元素被移动到另一个连接列表时触发
+		 * out事件：当一个可排序元素被移出连接列表时触发
+		 * activate事件：当使用连接的排序列表式触发，每个连接列表在拖动开始时均接收此事件
+		 * deactivate事件：当停止排序操作时触发，此事件将传播到所有可能的连接列表
+		 * eventName:fucntion(event, ui){
+		 * 	
+		 * }
+		 * ui参数可包括以下属性：
+		 * helper：一个jQuery对象，表示当前要排序的元素
+		 * position：一个包含top和left属性的对象，表示当前元素相对于原始对象的位置
+		 * offset：一个包含top和left属性的对象，表示当前元素相对于页面的绝对位置
+		 * item：表示当前拖动的jQuery对象
+		 * placeholder：表示定义的占位符
+		 * sender：当前拖动元素所属的排序列表，仅适用于两个列表之间的移动的情况
+		 * 选择组件(注意：在调用selectable()方法后，当选择某个元素时，会对其添加ui-selecting类
+		 * ;如果选定了某个元素，还会添加ui-selected类，但jQuery的ui组件没有提供这两个类，需要自己手动添加)
+		 * $(selector).selectable(options);
+		 * options部分参数如下：
+		 * filter属性，接受一个选择符可以过滤出想要的子元素
+		 * 选择组件的方法：
+		 * 除了disable、enable、destroy和option方法之外还有一个refresh方法，用于手动刷新可选择的元素
+		 * 选择组件的回调函数
+		 * selected事件：当把每个元素添加到选项中并且结束选择操作后触发
+		 * selecting事件：在选择过程中，当选定每个元素时触发
+		 * start事件：当开始选择操作时触发
+		 * stop事件：当结束选择操作时触发
+		 * unselected事件：当从选定项中移除每个元素，并且结束选择操作后触发
+		 * unselecting事件：在选择过程中，当从选定项中移除每个元素时触发.
+		 * eventName:function(event,ui){
+		 * 	
+		 * }
+		 * 
+		 * 
+		 * 
+		 */
+		
+		$("#ui_drag1").draggable({cursor:"move",revert:true,revertDuration:3000});
+		$("#ui_drag2").draggable({cancel:"#cancelP",handle:"p"});
+		$("#ui_drag3").draggable(
+			{
+				helper:function(event){
+					//return "<img src='../../img/1.jpg' width='30px' height='30px' />";
+					return $("#myP2");
+				},
+				start:function(event,ui){
+					console.log(ui.position.top);
+				}
+			}/*,helper:"clone"}拖动结束后会删除产生的副本*/);
+		$("#ui_drag4").draggable({containment:[0,0,100,100]});
+		$("#ui_drag5").draggable({snap:"div",grid:[20,20],snapTolerance:10});
+		//属性名接收字符串
+		$("#ui_drag1").draggable("option","revertDuration","1000");
+		$("#jQuery_drop_area img").draggable({containment:"parent"});
+		$("#dropTarget").droppable(
+			{
+				accept: "#dropImg1",
+				activeClass: "dropActive",
+				hoverClass: "dropHover",
+				drop: function(event,ui){
+					$(this).addClass("dropEnd");
+				}
+			}
+		);
+		$("#dropTargetInner").droppable(
+			{
+				accept: "#dropImg1",
+				activeClass: "dropActive",
+				hoverClass: "dropHover",
+				greedy: true,
+				drop: function(event,ui){
+					$(this).addClass("dropEnd");
+					alert("success to add the img:"+ui.draggable.attr("id")+" to the div");
+				}
+				
+			}
+		);
+		
+//		$("#resizeDiv").resizable();//失败
+		$("#resizeImg").resizable(
+			{
+				delay : 500,
+				distance : 30,
+				ghost: true,
+				animate: true,
+				animateDuration: 1500,
+				helper: "resizeHelper"
+			}
+		);
+		$("#sortList2").sortable(
+			{
+				connectWith: "#sortList1"
+			}
+		);
+		$("#sortList1").sortable(
+			{
+				connectWith: "#sortList2",
+				dropOnEmpty: false,
+				update: function(event,ui){
+					console.log("type:"+ event.type + "index:"+($("#sortList1 li").index(ui.item)+1))
+				}
+			}
+		);
+		//设置文本不可被选中
+		$("#sortList").disableSelection();
+		$("#sortBtn").click(function(){
+			$("#sortList1").sortable("cancel");
+		})
+		
+		$("#selectList").selectable(
+			{
+				start:function(event,ui){
+					
+					console.log("type:"+event.type);
+				}
+			}
+		).disableSelection();
+		$("#selectBtn").click(function(){
+			$("#selectList").selectable("refresh");
+		})
+		
+		
+		/*
+		 * 页面工具集
+		 * 折叠面板
+		 * $(selector).accordion([options])
+		 * selector是一个选择器，用于选择将被包装成折叠面板的容器元素，options是一个"键/值"对的集合，设置配置选项
+		 * (没有容器包裹每个项目组的话每两个元素设置一个项目组)
+		 * options部分参数如下：
+		 * autoHeight属性设置是否高度随内容而自动改变
+		 * icons属性接受一个包含图标信息的对象来替换默认折叠图标,例如：
+		 * {
+		 * 	header:"ui-icon-circle-arrow-e",
+		 *  headerSelected: "ui-icon-circle-arrow-s"
+		 * }
+		 * header属性可用来定义子元素中标题标签的位置
+		 * 折叠面板的方法：
+		 * destroy、disable、enable和option方法类似于组件中的用法
+		 * widget方法返回用户界面折叠面板元素
+		 * activate方法激活折叠面板中的指定项，参数值大于等于0并且小于面板个数
+		 * resize方法重新计算并设置折叠面板的大小
+		 * 折叠面板的事件：
+		 * change事件：每次折叠面板改变的时候触发该事件
+		 * changestart事件：每次折叠面板开始改变的时候触发该事件
+		 * eventName:function(event,ui){
+		 * 	
+		 * }
+		 * event:触发的事件对象
+		 * ui:视图对象，有4个属性：
+		 * newHeader:表示当前面板标题
+		 * oldHeader:表示前一个面板的标题
+		 * newContent:表示当前面板内容
+		 * oldContent:表示前一个面板内容
+		 * 自动完成组件
+		 * $(selector).autocomplete([options])
+		 * options参数部分参数如下：
+		 * source属性指定列表使用的数据，可以是集合、字符串、回调函数，必须指定该项才能完成自动完成功能
+		 * minLength属性指定输入的值的最小长度，只有大于等于这个长度才会展开自动完成列表
+		 * 自动完成组建的方法
+		 * 除了前面组件所介绍的destroy、disable、enable、option、widget等5个方法，还有以下两个方法
+		 * search:触发搜索事件，当数据可用的时候显示建议的数据
+		 * close:关闭自动完成菜单
+		 * 自动完成组件的事件
+		 * search事件：在启动对数据源的请求之前，输入框的长度达到minLength属性值，并且满足delay条件时
+		 * 触发此事件。若事件处理程序返回false，则取消启动对数据源的请求，不显示自动完成提示框
+		 * open事件：请求数据准备好之后，在即将打开自动完成提示框时触发此事件
+		 * focus事件：在焦点移至一个选项时触发此事件，此时参数属性ui.item指向获得焦点的选项。如果取消此事件，可以防止该值被更新
+		 * select事件：从自动完成提示框中选择一项时触发该事件，ui.item属性指向所选项。使用该事件可以阻止
+		 * 选中项更新输入框的值，但不会关闭提示菜单
+		 * close事件：当关闭提示菜单时触发此事件
+		 * change事件：当选择一项时触发此事件，ui.item属性指向所选的项。该事件总是在close事件以后触发
+		 * 按钮组件
+		 * $(selector).button([options])
+		 * options属性部分参数如下：
+		 * icons属性设置在按钮上显示的图标。该选项为options类型，primary属性和secondary属性必须是字符串
+		 * 用于指定类名。primary属性设置的图标显示在标签文本的左边，secondary属性设置的图标显示在文本的右边
+		 * input type=radio和checkbox的没有成功
+		 * 按钮组件的方法：除了destroy、disable、enable、option、widget这5个方法，还提供了一个refresh方法
+		 * 用于刷新按钮的视觉状态，常用于按钮元素选中或禁用状态改变以后的更新
+		 * 按钮组件没有特有的事件!
+		 * 日期选择器
+		 * $(selector).datepicker([options])
+		 * 日期选择器方法：
+		 * dialog:在对话框中打开日期选择器。该方法可以有四个参数，参数date是初始化日期选择器的日期对象，
+		 * onSelect实在选择日期时的回调函数，该函数接收选择的日期字符串和日期选择器对象，settings是对
+		 * 日期选择器新的设置选项，pos参数用于设置显示的对话框的位置，参数值为对话框左上角位置的坐标,格式为[x,y]
+		 * isDisable:判断日期选择器是否已经被禁用
+		 * hide:关闭日期选择器
+		 * show:打开日期选择器，调用以前附加的日期选择器
+		 * refresh:在对日期选择器进行一些外部修改以后重绘日期选择器
+		 * getDate:获取日期选择器的值，如果该日期选择器还没有选中任何日期，则返回空
+		 * setDate:设置该日期选择器的值，参数date可以是日期对象、数值或字符串，具体参考defaultDate选项
+		 * 日期选择器事件：
+		 * beforeShow事件：显示日期选择器之前触发此事件,格式如下：
+		 * beforeShow:function(input, inst){
+		 * 	
+		 * }
+		 * input参数是一个输入字段，inst表示当前日期选择器实例.该函数返回一个选项对象，可以用于更新日期选择器
+		 * beforeShowDay事件：日期选择器上每一天选择之前都将触发此事件，格式如下：
+		 * beforeShowDay:function(date){
+		 * 	
+		 * }
+		 * date参数是一个日期，该函数返回一个数组，第一个元素为Boolean类型，指定此日期是否可选，第二个元素为
+		 * 此日期的css类名（默认为空字符串），第三个元素是此日期的一个弹出提示(第三个元素可选)
+		 * onChangeMonthYear事件，当日期选择器选定新的年份或月份时触发此事件。该事件的事件处理程序格式如下：
+		 * onChangeMonthYear:function(year,month,inst)
+		 * 参数year表示所选的年份，month表示所选的月份，inst表示日期选择器实例
+		 * onClose事件：当关闭日期选择器控件时触发此事件，格式如下：
+		 * onClose:function(dateText,inst)
+		 * dateText参数为所选日期的字符串，如果没有选择则为空字符串，参数inst表示日期选择器实例
+		 * onSelect事件：当日期选择器选中一个日期时触发此事件，格式如下：
+		 * onSelect:function(dateText,inst)
+		 * 参数dateText为所选的日期的字符串，inst表示日期选择器实例
+		 * 
+		 * 对话框组件
+		 * $(selector).dialog([options]);
+		 * 对话框组件的方法
+		 * close:关闭该对话框
+		 * moveToTop:移动对话框到页面中层叠的所有对话框的顶部
+		 * isOpen:测试对话框是否处于打开状态
+		 * open:打开该对话框
+		 * 对话框事件
+		 * beforeClose事件：对话框关闭之前触发该事件，如果在此事件中返回false，则关闭动作取消
+		 * open事件：打开对话框时触发
+		 * focus事件：对话框获得焦点时触发
+		 * dragStart事件：对话框被拖动之前触发
+		 * drag事件：对话框被拖动时触发
+		 * dragStop事件：对话框被拖动以后触发
+		 * resizeStart事件：对话框被改变大小以前触发
+		 * resize事件：对话框被改变大小时触发
+		 * resizeStop事件：对话框被改变大小后触发
+		 * close事件：对话框被关闭时触发
+		 * 进度条组件
+		 * $(selector).progressbar([options]);
+		 * options参数可接受如下值：
+		 * disables：是否禁用该组件，可以在初始化的时候设置该组件
+		 * value：初始化进度条的值
+		 * 进度条组件的方法
+		 * 除了destroy、disable、enable、option、widget这五个方法还有一个value方法
+		 * 可用来获取或者设置进度条的值
+		 * 进度条组件的事件：
+		 * change事件：当进度条的值发生改变时调用
+		 * 
+		 * 滑块组件
+		 * $(selector).slider([options]);
+		 * 滑块组件的方法
+		 * 除了destroy、disable、enable、option、widget方法外还有
+		 * value方法：获取或者设置一个值，该方法适用于只有一个拖动手柄的滑块组件
+		 * values方法：获取或者设置一个值的数组，该方法适用于多个拖动手柄的滑块组件
+		 * 滑块组件的事件
+		 * start事件：当用户开始滑动拖动手柄时触发
+		 * slide事件：当用户滑动拖动手柄时触发
+		 * change事件：当使用value或values方法设置拖动手柄的值或用户滑动拖动手柄以后触发
+		 * stop事件：当用户停止滑动拖动手柄时触发
+		 * 选项卡组件
+		 * $(selector).tabs([options]);
+		 * 选项卡组件的方法
+		 * add：通过编程方式增加选项卡，并在参数中指明选项卡内容的url、label和索引
+		 * remove：通过编程方式移除指定索引的选项卡
+		 * enable：启用指定索引的选项卡
+		 * disable：禁用指定索引的选项卡
+		 * select：选择指定索引的选项卡
+		 * load：通过编程方式重新加载一个选项卡
+		 * url：更改Ajax远程选项卡要加载的URL
+		 * length：获取第一个匹配的选项卡面板包含的选项卡数目
+		 * abort：终止选项卡上正在进行的Ajax和动画
+		 * rotate：设置自动切换各个选项卡
+		 * 选项卡组件的事件
+		 * select事件：当单击一个选项卡的时候触发此事件
+		 * remove事件：移除一个选项卡时触发此事件
+		 * load事件：加载远程选项卡内容以后触发此事件
+		 * enable事件：启用一个选项卡时触发此事件
+		 * show事件：显示一个选项卡时触发此事件
+		 * disable事件：禁用一个选项卡时触发此事件
+		 * add事件：添加一个选项卡时触发此事件
+		 * 
+		 */
+		
+		$("#jQuery_accoradion_area").accordion(
+			{
+				autoHeight: true,
+				icons:{
+					header: "ui-icon-circle-arrow-e",
+					headerSelected: "ui-icon-circle-arrow-s"
+				},
+				header: "div h1",
+				//设置为自动填充父元素空间
+				fillSpace: true
+			}
+			//要使用sortable()来是实现折叠面板项的排序功能，必须将h1和对应的div再用一个容器包裹起来
+			//这样就还需要用header来确定h1的位置
+		).sortable();
+		var autoCompleteList = ["jsp","php","PHP","javascript","java"]
+		$("#searchBox").autocomplete({
+			source: autoCompleteList,
+			minLength: 2
+		});
+		$("#jQuery_button_area input").button(
+			{
+				icons: {
+					primary: "ui-icon-locked"
+				}
+			}
+		)
+		$("#jQuery_button_area").find(":not(input)").button(
+			{
+				icons: {
+					secondary: "ui-icon-triangle-1-s"
+				}
+			}
+		)
+		//创建一个符合中国人使用习惯的日历
+		$("#inputDate").datepicker(
+			{
+				//区域化周名为中文
+				dayNamesMin:["日","一","二","三","四","五","六"],
+				//每周从周一开始
+				firstDay: 1,
+				//区域化月名为中文习惯
+				monthNames:["1月","2月","3月","4月","5月","6月","7月",
+				"8月","9月","10月","11月","12月"],
+				//月份显示在年后面
+				showMonthAfterYear: true,
+				//年份后缀字符
+				yearSuffix: "年",
+				//格式化中文日期（月份中已经添加了"月"字，所以省略）
+				dateFormat: "yy年MMdd日",
+				//可以选择月份
+				changeMonth: true,
+				//可以选择年份
+				changeYear: true,
+				//显示按钮面板
+				showButtonPanel: true,
+				//设置当前日期按钮上的文本
+				currentText: "今天",//默认为Today
+				//设置关闭按钮上的文本
+				closeText: "关闭",//默认为Done
+				//显示多个月份的日期
+				numberOfMonths: 3,
+				//设置当前月份显示在哪个位置
+				showCurrentAtPos: 1,
+				//翻页时一次跳过n个月份
+				stepMonths: 2
+			}
+		);
+		//以对话框形式显示出日期选择器
+		$("#inputDate2").datepicker();
+		$("#datepickerBtn").bind("click",function(){
+			$("#inputDate2").datepicker("dialog","",function(dateText,inst){
+				$("#inputDate").val(dateText);
+			});
+		});
+		$("#dialogDiv").dialog(
+			{
+				//初始化对话框为一个模式对话框,设置之后对话框范围变为全屏，下面的内容点不到
+				modal: true,
+				//如果为true在初始化的时候自动打开，如果为false则保持隐藏状态，直到调用打开方法时才打开
+				autoOpen: false,
+				//设置出现对话框的动画
+				show: "blind",
+				//设置关闭对话框时的动画
+				hide: "explode"
+			}
+		);
+		function showDialog(){
+			$("#dialogDiv").dialog("open");
+		}
+		
+		$("#progressbarDiv").progressbar(
+			{
+				value: 0,
+				change: function(event,ui){
+					var value = $(this).progressbar("value");
+					if(value == 100){
+						$("#progress").html("完成")
+					}else{
+						$("#progress").html("当前进度："+parseInt(value*10)/10+"%");
+					}
+				}
+			}
+		)
+		function changeProgressbarValue(){
+			var value = $("#progressbarDiv").progressbar("value");
+			value += Math.random()*5;
+			if(value<100){
+				$("#progressbarDiv").progressbar("value",value);
+				setTimeout(changeProgressbarValue,100);
+			}else{
+				$("#progressbarDiv").progressbar("value",100);
+			}
+		}
+		$("#progressbarStart").click(changeProgressbarValue);
+		
+		$("#sliderDiv").slider(
+			{
+				max: 12,
+				min: 2,
+				//自动创建两个滑块，来取一个范围的值，为true时values长度大于2时values无效
+//				range: true,
+				//可用于创建多个滑块
+				values: [3,8,11],
+				//设置滑动时动画速度:"slow"、"normal"、"fast"或时间（毫秒）
+				animate: "normal",
+				stop: function(event,ui){
+					var value = $(this).slider("values");
+					$("#sliderValue").html("第一个滑块值为:"+value[0]);
+				}
+			}
+		);
+		
+		$("#tabsDiv").tabs();
+		$("#tabsDiv>ul").sortable({axis:'x'});
+		
+		
+		/*
+		 * 页面动画效果组件(注意：jQueryui文件要放在jQuery文件之后)
+		 * $(selector).addClass(class[,duration][,callback]);
+		 * 添加一个样式，class为类名，duration为更改样式的动画持续的时间可选"slow"、"normal"、"fast"或毫秒
+		 * callback为效果结束后执行的回调函数
+		 * $(selector).removeClass(class[,duration]);
+		 * 删除一个样式，class为类名，duration为更改样式的动画持续的时间可选"slow"、"normal"、"fast"或毫秒
+		 * callback为效果结束后执行的回调函数
+		 * $(selector).toggleClass(class[,duration]);
+		 * 切换添加或删除一个样式，class为类名，duration为更改样式的动画持续的时间可选"slow"、"normal"、"fast"或毫秒
+		 * callback为效果结束后执行的回调函数
+		 * $(selector).switchClass(remove,add[,duration][,callback])
+		 * 将选择器中的元素删除某个类，添加另一个类
+		 * remove为要移除的类名，add为要添加的类名，duration为更改样式的动画持续的时间可选"slow"、"normal"、"fast"或毫秒
+		 * callback为效果结束后执行的回调函数
+		 * $(selector).show(effect[,option][,speed][,callback]);
+		 * 显示一个隐藏的元素
+		 * effect表示一个特效字符串，包括：blind、clip、drop、explode、fold、puff、slide、scale、size等
+		 * options表示effect参数指定的特效自身的选项
+		 * $(selector).hide(effect[,option][,speed][,callback]);
+		 * 隐藏一个显示的元素
+		 * effect表示一个特效字符串，包括：blind、clip、drop、explode、fold、puff、slide、scale、size等
+		 * options表示effect参数指定的特效自身的选项
+		 * $(selector).toggle(effect[,option][,speed][,callback]);
+		 * 来回切换显示/隐藏效果
+		 * effect表示一个特效字符串，包括：blind、clip、drop、explode、fold、puff、slide、scale、size等
+		 * options表示effect参数指定的特效自身的选项
+		 * $(selector).animate(styleObject[,duration]);
+		 * 扩展了animate的功能，能够动态改变颜色，并大量使用了类迁移特性
+		 * styleObject为要改变的样式组，duration表示动画持续事件
+		 * $(selector).effect(effect[,{}][,time][,callback]);
+		 * effect构造函数不仅接收表示任意特效的字符串参数，还可接受3个附加参数以控制特性的功能。这些参数可选的，如下：
+		 * effect参数：
+		 * blind:百叶窗
+		 * bounce:震荡
+		 * clip:剪辑
+		 * drop:下落
+		 * explode:爆炸
+		 * fold:折叠
+		 * highlight:高亮
+		 * puff:消失
+		 * pulsate:闪烁
+		 * scale:按比例缩放
+		 * shake:晃动
+		 * size:改变大小
+		 * slide:滑动
+		 * transfer:迁移
+		 * 第二个参数包含了附件赔指数型的对象
+		 * mode可接受show，hide和toggle三个值，表示效果的展示模式
+		 * direction表示特效方向
+		 * 第三个参数为整数，代表了特效所持续的毫秒数，或是一个字符串：slow、normal、fast
+		 * 第四个参数为回调函数，特效执行完毕后执行
+		 * 
+		 * 
+		 * 
+		 */
+//		$("#effectDiv1").addClass("effectDiv1_class2",5000,function(){
+//			console.log("success to add the class");
+//		})//移除样式
+		//.removeClass("effectDiv1_class2",5000);
+		$("#effectBtn").live("click",function(){
+			$("#effectDiv1").toggleClass("effectDiv1_class2",2000);
+			//从百分之五十的比例开始变化到完全出现时的大小
+			$("#effectDiv2").show("scale",{percent: 50},2000,function(){
+				$(this).hide("fold",2000,function(){
+					//从指定尺寸缩小到最后尺寸
+					$(this).show("size",{to:{width:200,height:180}},2000,function(){
+						$(this).effect("size",{mode:"hide",to:{width:10,height:10}},2000);
+					});
+				});
+			});
+			
+		})
+		$("#effectBtn2").live("click",function(){
+			$("#effectDiv1").switchClass("effectDiv1_class2","effectDiv1_class3",5000,function(){
+				console.log(1);
+			});
+		})
+		/*
+		 * jQuery ui功能函数
+		 * $.param(obj[,traditional]);
+		 * 将表单元素数组或jQuery对象进行序列化操作，元素名和值会用&连接，
+		 * 此方法通常用于在发送GET请求时，将对象作为参数传给服务器
+		 * obj参数列表如下
+		 * objArray<elements>,jQuery,Object
+		 * 其中数组和jQuery对象会按照name/value对进行序列化，而普通对象则按照key/value对进行序列化
+		 * 第二个参数为可选参数：boolean
+		 * contains()方法用于找到包含指定内容的某一节点
+		 * $.isFunction()方法用于测试对象是否为函数
+		 * $.isArray()方法用于测试对象是否为数组
+		 * $.isEmptyObject()方法用于判断对象是否为空
+		 * isPlainObject()方法用于检测对象是否为纯粹的对象，纯粹的对象是指用"{}"或者"new Object"创建的对象
+		 * $.proxy(obj,func);例子：
+		 * var obj = {
+		 * 	name : "abc",
+		 *  test : function(){
+		 * 		console.log(this.name);
+		 *  }
+		 * }
+		 * $("#btn").click(obj.test);
+		 * 点击按钮得不到输出obj中name的属性值，因为jQuery默认会吧处理器的上下文指定为目标元素本身，
+		 * 也就是说这时候this指向的是$("#btn")对象。而想要让this继续指向obj，就可以使用proxy函数
+		 * $("#btn").click($.proxy(obj,"test"));
+		 * $.each(object,function(i,n){});
+		 * 参数object为要遍历的数组或对象，function为回调函数，i为数组的索引或对象的属性名
+		 * n为数组的索引i对应的索引值，或对象的属性i对应的属性值
+		 * 当object为数组时，可通过函数返回false来终止迭代，而object则不行
+		 * $.map(array,function(i){});
+		 * array表示需要改变的数组，function的i参数为数组中的每一个元素(值)
+		 * function函数可以返回转换后的数组、null（return null时删除当前元素），或者是一个包含原数组元素的新数组
+		 * merge()方法用于合并两个数组
+		 * $.unique()方法可用来删除数组中重复的元素，但只能用来处理dom元素的数组，而不能处理字符串或者数字数组
+		 * $.grep(array,function(a,i){},boolean);筛选数组中的元素
+		 * 第一个参数为需要操作的数组，a为数组中的元素，i为索引，当第四个参数为false（默认）时，
+		 * 返回函数返回为true的值，若为true则返回函数中返回为false的值
+		 * extend(dest,src1,src2..)方法用于返回第二个及以后的对象合并到第一个对象中（相同属性，后面的替换前面的）后的对象
+		 * dest可取{}(空对象)
+		 * makeArray()方法用于将类数组对象集()转换为数组对象，然后就可以进行相关的数组操作
+		 * toArray()方法用于将所有DOM元素恢复成一个数组
+		 * inArray(value,array)用于查找一个元素是否在数组内，value为要查找的元素，array为目标数组
+		 * 若有则返回索引值，若不存在则返回-1
+		 * parseJSON()方法用于解析JSON字符串，如果传入的是一个畸形的JSON(属性名要有双引号)字符串就会抛出异常
+		 * trim()方法用于去掉字符串开始和结尾未知的空格
+		 * 
+		 */
+		var obj1 = {
+			name: "user",
+			psd: "password",
+			test: function(){
+				console.log(this.name);
+			}
+		}
+		var obj2 = {
+			name: "tom",
+			
+		}
+		console.log($.param(obj1));
+		var containsDiv = document.getElementsByTagName("div");
+		console.log($("div:contains('caicaiwoshish'):eq(2)").html());
+		function test(){
+			console.log(this.name);
+		}
+		var arr1 = [1,2,3];
+		console.log("test()为函数吗？ "+$.isFunction(test));//true
+		console.log("test()为空对象吗？ "+$.isEmptyObject(test));//true
+		console.log("arr1为空对象吗？ "+$.isEmptyObject(arr1));//false
+		console.log("arr1为纯粹的对象吗？ "+$.isPlainObject(arr1));//false
+		console.log("obj1为纯粹的对象吗？ "+$.isPlainObject(obj1));//true
+//		test.call(obj1);
+		$("#btn3").click($.proxy(obj1,"test"));
+		$.each(arr1,function(i,n){
+			if(i>0){
+				return false;
+			}
+			console.log(i+":"+n);
+		});
+		//返回包含原数组的数组(一维数组)
+		var newArray = $.map(arr1,function(i){
+			return [i, i+10];
+			
+		});
+		console.log(newArray);
+		//获得div
+		var div1 = $("div").get();
+		console.log(div1);
+		//通过选择器选择得到的元素集合不能使用js的数组
+		var arr3 = $("#makeArrayDiv div");
+		var arr4 = $.makeArray(arr3);
+//		arr3.reverse();//报错
+		arr4.reverse();
+		$("#makeArrayDiv").append(arr4);
+		var str = "  awefaewfawefawef   ";
+		console.log(str);
+		console.log($.trim(str));
+//		$.extend({
+//			sayYes : function(){
+//				alert("yes");
+//			}
+//		});
+//		$.sayYes();
+		//$(this)将this引用的DOM元素转化成一个jQuery对象
+		
+		/*
+		 * 开发jQuery插件注意事项：
+		 * 1.必要的注释
+		 * 2.全局函数的拓展
+		 * jQuery.extend({})
+		 * 3.jQuery元素集方法的拓展
+		 * jQuery.fn.extend({})
+		 * 4.要在不同的浏览器中全面测试插件，非常重要
+		 * 5.保持插件的连缀
+		 * jQuery方法都有连缀的功能，所以拓展的方法必须返回jQuery对象，
+		 * 如果特殊情况下返回值不能保持为一个jQuery对象，那么必须加以说明
+		 * 返回jQuery对象的方法:
+		 * 最简单的方法就是在方法内部调用each()方法，如果使用each来迭代this，那么在方法内就可以直接返回它的结果
+		 * //前面说的使用extend方法来扩展函数或方法只是一种方法，下面这种方法也行
+		 * //添加多个方法的时候最好使用extend()方法来拓展
+		 * jQuery.fn.sayHello = function(){
+		 * 	return this.each(function(){
+		 * 	 	alert("您好"+this);
+		 * 	})
+		 * }
+		 * 6.为插件设置默认值
+		 * 在jQuery方法中经常带有可以省略参数的方法出现，实现方法为使用extend()方法的替换功能
+		 * 即先定义一个对象保存默认属性值，当参数以对象传递进来时，就可以使用extend(default,options)来
+		 * 将default中没有的options中有的参数添加给default，两者都有的参数用options替换掉default中的
+		 * 7.使用闭包
+		 * var C;
+		 * function A(){
+		 * 	var B = function(){
+		 * 		alert(1);
+		 *  }
+		 *  C = B;
+		 * }
+		 * A();
+		 * C();
+		 * 这样就是闭包，即将函数内部的函数赋值给全局变量C，这样就能在外部调用函数B
+		 * 使用闭包可以实现，插件内部的变量无法访问，而内部的方法可以访问，同时很好的兼容了操作符$和jQuery，应用如下：
+		 * (function($){
+		 * 		//代码....
+		 * })(jQuery)
+		 * 8.选择器的效率
+		 * (1)尽量使用id选择器，能使范围最大限度的缩小
+		 * (2)避免使用样式选择器，如果要使用样式选择器，就应该尽量明确指明指定的标签名，来缩小范围
+		 * (3)避免使用迭代方式，若使用了迭代方式（例如：$("div .divClass1")），jQuery会不断的
+		 * 深层遍历来获取指定的DOM元素，若不得不使用，也应该使用诸如$(selector,context)、
+		 * $(selector1>selector2)、$(selector1).children(selector2)、
+		 * $(selector1).find(selector2)之类的方法
+		 * $(selector,context)是在context（dom元素或jQuery对象）的范围内寻找满足selector的值
+		 * 
+		 * 
+		 * 
+		 */
+		console.log($("input","#myInputs"));
+		var btn1 = $("input[id=btn]");
+		console.log(btn1.val());
+		var obj = {
+		  	name : "abc",
+		    test : function(){
+		  		console.log(this.value);
+		    }
+		}
+		$("#btn4").click(obj.test);
+		
+		$(function() {  
+  
+              //插件的调用  
+  			
+            $("#datepicker").datepicker({
+  
+                  //在这里进行插件的属性设置  
+  				
+            });  
+            $("#showCalendar").datepicker({
+            	
+            });
+            $("#showCalendar").blur(function(){
+            	$(this).val("显示日历");
+            })
+  
+        });  
+        setTimeout(function(){
+        	$("#ui-datepicker-div").css("display","block");
+        },300)
+	</script>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    	*{
+    		margin: 0;
+    		padding: 0;
+    	}
+    	#box{ 
+	        width:200px; 
+	        background:blue; 
+	        height:200px;
+			overflow: hidden;
+		} 
+
+		#content{ 
+		    float:left; 
+		    width:300px; 
+		    height:300px; 
+		    background:red;
+		} 
+		
+		.text{
+            background: grey;
+            border: 1px solid gold;
+        }
+        .text:after{
+            display:block;
+            clear:both;
+　　　　　　　	content:" .";
+            visibility:hidden;
+            height:0;
+        }
+        
+    </style>
+</head>
+<body>
+<p>方法1</p>
+<div style="background: grey;border: 1px solid gold; ">
+	 
+    <div style="float: left; background:#cccccc; line-height:100px;">left</div>
+    <div style="float: right; background:#cccccc; line-height:200px;">right</div>
+    <div style="clear:left"></div>
+</div>
+<p>方法2</p>
+<div style="background: grey;border: 1px solid gold; overflow: hidden; zoom:1;">
+    <div style="float: left; background:#cccccc; line-height:100px;">left</div>
+    <div style="float: right; background:#cccccc; line-height:200px;">right</div>
+</div>
+<div id="box">
+	<div id="content">
+		
+	</div>
+</div>
+<p>方法3</p>
+<div class="text">
+    <div style="float: left; background:#cccccc; line-height:100px;">left</div>
+    <div style="float: right; background:#cccccc; line-height:200px;">right</div>
+</div>
+
+<p>方法4</p>
+<div style="background: grey;border: 1px solid gold; width:500px; float: left;">
+	<!--只有设置了元素的宽度的时候才能显示效果-->
+    <div style="float: left; background:#cccccc; line-height:100px;">left</div>
+    <div style="float: right; background:#cccccc; line-height:200px;">right</div>
+</div>
+<!--
+	
+	清除浮动的几种方式：(详见：http://www.cnblogs.com/wangrongxiang/p/5213603.html)
+	1.使用空标签清除:
+	空标签可以是div标签，也可以是P标签。这种方式是在需要清除浮动的父级元素内部的所有浮动元素后添加这样
+	一个标签清除浮动，并为其定义CSS代码：clear:both。此方法的弊端在于增加了无意义的结构元素。
+	对于使用额外标签清除浮动（闭合浮动元素），是W3C推荐的做法。至于使用<br />元素还是空<div></div>
+	可以根据自己的喜好来选（当然你也可以使用其它块级元素）。不过要注意的是，<br />本身是有表现的，它会多出一个换行出来，
+	所以要设定它的height为0，以隐藏它的表现。所以大多数情况下使用空<div>比较合适。
+		
+	根据猜测的浮动的效果，就是把外部div的高度强行拉到要清除浮动效果的那个float元素之下，同时，因为div本身高度为0，所以看上去就是清除了浮动。
+	
+	2.使用overflow属性
+	 此方法有效地解决了通过空标签元素清除浮动而不得不增加无意代码的弊端。使用该方法是只需在需要清除浮动的元素中定义CSS
+	 属性：overflow:auto，即可！也可以用overflow:hidden；”zoom:1″用于兼容IE6，也可以用width:100%。
+	 不过使用overflow的时候，可能会对页面表现带来影响，而且这种影响是不确定的，你最好是能在多个浏览器上测试你的页面。
+	
+	当我们给box这个div加上overflow:hidden这个属性的时候，其中的content 等等带浮动属性的div的在这个立体的浮动已经被清除了。
+	此时如果没有给box这个div设置height则它会被content这个div给撑开（毕竟浮动已经被清除了）
+	
+	3.使用after伪对象清除浮动
+	 该方法只适用于非IE浏览器 。具体写法可参照以下示例。使用中需注意以下几点。
+	 一、该方法中必须为需要清除浮动元素的伪对象中设置height:0，否则该元素会比实际高出若干像素；
+	 二、：从content属性是必须的，但其值可以为空，蓝色理想讨论该方法的时候content属性的值设为”.”，但我发现为空亦是可以的
+	 
+	不是很懂！好像是类似与添加一个内容，然后进行隐藏，同时height设置为0，在进行clear:both清除浮动。
+	:after 选择器在被选元素的内容后面插入内容。
+	请使用 content 属性来指定要插入的内容。
+	
+	4.浮动外部元素
+	这种方法很简单，就是把“#outer”元素也进行浮动（向左或者向右）。但是这种方法带来的别外一个问题就是和父级相邻的下一个元素会受到父级的影响位置
+	会产生变化，所以使用这种方法一定要小心。有选择把页面中的所有元素都浮动起来，最后使用一个适当的有意义的元素（比如页脚）进行清理浮动，
+	这有助于减少不必要的标记，但是过多的浮动会增加布局的难度。（这时候元素不会独占整行，因为元素也被设置为浮动类型了）
+	
+	所有的元素都浮动到了同一层，当然不需要再清除浮动，但是因为元素的表现变成行内块状元素了所以要再设置高宽。
+-->
+</body>
+</html>
+

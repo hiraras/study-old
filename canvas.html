@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			canvas{
+				width: 600px;
+				height: 450px;
+				background: gray;
+				margin-left: 50px;
+				margin-top: 50px;
+			}
+			.testBGImgDiv{
+				background: url('./img/01.jpg') no-repeat;
+				background-size: 100% 100%;
+				width: 800px;
+				height: 600px;
+				border: 1px solid black;
+				margin: 20px auto 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas">您的浏览器不支持canvas标签</canvas>
+		<div class="testBGImgDiv"></div>
+	</body>
+	<script>
+		var canvas = document.querySelector('canvas');
+		var ctx = canvas.getContext('2d');
+		canvas.addEventListener('click', function(e){
+			console.log(e);
+		});
+	</script>
+</html>

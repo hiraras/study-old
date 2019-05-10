@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script>
+		<title></title>
+		<style>
+			/*
+			 *div .div1表示div标签下一层中有应用类选择器div1的那个元素
+			 *div.div1表示使用了div1类选择器的那个div
+			 * */
+			div.div1{
+				height: 200px;
+				width: 300px;
+				border: 2px solid red;
+			}
+			p{
+				color: red;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="#"/>
+	</head>
+	<body>
+		<!--
+        	作者：kazilagui@163.com
+        	时间：2017-08-26
+        	描述：position的层级高于float,relative层级和absolute相同，但是absolute是完全脱离了文档，而relative的"本体"
+        	还在文档中
+        -->
+        <div style="width:100px;height:80px;position:absolute;background: yellow;top:50px;">absolute</div>
+		<div style="width:100px;height:80px;position:relative;background: blue;top:50px;">relative</div>
+		
+		<div style="width:300px;height:250px;float:left;background: purple;"></div>
+		
+		<a href="#mao1"><h1 style="text-align: center;">点击跳转到下面位置</h1></a>
+		<div class="div1" name = "myDiv" id = "div1">
+			<div>
+				<div>
+					<button>a</button>
+					<button>b</button>
+				</div>
+				<div>c</div>
+				<div>d</div>
+			</div>
+		</div>
+		<div>
+			<div class="div1" name = "myDiv">
+			
+			</div>
+		</div>
+		<hr />
+		<span style="border:1px solid blue;height: 30px;width: 50px;"></span>
+		<script type="text/javascript">
+			var oDiv = document.getElementsByName("myDiv")[0];	
+			oDiv.onclick = function(){
+				oDiv.innerHTML = "点击了我";
+				oDiv.setAttribute("style","border:2px solid green");
+				console.log(oDiv.nodeName);
+				console.log(oDiv.nodeType);
+			}
+			function get_nextSiling(x){
+				x = x.nextSibling;
+				while(x.nodeType!=1){
+					x = x.nextSibling;
+				}
+				return x;
+			}
+			var oDiv2 = document.getElementById("div1");
+			//console.log(oDiv2.firstChild);
+			console.log(get_nextSiling(oDiv2.firstChild).childNodes);
+			//获取浏览器当前状态时窗口的宽
+			console.log(document.body.clientWidth);
+		</script>
+		<a id="mao1">
+			<pre>
+				这了是pre
+			</pre>
+		</a>
+		<button onclick="testToggle()">点击</button>
+		<div style="background-color: red;height:200px;width:250px;" id="div2"></div>
+		<div id="documentFragmentContainer">
+			
+		</div>
+		<div id="container">
+			<input type="text" id="txt" />
+			<button onclick="addEle()">添加</button>
+		</div>
+		
+		<div style="background-color: #ccc;width: 60px;">
+			<p style="margin:30px;background-color: #9c6;padding: 30px;">awefwaef</p>
+		</div>
+		<div style="width:100px;height:100px;background:red;">
+			<div style="width:40px;height:40px;background:blue;padding:0px 30px 10px 30px;"></div>
+		</div>
+		
+		<script>
+			function testToggle(){
+				$("#div2").toggle("slow");
+			}
+			/*创建一个文档碎片，先把内容添加到碎片中，在添加到body中，这样就只需要加载一次，而不需要反复加载,节省时间
+			var docFragContainer = document.getElementById("documentFragmentContainer");
+			var docFrag = document.createDocumentFragment();
+			for(var i=0;i<10000;i++){
+				var ele = document.createElement("span");
+				ele.innerHTML = "这是一个span";
+				docFrag.appendChild(ele);
+			}
+			docFragContainer.appendChild(docFrag);
+			console.log(ele.childNodes[0]);
+			*/
+			var container = document.getElementById("container");
+			var txt = document.getElementById("txt");
+			
+			var eleP = document.createElement("p");
+			eleP.innerHTML = "这是一个div?";
+			//replaceData适用于文本节点,第一个属性为开始的位置，第二个为长度，第三个替换的文本
+			eleP.childNodes[0].replaceData(4,2,"p");//di换成了p
+			container.appendChild(eleP);
+			var i=0;
+//			var str;
+			function addEle(){
+				//使用str="xxx"调用show显示的为和i一样的最终的值即当前str的值，而不是依次传递，而txt.value赋值则每次show的
+				//str都会保存
+				var str = txt.value;
+				
+				console.log(str);
+				i++;
+				var ele = document.createElement("p");
+				ele.innerHTML = "这是第"+i+"个p";
+				ele.setAttribute("id",str);
+				var btn = document.createElement("button");
+				btn.innerHTML = "点击";
+				btn.onclick = function(){
+					show(str);
+				}
+				container.appendChild(ele);
+				container.appendChild(btn);
+			}
+			function show(txt){
+				console.log(txt);
+			}
+			//修改style标签内，选择器内的属性
+			document.styleSheets[0].cssRules[1].style.color = "green";
+			/*
+			 *  兼容方式
+			 *  var ocssRules=document.styleSheets[0].cssRules || document.styleSheets[0].rules || window.CSSRule.STYLE_RULE;  
+		        var theEl=$("div1");  
+		        ocssRules[0].style.background="yellow";  
+		        alert(ocssRules[0].style.background);  
+			 * */
+			testShangxiawen();
+			function testShangxiawen(){
+				for(var i=0;i<10;i++){
+					createShangxiawen(i);
+					
+				}
+			}
+			function createShangxiawen(i){
+				setTimeout(function(){
+					console.log(i);
+				},i*1000);
+			}
+		</script>
+	</body>
+</html>

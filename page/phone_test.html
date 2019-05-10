@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../common/js/h5rem-reset.js"></script>
+		<link rel="stylesheet" type="text/css" href="../common/css/common.css"/>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			.header{
+				background: #35CBDB;
+				width: 37.5rem;
+				text-align: center;
+			}
+			.header .step_num {
+				display: inline-block;	
+			}
+			.header .line{
+				background: #FFFFFF;
+				height: 0.1rem;
+				width: 7.5rem;
+				float: left;
+				margin-top: 1.45rem;
+				margin-right: 0.8rem;
+			}
+			.header .num{
+				width: 2rem;
+				height: 2rem;
+				line-height: 2rem;
+				border-radius: 100%;
+				font-size: 1.3rem;
+				font-family: "PingFangSC-Semibold";
+				color: #35CBDB;
+				text-align: center;
+				background: #FFFFFF;
+				float: left;
+				margin-top: 0.5rem;
+				margin-right: 0.8rem;
+			}
+			.header .step_title{
+				display: inline-block;
+			}
+			.header .step_title .title{
+				color: #FFFFFF;
+				font-size: 1rem;
+				font-family: "PingFangSC-Regular";
+				float: left;
+				margin-right: 5.85rem;
+				padding-bottom: 0.7rem;
+			}
+			.header .top{
+				background: #35CBDB;
+				height: 6.4rem;
+				margin: 0 auto;
+				display: inline-block;
+			}
+			.header .top p{
+				color: #FFFFFF;
+				font-size: 1.6rem;
+				font-family: "PingFangSC-Regular";
+				float: left;
+				margin-top: 3.15rem;
+			}
+			.header .top .top_title{
+				font-size: 1.8rem;
+				font-family: 'PingFangSC-Semibold';
+				margin-left: 10.3rem;
+				margin-right: 7.15rem;
+				margin-top: 3.15rem;
+			}
+			.require img{
+				width: 0.95rem;
+				height: 0.95rem;
+				margin-left: 1.5rem;
+					
+			}
+			.require .content{
+				font-size: 1.4rem;
+				color: #666666;
+				font-family: "PingFangSC-Regular";
+			}
+			.require .content span{
+				color: #FF5E00;
+				font-size: 1.3rem;
+			}
+			.require .tip{
+				width: 21rem;
+				font-size: 1.2rem;
+				color: #FF5E00;
+				font-family: "PingFangSC-Medium";
+				text-align: center;
+				margin: 0 auto;
+				margin-top: 2.35rem;
+			}
+			.start_btn{
+				background: #35CBDB;
+				text-align: center;
+				color: #FFFFFF;
+				font-size: 1.8rem;
+				font-family: "PingFangSC-Medium";
+				width: 34.5rem;
+				height: 4.5rem;
+				line-height: 4.5rem;
+				border-radius: 0.4rem;
+				margin: 0 auto;
+			}
+			.count_down{
+				background: rgba(0,0,0,0.8);
+				font-size: 1.7rem;
+				color: #FFFFFF;
+				font-family: "PingFangSC-Medium";
+				height: 5rem;
+				line-height: 5rem;
+				text-align: center;
+			}
+			#hour{
+				margin-left: 1.3rem;
+			}
+			.count_down span{
+				color: #FF5E00;
+				font-size: 2rem;
+			}
+			.count_down .submit_btn{
+				width: 5rem;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				text-align: center;
+				background: #FFFFFF;
+				border-radius: 0.4rem;
+				display: inline-block;
+				color: #35CBDB;
+				font-family: "PingFangSC-Medium";
+				font-size: 1.4rem;
+				margin-left: 5rem;
+				margin-right: 2.45rem;
+			}
+			.last_time_tip{
+				position: relative;
+				height: 3rem;
+				background: #FFEFEF;
+				text-align: center;
+				color: #FE3439;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.2rem;
+				line-height: 3rem;
+			}
+			.last_time_tip #countDownTip{
+				position: absolute;
+				right: 3.25rem;
+				top: 0;
+				bottom: 0;
+				color: #AAAAAA;
+				font-family: "PingFangSC-Medium";
+				font-size: 0.8rem;
+			}
+			
+			.alert{
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.6);
+			}
+			.alert .alert_area{
+				position: absolute;
+				width: 27rem;
+				height: 14rem;
+				border-radius: 1.2rem;
+				background: #FFFFFF;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto auto;
+			}
+			.alert .alert_area .alert_content{
+				color: #666666;
+				font-size: 1.6rem;
+				font-family: "PingFangSC-Regular";
+				width: 15rem;
+				text-align: center;
+				margin: 0 auto;
+				margin-top: 2.5rem;
+			}
+			.alert .alert_area .alert_line{
+				width: 25.65rem;
+				height: 0.1rem;
+				background: #ECECEC;
+				margin: 0 auto;
+			}
+			.alert .alert_area .alert_top{
+				height: 8.95rem;
+				padding: 1px;
+			}
+			.alert .alert_area .alert_btn{
+				line-height: 5rem;
+				text-align: center;
+				width: 50%;
+				float: left;
+				color: #35CBDB;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.8rem;
+			}
+			.congratulation{
+				height: 15rem;
+				background: url(../img/jyxb_kaohe_phone/congratulation.png) no-repeat center center;
+				background-size: 100% 100%;
+				position: relative;
+				margin-top: 20rem;
+			}
+			.congratulation .congratulation_content{
+				position: relative;
+				text-align: center;
+				top: -3rem;
+			}
+			.congratulation_content .font1{
+				color: #FF5E00;
+				font-family: "PingFangSC-Medium";
+				font-size: 2rem;
+				vertical-align: bottom;
+			}
+			.congratulation_content .font2{
+				color: #222222;
+				font-family: "PingFangSC-Medium";
+				font-size: 1.4rem;
+				margin-top: 1.7rem;
+			}
+			.congratulation_content img{
+				height: 5.35rem;
+				width: 6.1rem;
+				margin-left: -5rem;
+			}
+			.result .result_font1{
+				color: #FF5E00;
+				font-family: "PingFangSC-Medium";
+				font-size: 3rem;
+				text-align: center;
+				margin-top: 8.5rem;
+			}
+			.result .result_font2{
+				color: #666666;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.5rem;
+				text-align: center;
+				margin-top: 1.95rem;
+			}
+			.result .result_font3{
+				color: #4A4D55;
+				font-family: "PingFangSC-Medium";
+				font-size: 3rem;
+				text-align: center;
+				margin-top: 4.8rem;
+			}
+			.result .result_font4{
+				color: #666666;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.5rem;
+				text-align: center;
+				margin-top: 4.65rem;
+			}
+			.result .watch_again{
+				width: 34.5rem;
+				height: 4.5rem;
+				line-height: 4.5rem;
+				margin: 0 auto;
+				background: #35CBDB;
+				border-radius: 0.4rem;
+				color: #FFFFFF;
+				text-align: center;
+				font-size: 1.8rem;
+				font-family: "PingFangSC-Medium";
+				margin-top: 10rem;
+			}
+			.question_area .question_title{
+				margin-left: 1.5rem;
+				color: #222222;
+				font-size: 1.4rem;
+				font-family: "PingFangSC-Medium";
+				margin-top: 2.47rem;
+				display: inline-block;
+			}
+			.question_area .select{
+				width: 34.5rem;
+				margin: 0 auto;
+			}
+			.question_area .select .type1{
+				width: 23%;
+			}
+			.question_area .select .type2{
+				width: 49%;
+			}
+			.question_area .select .type3{
+				width: 100%;
+			}
+			.question_area .select .option:last-child{
+				margin-right: 0;
+				margin-bottom: 0.53rem;
+			}
+			.question_area .option{
+				display: inline-block;
+				margin-top: 1.46rem;
+			}
+			.question_area .option .check_img{
+				width: 1.5rem;
+				height: 1.47rem;
+				background: url(../img/jyxb_kaohe_phone/unchecked.png) no-repeat center center;
+				background-size: 100% 100%;
+				display: inline-block;
+				position: relative;
+				top: 0.2rem;
+			}
+			.question_area .option .checked{
+				background: url(../img/jyxb_kaohe_phone/checked.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			.question_area .option .check_content{
+				font-size: 1.3rem;
+				color: #666666;
+				font-family: "PingFangSC-Regular";
+				display: inline-block;
+				width: 75%;
+				vertical-align: top;
+			}
+			.pay{
+				position: fixed;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.6);
+				display: none;
+			}
+			.pay .pay_content{
+				height: 35.4rem;
+				width: 100%;
+				background: #F7F7F7;
+				position: absolute;
+				bottom: 0;
+			}
+			.pay .pay_content .spzje{
+				font-size: 1.8rem;
+				color: #222222;
+				font-family: "PingFangSC-Regular";
+				text-align: center;
+				margin-top: 1rem;
+				margin-left: 3rem;
+			}
+			.pay .pay_content .pay_close{
+				float: right;
+				margin-right: 1rem;
+				width: 2rem;
+				height: 2rem;
+				margin-top: 1rem;
+			}
+			.pay .pay_content .sum{
+				color: #FF5E00;
+				font-family: "PingFangSC-Medium";
+				font-size: 3rem;
+				text-align: center;
+				margin-top: 0.95rem;
+			}
+			.pay .pay_content .zffs{
+				color: #222222;
+				font-family: "PingFangSC-Medium";
+				font-size: 1.6rem;
+				margin-left: 1.5rem;
+				margin-top: 1rem;
+			}
+			.pay .pay_content .pay_method{
+				height: 6rem;
+				width: 100%;
+				background: #FFFFFF;
+				line-height: 6rem;
+				position: relative;
+			}
+			.pay .pay_content .pay_method .icon{
+				width: 2.495rem;
+				height: 2.5rem;
+				margin-left: 1.5rem;
+				margin-top: 1.7rem;
+			}
+			.pay .pay_content .pay_method span{
+				font-size: 1.4rem;
+				color: #666666;
+				font-family: "PingFangSC-Regular";
+				margin-left: 1rem;
+				position: relative;
+				top: -0.8rem;
+			}
+			.pay .pay_content .pay_method .pay_check{
+				width: 2.35rem;
+				height: 2.35rem;
+				position: absolute;
+				top: 1.95rem;
+				right: 1.55rem;
+			}
+			.pay .pay_content .pay_line{
+				width: 34.5rem;
+				height: 0.05rem;
+				background: #ECECEC;
+				margin: 0 auto;
+			}
+			.pay .pay_content .pay_btn{
+				width: 15rem;
+				height: 5rem;
+				background: #35CBDB;
+				border-radius: 0.4rem;
+				margin: 0 auto;
+				margin-top: 3.1rem;
+				text-align: center;
+				line-height: 5rem;
+				font-family: "PingFangSC-Medium";
+				font-size: 1.8rem;
+				color: #FFFFFF;
+			}
+			.pay .pay_content .loading{
+				background: rgba(0,0,0,0.6);
+				width: 10rem;
+				height: 8rem;
+				border-radius: 1.2rem;
+				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				bottom: 0;
+				margin: auto auto;
+				text-align: center;
+				line-height: 8rem;
+			}
+			.pay .pay_content .loading .loading_img{
+				width: 5rem;
+				height: 5rem;
+				margin-top: 1.55rem;
+			}
+			.zxkh_alert{
+				position: fixed;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.6);
+				display: none;
+			}
+			.zxkh_alert .zxkh_alert_content{
+				width: 27rem;
+				height: 25rem;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: auto auto;
+				background: #FFFFFF;
+				border-radius: 1.2rem;
+			}
+			.zxkh_alert .zxkh_alert_content .zxkh_alert_title{
+				text-align: center;
+				margin-top: 3rem;
+				color: #222222;
+				font-family: "PingFangSC-Medium";
+				font-size: 1.7rem;
+			}
+			.zxkh_alert .zxkh_alert_content .level{
+				text-align: center;
+				font-size: 1.4rem;
+				font-family: "PingFangSC-Regular";
+				color: #666666;
+				margin-top: 2.55rem;
+			}
+			.zxkh_alert .zxkh_alert_content .start_btn{
+				text-align: center;
+				font-size: 1.8rem;
+				font-family: "PingFangSC-Regular";
+				color: #FFFFFF;
+				height: 5rem;
+				width: 20rem;
+				background: #35CBDB;
+				border-radius: 0.3rem;
+				margin: 0 auto;
+				margin-top: 4.35rem;
+			}
+			.zxkh_alert .zxkh_alert_content .dont_start{
+				text-align: center;
+				font-size: 1.6rem;
+				font-family: "PingFangSC-Regular";
+				color: #35CBDB;
+				margin-top: 2.25rem;
+			}
+			.power_tip{
+				position: fixed;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.6);
+				display: none;
+			}
+			.power_tip .power_tip_container{
+				height: 20rem;
+				width: 30rem;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: auto auto;
+				border-radius: 1.2rem;
+				background: #FFFFFF;
+			}
+			.power_tip .power_tip_container .descript{
+				height: 13.75rem;
+				padding-top: 1px;
+			}
+			.power_tip .power_tip_container .descript .font1{
+				text-align: center;
+				color: #222222;
+				font-family: "PingFangSC-Medium";
+				margin-top: 2rem;
+				font-size: 1.7rem;
+			}
+			.power_tip .power_tip_container .descript .font2{
+				text-align: center;
+				color: #666666;
+				font-size: 1.4rem;
+				font-family: "PingFangSC-Regular";
+				margin-top: 1.8rem;
+			}
+			.power_tip .power_tip_container .descript .font3{
+				margin: 0 auto;
+				margin-top: 0.35rem;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.2rem;
+				color: #CCCCCC;
+				width: 27rem;
+			}
+			.power_tip .power_tip_container .descript .remind_again{
+				margin-top: 1rem;
+			}
+			.power_tip .power_tip_container .descript .remind_again img{
+				width: 2.35rem;
+				height: 2.35rem;
+				margin-left: 1.5rem;
+			}
+			.power_tip .power_tip_container .descript .remind_again p{
+				display: inline-block;
+				color: #666666;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.4rem;
+				margin-left: 1rem;
+				position: relative;
+				top: 0.4rem;
+			}
+			.power_tip .power_tip_container .btns{
+				height: 6.25rem;
+			}
+			.power_tip .power_tip_container .btns div{
+				height: 6.25rem;
+				width: 49%;
+				color: #03B1FF;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.7rem;
+				line-height: 6.25rem;
+				text-align: center;
+				display: inline-block;
+			}
+			.device_check{
+				position: fixed;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.6);
+				display: none;
+			}
+			.device_check .device_container{
+				height: 35rem;
+				width: 34.5rem;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: auto auto;
+				border-radius: 1rem;
+				background: #FFFFFF;
+			}
+			.device_check .device_top{
+				margin-top: 3.2rem;
+				text-align: center;
+				position: relative;
+			}
+			.device_check .device_top img{
+				width: 2.1rem;
+				height: 2.1rem;
+				position: absolute;
+				top: 0.2rem;
+				left: 3rem;
+			}
+			.device_check .device_top p{
+				color: #FFFFFF;
+				font-family: "PingFangSC-Semibold";
+				font-size: 1.8rem;
+			}
+			.device_check .device_container .device_content{
+				width: 29.5rem;
+				margin: 0 auto;
+				padding-top: 1px;
+			}
+			.device_check .device_container .device_content .device_title{
+				color: #222222;
+				font-family: "PingFangSC-Medium";
+				font-size: 1.8rem;
+				margin-top: 2.2rem;
+			}
+			.device_check .device_container .device_content .device_content_tip{
+				color: #AAAAAA;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.6rem;
+				margin-top: 2.1rem;
+			}
+			.device_check .device_container .device_content .device_content_tip span{
+				color: #666666;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.6rem;
+				margin-top: 2.1rem;
+			}
+			.device_check .device_container .device_content .device_status{
+				color: #666666;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.6rem;
+				margin-top: 2.45rem;
+			}
+			.device_check .device_container .device_content .canvas{
+				margin-top: 1.1rem;
+				width: 29.5rem;
+				height: 2.5rem;
+				background: #F7F7F7;
+			}
+			.device_check .device_container .device_content .device_result{
+				text-align: center;
+				margin-top: 3.5rem;
+				font-size: 1.6rem;
+				color: #35CBDB;
+				font-family: "PingFangSC-Regular";
+			}
+			.device_check .device_container .device_content .device_result{
+				text-align: center;
+				margin-top: 3.5rem;
+				font-size: 1.6rem;
+				color: #35CBDB;
+				font-family: "PingFangSC-Regular";
+			}
+			.device_check .device_container .device_content .device_complete_btn{
+				width: 15rem;
+				height: 3.5rem;
+				background: #35CBDB;
+				border-radius: 5rem;
+				margin: 0 auto;
+				text-align: center;
+				line-height: 3.5rem;
+				color: #FFFFFF;
+				margin-top: 2.35rem;
+				font-size: 1.6rem;
+				font-family: "PingFangSC-Regular";
+			}
+			.device_check .microphone_btn{
+				position: absolute;
+				top: 54.55rem;
+				width: 100%;
+			}
+			.device_check .microphone_btn .set_center{
+				position: relative;
+				display: inline-block;
+				left: 50%;
+				width: 3rem;
+				height: 3rem;
+			}
+			.device_check .microphone_btn img{
+				position: relative;
+				left: -50%;
+			}
+			.device_check .microphone_btn p{
+				display: inline-block;
+				position: relative;
+				left: -55%;
+				color: #35CBDB;
+				font-family: "PingFangSC-Regular";
+				font-size: 1.2rem;
+				width: 4rem;
+				margin-top: 0.7rem;
+			}
+			.device_check .device_loading{
+				width: 10rem;
+				height: 8rem;
+				background: rgba(0,0,0,0.6);
+				border-radius: 1.2rem;
+				position: absolute;
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+				top: 25.35rem;
+				text-align: center;
+			}
+			.device_check .device_loading img{
+				width: 5rem;
+				height: 5rem;
+				margin-top: 1.55rem;
+			}
+			.trial{
+				position: fixed;
+				bottom: 0;
+				height: 12rem;
+				width: 100%;
+				background: rgba(0,0,0,0.8);
+			}
+			.trial .trial_step1{
+				width: 14.3rem;
+				display: inline-block;
+				/*margin-right: 1.7rem;*/
+			}
+			.trial .trial_step2{
+				display: inline-block;
+				position: absolute;
+				left: 16rem;
+			}
+			.trial p{
+				/*display: inline-block;*/
+			}
+			.trial .trial_step1 .step_num{
+				color: #FFFFFF;
+				font-family: "PingFangSC-Medium";
+				font-size: 1.2rem;
+				margin-top: 0.8rem;
+				margin-left: 1.5rem;
+			}
+			.trial .trial_step2 .step_num{
+				color: #FFFFFF;
+				font-family: "PingFangSC-Medium";
+				font-size: 1.2rem;
+				margin-top: 0.8rem;
+			}
+			.trial .step_num span{
+				color: #FFFFFF;
+				font-family: "PingFangSC-Medium";
+				font-size: 1rem;
+				margin-left: 0.65rem;
+			}
+			.trial .trial_step1 .trial_content{
+				color: #FFFFFF;
+				font-family: "PingFangSC-Regular";
+				font-size: 1rem;
+				margin-top: 0.8rem;
+				margin-left: 1.5rem;
+			}
+			.trial .trial_step2 .trial_content{
+				color: #FFFFFF;
+				font-family: "PingFangSC-Regular";
+				font-size: 1rem;
+				margin-top: 0.8rem;
+			}
+			.trial .trial_step1 .start_record{
+				width: 8rem;
+				height: 3rem;
+				text-align: center;
+				line-height: 3rem;
+				background: #35CBDB;
+				margin: 0 auto;
+				margin-top: 3rem;
+				font-size: 1.2rem;
+				color: #FFFFFF;
+				font-family: "PingFangSC-Medium";
+				border-radius: 0.4rem;
+			}
+			.trial .trial_step2 .writen{
+				margin-top: 1.55rem;
+			}
+			.trial .trial_step2 .writen .upload_complete{
+				position: relative;
+				float: left;
+			}
+			.trial .trial_step2 .writen .upload_complete .complete_img{
+				width: 6rem;
+				height: 5rem;
+				background: #FFFFFF;
+				border-radius: 0.4rem;
+				text-align: center;
+				/*margin-top: 1.55rem;*/
+			}
+			.trial .trial_step2 .writen .upload_complete .complete_close{
+				position: absolute;
+				top: -0.39rem;
+				height: 0.785rem;
+				width: 0.785rem;
+				right: -0.39rem;
+			}
+			.trial .trial_step2 .writen .uploading{
+				position: relative;
+				background: #000000;
+				border-radius: 0.4rem;
+				width: 6rem;
+				height: 5rem;
+				text-align: center;
+				margin-left: 1.3rem;
+				float: left;
+				text-align: center;
+			}
+			.trial .trial_step2 .writen .uploading img{
+				width: 1.5rem;
+				height: 1.5rem;
+				margin-top: 0.8rem;
+			}
+			.trial .trial_step2 .writen .uploading p{
+				font-size: 0.9rem;
+				font-family: "PingFangSC-Regular";
+				margin-top: 0.7rem;
+				color: #FFFFFF;
+			}
+			.trial .trial_step2 .writen .uploading .total_prograss{
+				width: 5rem;
+				height: 0.2rem;
+				margin: 0 auto;
+				background: #FFFFFF;
+				margin-top: 0.3rem;
+				border-radius: 0.15rem;
+			}
+			.trial .trial_step2 .writen .uploading .current_prograss{
+				width: 30%;
+				height: 100%;
+				background: #35CBDB;
+				border-radius: 0.15rem;
+			}
+			.trial .trial_step2 .writen .havant_upload{
+				position: relative;
+				background: #FFFFFF;
+				border-radius: 0.4rem;
+				width: 6rem;
+				height: 5rem;
+				text-align: center;
+				margin-left: 1.3rem;
+				float: left;
+			}
+			.trial .trial_step2 .writen .havant_upload img{
+				width: 1.475rem;
+				height: 1.165rem;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class = "header">
+			<div class="top">
+				<p>关闭</p>
+				<p class="top_title">在线笔试</p>
+				<p>联系客服</p>
+			</div>
+			<div class="step_num">
+				<div class="num">1</div>
+				<div class="line"></div>
+				<div class="num">2</div>
+				<div class="line"></div>
+				<div class="num">3</div>
+				<div class="line"></div>
+				<div class="num" style="margin-right: 0;">4</div>
+			</div>
+			<div class="step_title">
+				<p class="title">在线笔试</p>
+				<p class="title" style="margin-right: 7.15rem;">在线试讲</p>
+				<p class="title">设备申请</p>
+				<p class="title" style="margin-right: 0;">岗前考核</p>
+			</div>
+			<div class="count_down">
+				倒计时<span id="hour">15:</span><span id="minute">15:</span><span id="second">78</span>
+				<div class="submit_btn">交卷</div>
+			</div>
+			<div class="last_time_tip">
+				笔试时间剩余5分钟，请注意安排时间
+				<span id="countDownTip">3秒消失</span>
+			</div>
+		</div>
+		<div class="require">
+			<div class="content" style="margin-top: 2rem;">
+				<img src="../img/jyxb_kaohe_phone/Star.png" alt="" />
+				本次考试为<span> 18道 </span>选择题，<span>90分 </span>及格
+			</div>
+			<div class="content" style="margin-top: 1.5rem;">
+				<img src="../img/jyxb_kaohe_phone/Star.png" alt="" />
+				考试时间：<span> 15分钟</span>
+			</div>
+			<div class="tip">
+				温馨提示：岗前考核的题目来自视频，请认真查看之后在进入考核
+			</div>
+		</div>
+		<div class="start_btn">
+			进入考核
+		</div>
+		<!--93 100		88 49		75 23-->
+		<div class="question_area">
+			<!--一行-->
+			<p class="question_title">
+				1.浙江省的省会城市是 （）
+			</p>
+			<div class="select">
+				<div class="option type1">
+					<div class="check_img"></div>
+					<div class="check_content">A.杭州的</div>
+				</div>
+				<div class="option type1">
+					<div class="check_img"></div>
+					<div class="check_content">B.宁波的</div>
+				</div>
+				<div class="option type1">
+					<div class="check_img"></div>
+					<div class="check_content">C.金华的</div>
+				</div>
+				<div class="option type1">
+					<div class="check_img checked"></div>
+					<div class="check_content">D.湖州的</div>
+				</div>
+			</div>
+			<p class="question_title">
+				<!--两行-->
+				2.浙江省的省会城市是 （）
+			</p>
+			<div class="select">
+				<div class="option type2">
+					<div class="check_img"></div>
+					<div class="check_content">A.杭州杭州杭州二纺机的</div>
+				</div>
+				<div class="option type2">
+					<div class="check_img"></div>
+					<div class="check_content">B.杭州杭州杭州二纺机的</div>
+				</div>
+				<div class="option type2">
+					<div class="check_img"></div>
+					<div class="check_content">C.杭州杭州杭州二纺机的</div>
+				</div>
+				<div class="option type2">
+					<div class="check_img checked"></div>
+					<div class="check_content">D.杭州杭州杭州二纺机的</div>
+				</div>
+			</div>
+			<p class="question_title">
+				<!--三行-->
+				3.浙江省的省会城市是 （）
+			</p>
+			<div class="select">
+				<div class="option type3">
+					<div class="check_img"></div>
+					<div class="check_content">A.杭州杭州杭州二纺机的杭州杭州杭州二纺机的杭州杭州杭州二纺机的</div>
+				</div>
+				<div class="option type3">
+					<div class="check_img"></div>
+					<div class="check_content">B.杭州杭州杭州二纺机的杭州杭州杭州二纺机的杭州杭州杭州二纺机的杭州杭州杭州二纺机的</div>
+				</div>
+				<div class="option type3">
+					<div class="check_img"></div>
+					<div class="check_content">C.杭州杭州杭州二纺机的杭州杭州杭州二纺机的杭州杭州杭州二纺机的杭州杭州杭州二纺机的</div>
+				</div>
+				<div class="option type3">
+					<div class="check_img checked"></div>
+					<div class="check_content">D.杭州杭州杭州二纺机的杭州杭州杭州二纺机的杭州杭州杭州二纺机的杭州杭州杭州二纺机的</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="alert" style="display: none;">
+			<div class="alert_area" style="display: none;">
+				<div class="alert_top">
+					<p class="alert_content">测试时间还没有结束确认提前交卷</p>
+				</div>
+				<div class="alert_line"></div>
+				<div class="alert_btn">取消</div>
+				<div class="alert_btn">确认</div>
+			</div>
+			<div class="alert_area" style="display: none;">
+				<div class="alert_top">
+					<p class="alert_content" style="width: 24rem;">退出考试后，系统将自动帮您交卷 并给出测试结果</p>
+				</div>
+				<div class="alert_line"></div>
+				<div class="alert_btn">取消</div>
+				<div class="alert_btn">确认</div>
+			</div>
+			<div class="alert_area" style="display: block;">
+				<div class="alert_top">
+					<p class="alert_content" style="width: 20rem;">测试时间已到，已为您交卷</p>
+				</div>
+				<div class="alert_line"></div>
+				<div class="alert_btn" style="width: 100%;">查看测试结果</div>
+			</div>
+		</div>
+		<div class="congratulation">
+			<div class="congratulation_content">
+				<img src="../img/jyxb_kaohe_phone/left.png" alt="" />
+				<span class="font1">恭喜您</span>
+				<p class="font1">成为家有学霸的在线辅导老师</p>
+				<p class="font2">预祝老师桃李满天下</p>
+			</div>
+		</div>
+		<div class="result">
+			<p class="result_font1">岗前考核</p>
+			<p class="result_font2">本次测试结果</p>
+			<p class="result_font3">80分</p>
+			<p class="result_font4">您未通过岗前考核</p>
+			<div class="watch_again">重看视频，再次测试</div>
+		</div>
+		<div class="pay">
+			<div class="pay_content">
+				<img class="pay_close" src="../img/jyxb_kaohe_phone/close.png" alt="" />
+				<p class="spzje">商品总金额</p>
+				<p class="sum">¥300.00</p>
+				<p class="zffs">支付方式</p>
+				<div class="pay_method">
+					<img class="icon" src="../img/jyxb_kaohe_phone/zfb.png" alt="" />
+					<span>支付宝支付</span>
+					<img class="pay_check" src="../img/jyxb_kaohe_phone/pay_checked.png" alt="" />
+				</div>
+				<div class="pay_line"></div>
+				<div class="pay_method">
+					<img class="icon" src="../img/jyxb_kaohe_phone/wx.png" alt="" />
+					<span>微信支付</span>
+					<img class="pay_check" src="../img/jyxb_kaohe_phone/pay_unchecked.png" alt="" />
+				</div>
+				<div class="pay_btn" id="pay_btn">
+					确认支付
+				</div>
+				<div class="loading">
+					<img class="loading_img" src="../img/jyxb_kaohe_phone/pay_loading.png" alt="" />
+				</div>
+			</div>
+		</div>
+		<div class="zxkh_alert">
+			<div class="zxkh_alert_content">
+				<p class="zxkh_alert_title">
+					在线考核
+				</p>
+				<p class="level">
+					考核年级：<span id="grade">小学</span><span id="subject" style="margin-left: 2rem;">科目：数学</span>
+				</p>
+				<div class="start_btn">
+					进入考核
+				</div>
+				<p class="dont_start">先不考，下次再说</p>
+			</div>
+		</div>
+		<div class="power_tip">
+			<div class="power_tip_container">
+				<div class="descript">
+					<p class="font1">权限请求</p>
+					<p class="font2">“家有学霸”请求使用麦克风权限，是否允许？</p>
+					<p class="font3">请在“设置-隐私”选项中，允许家有学霸访问你的 麦克风</p>
+					<div class="remind_again">
+						<img src="../img/jyxb_kaohe_phone/pay_checked.png" alt="" />
+						<p>不再提醒</p>
+					</div>
+				</div>
+				<div class="btns">
+					<div class="btn">禁止(20S)</div>
+					<div class="btn">允许</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="device_check">
+			<div class="device_top">
+				<img src="../img/jyxb_kaohe_phone/device_close.png"/>
+				<p>设备检测</p>
+			</div>
+			<div class="device_container">
+				<div class="device_content">
+					<p class="device_title">麦克风检测</p>
+					<p class="device_content_tip">
+						<span>提示：</span>请对着麦克风说话，以确定麦克风正常。
+					</p>
+					<p class="device_status">正在检测声音：</p>
+					<canvas class="canvas"></canvas>
+					<p class="device_result">已检测到您的声音</p>
+					<div class="device_complete_btn">完成</div>
+				</div>
+			</div>
+			<div class="microphone_btn">
+				<div class="set_center">
+					<img src="../img/jyxb_kaohe_phone/microphone.png" alt="" />
+					<p>麦克风</p>
+				</div>
+			</div>
+			<div class="device_loading">
+				<img src="../img/jyxb_kaohe_phone/pay_loading.png"/>
+			</div>
+		</div>
+		<div class="trial">
+			<div class="trial_step1">
+				<p class="step_num">第一步</p>
+				<p class="trial_content">请在审题后开始录音讲解</p>
+				<div class="start_record">开始录音</div>
+			</div>
+			<div class="trial_step2">
+				<p class="step_num">第二步<span>(最多3张)</span></p>
+				<p class="trial_content">请在倒计时结束之前拍照上传板书</p>
+				<div class="writen">
+					<div class="upload_complete">
+						<div class="complete_img">图片</div>
+						<img class="complete_close" src="../img/jyxb_kaohe_phone/red_close.png" alt="" />
+					</div>
+					<div class="uploading">
+						<img src="../img/jyxb_kaohe_phone/pay_loading.png" alt="" />
+						<p>30%</p>
+						<div class="total_prograss">
+							<div class="current_prograss"></div>
+						</div>
+					</div>
+					<div class="havant_upload">
+						<img src="../img/jyxb_kaohe_phone/camera.png" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

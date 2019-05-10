@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var arr = ["a",1,2.3,3,53,33];
+			//console.log(arr);
+			var str = arr.join(2+" ");
+			console.log(str);//a2 12 2.32 32 532 33
+			//slice();虽然能用负数，但是结果还是得start所指的位置小于end所指的位置(不改变数组，只返回值)
+			var arr2 = arr.slice(-4,1);
+			var arr3 = [1,2,3,4,5];
+			console.log(arr2);
+			//pop();会改变数组
+			document.write(arr.pop(arr)+"</br>");
+			document.write(arr);
+			var obj = {
+				"name":"lisa",
+				"age":"16"
+				
+			}
+			function Object(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			
+			//console.log(obj);
+			var obj2 = new Object("Tom","12");
+			console.log(obj2.name);
+//			document.write(obj2.toSource());
+			//splice()函数直接删除数组里的元素
+			console.log(arr3.length);
+			for(var i=0;i<arr3.length;i++){
+				arr3.splice(i,1);
+				console.log(arr3);
+			}
+			var arr4 = new Array();
+			arr4["a"] = 11;
+			arr4[2] = 22;
+			arr4[3] = 33;
+			for(var x in arr4){
+				console.log(typeof x);
+			}
+			var obj = new Object();
+			obj["a"] = 1;
+			console.log(obj.a);
+			console.log(arr4);//undefined,undefined,22,33,a: 11
+			//toString方法并不会把哈希的键值对转化为字符串
+			console.log(arr4.toString());//,,22,33
+		</script>
+	</body>
+</html>

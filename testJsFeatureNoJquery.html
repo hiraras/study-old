@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>测试js的各种特性，不使用jquery</title>
+	</head>
+	<body>
+		<div onClick="console.log(localStorage.getItem('type'))">testDivOnClick</div>
+		<div onClick="testButtonClick()">testButtonClick</div>
+		<a href="#" onclick='testButtonClick()'>test'a标签'onclick</a>
+		<input type='file' id='fileInput' onChange='fileChange()' />
+		<textarea></textarea>
+	</body>
+	<script>
+		
+		function fileChange(e) {
+			console.log(document.getElementById('fileInput').files);
+		}
+		function testButtonClick(){
+			console.log('testButtonIsClicked');
+		}
+		{
+			console.log(1 && 2); //2,两者都为true时才返回，所以返回后者
+			console.log(1 || 2); //1，前者为true就不计算后者了，直接返回前者
+		} {
+			let obj = {
+				a: 1,
+				b: 2,
+				c: 3
+			};
+			obj.__proto__.fA = 1;
+			console.log(obj); //{a:1,b:2,c:3}
+			let obj2 = Object.assign(obj, {
+				a: 3,
+				d: 4
+			});
+			console.log(obj); //{a: 3, b: 2, c: 3, d: 4}
+			console.log(obj2); //{a: 3, b: 2, c: 3, d: 4}
+			obj2.e = 5;
+			console.log(obj); //{a: 3, b: 2, c: 3, d: 4, e: 5}
+			console.log(obj2.fA); //1
+			let obj3 = Object.assign({}, obj);
+			console.log(obj3); //{a: 3, b: 2, c: 3, d: 4, e: 5}
+			obj3.e = 6;
+			console.log(obj, obj3); //{a: 3, b: 2, c: 3, d: 4, e: 5},{a: 3, b: 2, c: 3, d: 4, e: 6}
+			let obj4 = {
+				a: 1,
+				b: {
+					c: 2
+				}
+			}
+			//浅度克隆
+			let obj5 = Object.assign({}, obj4);
+			console.log(obj4, obj5); //{a:1,b:{c:2}}  {a:1,b:{c:2}}
+			obj5.a = 3;
+			console.log(obj4, obj5); //{a:1,b:{c:2}}  {a:3,b:{c:2}}
+			obj5.b.c = 6;
+			console.log(obj4, obj5); //{a:1,b:{c:6}}  {a:3,b:{c:6}}
+		} {
+			let a = '156165';
+			let obj = {
+				b: 156,
+				a
+			}
+			console.log(obj);
+		} {
+			let arr = [4, 5, 6, 7, 8];
+			//reducer回调的参数分别为:第一个参数的值：如果为第一次执行，则为reduce的第二个参数，否则为上一次调用后
+			//返回的值；第二个参数为当前正在处理的元素；第三个参数为当前被处理元素在数组内的索引，第四个参数为reduce的数组
+			let reducer = function(prevValue, currItem, index, arr) {
+				return prevValue + currItem;
+			}
+			console.log(arr.reduce(reducer, 3)); //33  3+4+5+6+7+8=33
+		}
+		//Object.assign():可以实现深拷贝，但是如果对象属性中嵌套了其他object类型的对象，内部对象无法深拷贝
+		{
+			let obj = {
+				a: 1,
+				b: 2
+			};
+			let obj2 = new Object();
+			obj2 = {
+				a: 2
+			}
+			let obj3 = Object.assign(obj, obj2);
+			console.log(obj); //{a:2, b:2}
+			console.log(obj3); //{a:2, b:2}
+			obj2.a = 3;
+			console.log(obj); //{a:2, b:2}
+			console.log(obj3); //{a:2, b:2}
+			let obj4 = Object.assign(obj3, {
+				d: 3
+			});
+			console.log(obj4);
+		}
+
+		//深拷贝
+		{
+			let obj = {
+				a: 1,
+				b: 2
+			}
+			let obj2 = obj;
+			obj.a = 2;
+			console.log(obj2); //{a:2, b:2}
+			//但这种方法的缺陷是会破坏原型链,并且无法拷贝属性值为function的属性
+			let obj3 = JSON.parse(JSON.stringify(obj));
+			obj.a = 3;
+			console.log(obj2); //{a:3, b:2}
+			console.log(obj3); //{a:2, b:2}
+			//或者使用逐层判断属性类型并递归克隆
+		} {
+			let obj = {
+				a: 2,
+				b: 3
+			}
+			let arr = [1, 2, 3, 4];
+			console.log(...arr);
+		} {
+			let func = function(...item) {
+				console.log(item);
+			}
+			func(1, 2, 3);
+		} {
+			let arr1 = [1, 2, 3];
+			let arr2 = arr1.push(4, 5);
+			console.log(arr1);
+		} {
+			let arr1 = [1, 2, 3, 4, 5, 6];
+			arr1.map(function(key, value) {
+				console.log(value + ':' + key);
+			});
+		}
+
+		{
+			let n = 133;
+			console.log(n.toExponential(3)); //1.330e+2
+		}
+
+		{
+			//round函数的四舍五入，数轴上两个整数之间，包括0.5舍入到右边
+			let n = -2.51;
+			console.log(Math.round(2.5)); //3
+			console.log(Math.round(-2.5)); //-2
+			console.log(Math.round(-2.4)); //-2
+			console.log(Math.round(-2.6)); //-3
+		}
+
+		{
+			//如果最后一位为5，当前面一位为奇数时舍去，为偶数时进入
+			console.log(1.95.toFixed(1)); //1.9
+			console.log(1.05.toFixed(1)); //1.1
+			console.log(1.115.toFixed(2)); //1.11
+			console.log(1.125.toFixed(2)); //1.13
+		}
+
+		{
+			let func = function() {
+				console.log(1);
+			}
+			let obj = {
+				func
+			}
+			console.log(obj);
+		}
+
+		{
+			let testYield = function*() {
+				let n = 1000;
+				yield delay();
+				console.log(n);
+			}
+			let delay = function(time) {
+				return new Promise(resolve => {
+					setTimeout(resolve, time);
+				});
+			}
+			testYield();
+		}
+
+		{
+			let testYield2 = function*() {
+				let arr = [3, 5, 6];
+				for(let i = 0; i < arr.length; i++) {
+					yield arr[i];
+				}
+			}
+			let generator = testYield2();
+			let consoleTotal = function(generator) {
+				let result = generator.next();
+				console.log(result);
+				while(1) {
+					result = generator.next();
+					if(!result.done) {
+						console.log(result);
+						continue;
+					}
+					break;
+
+				}
+			}
+			consoleTotal(generator);
+		}
+
+		{
+			let arr = [1, 2, 3, 4, 5];
+			let obj = {
+				a: 1
+			}
+			//			arr.splice(1,0,1);
+			console.log(arr);
+			arr.splice(arr.length, 0, 10);
+			console.log(arr);
+			let test = [obj];
+			console.log(test);
+		}
+
+		{
+			let arr = [1, 2, 3, 4];
+			arr.forEach(function(value, index) {
+				console.log(index);
+				if(value === 1) {
+					return;
+				}
+			});
+		} {
+			let num = 0;
+			let time = setInterval(function() {
+				num++;
+				if(num === 3) {
+					clearInterval(time);
+				}
+			}, 1000);
+			console.log(time);
+			clearInterval(null);
+			clearInterval(undefined);
+		} {
+			let arr = [1, 2, 3, 4];
+			arr.splice(6, 3);
+			console.log(arr);
+			arr.splice(3, 1);
+			console.log(arr);
+		} {
+			let arr = [1, 2, 3, 4];
+			let i = arr.indexOf(2);
+			arr[0].data = 1;
+			console.log(i);
+			console.log(arr[0].data);
+		}
+
+		{
+			let FF = function() {
+				this.age = 11;
+			}
+			FF.prototype.name = "kevin";
+
+			//    in用来判断该属性是否存在在该对象中  
+			var flag1 = "age" in new FF() ? "存在" : "不存在";
+			var flag2 = "name" in new FF() ? "存在" : "不存在";
+			console.log(flag1, flag2);//存在,存在
+		}
+		
+		{
+			let obj = {a:1,b:2};
+			let arr = [1,2,3];
+			console.log({...arr});
+		}
+		
+		{
+			let arr = [15,35,33,5];
+			console.log(arr.map(value => {
+				return value;
+			}));
+		}
+		
+		{
+			let obj = {
+				a: 1,
+				b: 2
+			}
+			console.log(`${obj}`);
+		}
+		
+		(function(){
+			localStorage.setItem('type', 'admin');	
+		})();
+		
+		class Person{
+			constructor(){
+				this.b = 'ccc';
+			}
+			say(){
+				this.a = 'bbb'
+				console.log('嘤');
+			}
+			walk(){
+				console.log('walking');
+			}
+		}
+		
+		const Tom = new Person();
+		Tom.say();
+		console.log(Person.prototype);
+		console.log(Object.getOwnPropertyNames(Tom));
+		
+		console.log(Object.keys(Tom));
+		
+		console.log(Function.prototype === Function.__proto__);//true
+		console.log(Object.__proto__ === Function.prototype);//true
+		console.log(Object.__proto__ === Function.__proto__);//true
+		console.log(Person.prototype.__proto__ === Object.prototype);//true
+		
+		class Chinese{
+			say(){
+				console.log("I'm Chinese");
+			}
+		}
+		Chinese.prototype = Tom;
+		const xiaoming = new Chinese();
+		console.log(Chinese.__proto__ === Person);//false
+		console.log(Chinese.__proto__ === Function.prototype);//true
+		
+		{
+			let p = new Promise(function(resolve, reject){
+				setTimeout(function(){
+					reject('123321');
+					console.log(p);
+				}, 5000);
+			}).then(function(val){
+				console.log(val);//resolve函数的参数
+			}).catch(function(e){
+				console.log("error:" + e);//reject函数的参数
+			});
+			console.log(p);
+		}
+		
+		{
+			let p = new Promise(function(resolve, reject){
+				setTimeout(function(){
+					resolve('123321');
+					console.log(p);
+				}, 3000);
+			}).then(function(){
+//				return "return advance";
+				return new Promise(function(resolve, reject){
+					setTimeout(function(){
+						resolve("success");
+					}, 2000);
+				});
+			}).then(function(val){
+				console.log(val);
+			}).catch(function(e){
+				console.log("error:" + e);
+			});
+		}
+		
+		{
+			let t = function(time, promise){
+				return new Promise(function(resolve, reject){
+					setTimeout(function(){
+						reject(new Error('timeout'));
+					}, time);
+					promise.then(resolve, reject);
+				});
+			}
+			t(7000, new Promise(function(){
+				return {
+					a: 1
+				}
+			})).then(function(value){
+				console.log(value);
+			}).catch(function(e){
+				console.log(e);
+			});
+		}
+		 
+		{
+			let obj = {
+				"a": 1,
+				"b": 2
+			}
+			console.log(obj);//输出和obj = {a: 1, b: 2}一样，属性名不分是否为字符串
+		}
+		
+		{
+			let arr = [1,2,3];
+			arr.map(value => {
+				console.log(value);
+			});
+		}
+		
+		{
+			let arr = [1,2,3];
+			arr.forEach(value => {
+				console.log(value);
+			});
+		}
+		
+		{
+			let obj = {a: 1, b: 2};
+			for(let item in obj){
+				console.log(item);
+			}
+			function Test(){
+				this.c = 1;
+			}
+			Test.prototype = obj;
+			let test = new Test();
+			for(let item in test){
+				console.log(item);
+			}
+			console.log(test);
+			console.log(Object.keys(test));
+		}
+		
+		{
+			try{
+				//4种error
+//				let err = new Error('this is a err');
+//				throw err;
+
+//				let num = "<1";
+//				JSON.parse(num);
+
+//				a++;
+
+//				let func = {};
+//				func();
+			}catch(e){
+				console.log(e);
+			}finally{
+				console.log('finally');
+			}
+		}
+		
+		{
+			let obj = {
+				a: 1,
+				b: 3,
+				get a(){
+					return this.b;
+				},
+				set a(val){
+					console.log(this._a);
+					this._a = val;
+				}
+			}
+			console.log(obj.a);//3
+			obj.a = 4;
+			console.log(obj.a);
+		}
+		
+		{
+			let func = function(a){
+				console.log(a);
+				console.log(Array.prototype.slice.apply(arguments))//;[1, 3]
+			}
+			func(1, 3);
+		}
+		 
+		{
+			const url = 'http://www.baidu.com?name=jack&age=11&skill=游戏';
+//			let searchStr = url.split('?')[1];
+			let searchStr = url.substring(url.indexOf('?') + 1);
+			let searchParamsArr = searchStr.split('&');
+			let searchParams = {};
+			for(let i=0;i<searchParamsArr.length;i++){
+				let temp = searchParamsArr[i];
+				searchParams[temp.split('=')[0]] = temp.split('=')[1];
+			}
+			console.log(searchParams);
+		}
+		
+		{
+			let obj = {
+				a: 1,
+				b: 2
+			};
+			let obj2 = {...obj, a: 4};
+			console.log(obj2);
+		}
+		
+		{
+			let temp = {
+				endTime:1533262453,innerStu:0,innerTea:0,limit:10,offset:0,orderType:0,startTime:1531966453,timeType:0
+
+			}
+			let params = {
+				...temp,
+				offset: temp.offset,
+				limit: temp.limit
+			}
+			console.log(params);
+		}
+		
+		{
+			let arr = ['离职', '在职'];
+			console.log(['全部', ...arr]);
+		}
+		
+		{
+			let obj = {
+				a: 1,
+				b: 2
+			};
+			delete obj.c;
+			console.log(obj);
+		}
+		
+		
+		
+		(function(){
+			// map思路
+			const method = function(item, index, self) {
+				console.log(item, index, self);
+			}
+			let arr = [1,2,3];
+			let result = [];
+			for (i = 0; i < arr.length; i++) {
+				result.push(method(arr[i], i, arr));
+			}
+			console.log(result);
+		})();
+		
+		function testScope(){
+			// 如果不用var在函数中定义，则window会具有该属性
+			test2 = 2;
+		}
+		
+		var test = 1;
+		console.log(window.test2);
+
+		console.log('aaaaa \n bbb');
+		{
+			//			console.log('\n\n\n\n'+1+'\n\n\n\n');
+		}
+		
+		(function() {
+			let arr = [];
+			arr[2] = 1;
+			console.log(arr[0]); // undefined
+			console.log(arr); // [empty * 2, 1]
+			console.log(`
+				aallTags
+				awefaewf
+			`);
+		})();
+		
+	</script>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			canvas{
+				background: cadetblue;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<img src="../img/1.jpg" id="exampleImg"/>
+		</div>
+		<div>
+			<img src="" id="previewImg"/>
+		</div>
+	</body>
+	<script>
+		var canvas = document.createElement("canvas");
+		canvas.width = 400;
+		canvas.height = 400;
+		document.getElementsByTagName("body")[0].appendChild(canvas);
+		var ctx = canvas.getContext("2d");
+		var exampleImg = document.getElementById("exampleImg");
+		exampleImg.onload = function(){
+			ctx.drawImage(exampleImg,0,0,400,400);
+			var imgData = ctx.getImageData(0,0,200,200);
+			ctx.clearRect(0,0,this.width,this.height);
+			ctx.putImageData(imgData,0,0);
+			var imgURL = canvas.toDataURL("image/png");
+			console.log(imgData);
+			document.getElementById("previewImg").src = imgURL;
+		}
+		
+	</script>
+</html>

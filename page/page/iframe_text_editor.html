@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<style>
+				#main{
+					width:370px;
+					height:150px;
+					border:1px solid #ccc;
+					position:absolute;
+				}
+				#face{
+					table-cellspacing:1px;
+					display: none;
+					position:absolute;
+					top:30px;
+					left:100%;
+					border:1px solid #aaa;
+					background:#fff;
+				}
+				#main #toolbar{
+					width:100%;
+					height:30px;
+					background:lightgray;
+				}
+				#toolbar a{
+					width: 24px;
+					height:24px;
+					line-height:24px;
+					text-align:center;
+					text-decoration:none;
+					color:#000;
+					font-weight:bold;
+					font-size:15px;
+					float:left;
+				}
+				#toolbar a:hover{
+					border-right:1px solid #aaa;
+					border-bottom:1px solid #aaa;
+				}
+				#testDiv a{
+					width: 24px;
+					height:24px;
+					line-height:24px;
+					text-align:center;
+					text-decoration:none;
+					color:#000;
+					font-weight:bold;
+					font-size:15px;
+					float:left;
+				}
+				#testDiv a{
+					border-right:1px solid #aaa;
+					border-bottom:1px solid #aaa;
+				}
+			</style>
+		<title></title>
+	</head>
+	<body>
+		<div id="main">
+		
+			<div id="toolbar">
+				<a href="JavaScript:void(0)" onclick="onEffect('bold')">B</a>
+				<a href="JavaScript:void(0)" onclick="onEffect('italic')">I</a>
+				<a href="JavaScript:void(0)" style="text-decoration:underline" 
+					onclick="onEffect('underline')">U</a>
+				<a href="JavaScript:void(0)" style="float:right" 
+					onclick="onEffect('insertImage','../../img/2.jpg')">insertPic</a>
+			</div>
+			<iframe src="" frameborder="0" allowtransparency="true" scrolling="auto"
+				width='100%' height='122px' id="editor"></iframe>
+		</div>
+		
+		
+		<!-- 设置contenteditable="true"后div元素就可以进行里面的内容编辑了,同时子元素会继承div的contenteditable属性也可以编辑 -->
+		<div style="border:1px solid blue;width:300px;height:250px;position:absolute;top:160px;"
+			 contenteditable="true" id="testDiv">
+			 <p>ASDFASDFWAEFasdfasdf</p>
+			 <!--
+             	作者：kazilagui@163.com
+             	时间：2017-08-09
+             	描述：图片可以拖动，但是只能在文本中变换位置
+             -->
+			 <img src="../../img/6.jpeg" alt="" height="30px" width="30px" />
+			 <a href="JavaScript:void(0)" style="float:right" 
+					onclick="onEffect('insertImage','../../img/2.jpg')">insertPic</a>
+		</div>	
+	</body>
+	<script>
+		var editPane = null;
+		(function(){
+			//获取iframe窗口的window对象
+			editPane = document.getElementById("editor").contentWindow;
+			//打开编辑模式
+			editPane.document.designMode = "on";
+			editPane.document.contentEditable = true;
+			//打开文档流
+			editPane.document.open();
+			//size=+2表示默认字体大小若为3，则使用字体大小为5的样式
+			editPane.document.write('<font color="blue" size=+2>富文本编辑器</font>');
+			//关闭流
+			editPane.document.close();
+		})()
+		function onEffect(effect,arg){
+			//利用execCommand()方法，可以传递指定的参数来进行控制，比如设置编辑区域内选中的文本的粗体、斜体、字号等样式（极其强大）
+			//注意：execCommand()方法有三个参数，在IE中当不需要设置后两个参数时，是可以省略的，而在FF中规定了不能省略参数
+			//并且在FF中第二个参数永远只能是false
+			//execCommand(String aCommandName,Boolean aShowDefaultUI,String aValueArgument)
+			//第一个参数为指令名，第二个为是否显示默认UI，第三个为参数值(不需要参数是就写null)
+			if(arg==undefined){
+				editPane.document.execCommand(effect,false,undefined);
+			}else{
+				editPane.document.execCommand(effect,false,arg);
+			}
+			
+		}
+	</script>
+</html>

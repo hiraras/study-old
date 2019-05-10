@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script>
+		
+		//与其他语言中的正则表达式类似，模式中使用的所有元字符都必须转义。正则表达式中的元字符包括：
+		//( [ { \ ^ $ | ? * + . } ] )
+		
+		
+		console.log("-----test()------");
+		//直接判断字母是否存在于字符串中
+		var reg1 = /a/;
+		//test()方法判断是否能够匹配到正则表达式表示的字符串，若能则返回true，否则返回false
+		console.log(reg1.test("aefaewf"));//true
+		console.log(reg1.test("hretrth"));//false
+		
+		console.log("-----search()------");
+		//search()方法在字符串中匹配正则表达式表示的字符串，若匹配到了返回索引值
+		//若有多个返回第一个索引值，若没有匹配到则返回-1
+		var reg2 = /ab/g;
+		console.log("aewfabaef".search(reg2));//4
+		console.log("ab aef abaef".search(reg2));//0
+		console.log("aeaefeaf".search(reg2));//-1
+		
+		console.log("-----i(ignore)忽略大小写-----");
+		var reg3 = /aB/i
+		console.log(reg3.test("aefabaefeaf"));//true
+		
+		console.log("-----match()-----");
+		var reg4 = /ab/g,reg13 = /(ab)(\d+)/,reg14 = /(ab)(\d+)/g;
+		//match()方法匹配字符串中符合正则表达式的内容，有就返回内容，格式为数组，失败就返回null
+		//当正则表达式不加g时，还返回每个子项，加了g就不返回子项了
+		console.log("awefabafefab".match(reg4));//["ab","ab"]
+		console.log("aefab234fefeab321f".match(reg13));//["ab234","ab","234"]
+		console.log("aefab234fefeab321f".match(reg14));//["ab234","ab321"]
+		
+		console.log("-----g(global)全局匹配-----");
+		var reg5 = /ab/ig;
+		console.log("aBafaefabaffAb".match(reg5));//["aB","ab","Ab"]
+		
+		console.log("-----+(至少匹配一次)-----");
+		var reg6 = /\d+/g;
+		console.log("ae124awef434saef244".match(reg6));//["124","434","244"]
+		var reg7 = /\d/g;
+		console.log("ae124awef434saef244".match(reg7));//["1","2","4","4","3","4","2","4","4"]
+		
+		//replace()查找符合正则表达式的子字符串，找到就替换掉对应的字符串，返回替换后的内容
+		//replace()还有replace(reg,function(str){ return result})这种回调函数的形式
+		//reg为要匹配的正则表达式，str表示匹配到的子字符串(匹配到几次就调用几次)，
+		//最后用result替换掉匹配到的子字符串
+		console.log("-----replace()-----");
+		var reg8 = /你好/g;
+		console.log("你好，xxx.嗯，你好.".replace(reg8,"hello"));//hello,xxx.嗯,hello.
+		var reg11 = /你好/g;
+		console.log("你好，xxx.嗯，你好,你好".replace(reg11,function(str){
+			var result = "";
+			for(var i=0;i<str.length;i++){
+				result += "*";
+			}
+			return result;
+		}));//**,xxx,嗯,**,**
+		
+		console.log("-----|(或)-----");
+		var reg9 = /ac|ab/g;
+		var reg10 = /(ac|ab)\d+/g;
+		console.log("adgrabegac".match(reg9));//["ab","ac"];先匹配到的是ab
+		console.log("adgrab1egac".match(reg10));//["ab1"]
+		console.log("aab1acb1".match(reg10));//["ab1"];括号内的ac与ab分别为一组
+		
+		//正则中的每一个带小括号的项，都叫做这个正则的子项,可以用$0,$1,$2等表示
+		//$0表示完整的匹配项，$1表示第一个子项（如下例子表示2013和6），$2表示第二个子项(如下例子表示-)
+		console.log("-----()-----");
+		var reg12 = /(\d+)(-)/g;
+		console.log("2013-6-7".replace(reg12,function($0,$1,$2){
+			return $1 + ".";
+		}));//2013.6.7
+		
+		//exec()方法：和match方法一样，搜索符合规则的内容，并返回内容，格式为数组
+		//返回匹配到的字符串和子字符串
+		console.log("-----exec()-----");
+		var reg15 = /(\d+)/;
+		console.log("非全局匹配:");
+		var r = reg15.exec("efw133aewf434");
+		console.log("r:"+r);//133,133
+		console.log("r.length:"+r.length);//2
+		console.log("r.input:"+r.input);//efw133aewf434
+		console.log("r.index:"+r.index);//3
+		var reg16 = /\w(\d+)/g;
+		//如果是全局匹配可以通过while循环，找到每次匹配到的字符串，以及子项。每次匹配都接着上次的位置开始
+		console.log("全局匹配:");
+		var r2 = "";
+		while(r2 = reg16.exec("efw133aewf434")){
+			console.log("r2:"+r2);//第一次:w133,133;第二次:f434,434
+			console.log("r2.length:"+r2.length);//第一次:2;第二次:2
+			console.log("r2.input:"+r2.input);//第一次:efw133aewf434;第二次:efw133aewf434
+			console.log("r2.index:"+r2.index);//第一次：2;第二次:9
+		}
+		
+		//表示某个集合中的任意一个，比如[abc]匹配a b c中的任意一个，也可以是范围[0-9]范围必须从小到大
+		console.log("-----[]-----");
+		var reg17 = /[a12]/g;
+		console.log("bergerg".match(reg17));//null
+		console.log("regragrarg1rg2".match(reg17));//["a","a","1","2"]
+		//^写在[]里面的话，代表着排除，例如[^abc]表示匹配a、b、c以外的字符
+		var reg18 = /[^0-9]/g;
+		console.log("f0gg1ew11".match(reg18));//["f","g","g","e","w"]
+		
+		//转义字符：
+		/*
+		 * \s:空格
+		 * \S:非空格
+		 * \d:数字
+		 * \D:非数字
+		 * \w:字符（字母，数字，下划线_）
+		 * \W:非字符
+		 * .(点):除换行符和其他Unicode行终止符之外的任意字符
+		 * \.:真正的点
+		 * \b:独立的部分（起始，结束，空格）,匹配的是位置（开头、结尾、\w以外的字符[a-zA-z0-9_]）
+		 * \B:非独立的部分
+		 * \t:水平制表符
+		 * \v:垂直制表符
+		 * \f:换页符
+		 * \r:回车
+		 * \n:换行符
+		 */
+		
+		console.log("---------转义字符---------");
+		console.log("^\\s:"+"ewfjoi ejfi".match(/[^\s]/g));//e,w,f,j,o,i,e,j,f,i
+		console.log("\\S:"+"ewfjoi ejfi".match(/\S/g));//e,w,f,j,o,i,e,j,f,i
+		console.log("\\d:"+"aefij234q234".match(/\d/g));//2,3,4,2,3,4
+		console.log("\\D:"+"aefij234q234".match(/\D/g));//a,e,f,i,j,q
+		console.log("\\w:"+"ae 34q_%e_34".match(/\w/g));//a,e,3,4,q,_,e,_,3,4
+		console.log("\\W:"+"ae 34q_%e_34".match(/\W/g));// ,%
+		console.log("\.(点):"+"ef e13_ef%.i\nfef".match(/./g));//e,f, ,e,1,3,_,e,f,%,.,i,f,e,f
+		console.log("\\.(转义后的点):"+"ef e13_ef%.ifef".match(/\./g));//.
+		console.log("\\b:"+"ef ergreg_% rr aeraerw".match(/\b(\w)\b/g));//null
+		console.log("\\b:"+"ef ergreg_% rr aera41564erw".match(/\b(\D)+\b/g));//"ef ergreg_% rr "
+		console.log("\\b:"+"ef ergreg rr aeraerw".match(/\B(\w)\B/g));//r,g,r,e,e,r,a,e,r
+//		console.log("efef\raewf");
+		
+		//表示重复的项:\n。例如：
+		/*
+		/(a)(b)(c)\1/匹配abca
+		/(a)(b)(c)\1/匹配abcb
+		*/
+		console.log("-----\\n(匹配重复的项)-----");
+		var reg19 = /(a)b(c)(\2+)/;
+		console.log("afefaewabccccccccc".match(reg19));//["abcc","a","c","cccccccc"];
+		
+		//使用while循环exec()方法的方式达到目的
+		function getLengthAndValue(str){
+			str = str.split('').sort().join('');
+			var index = 0,value='';
+			var reg = /(\w)\1*/g;
+			//$0保存的是每次匹配到的内容即aa，bbb等，$1则为(\w)匹配的内容即a，b等
+//			var arr = str.match(reg);
+			var r = [];
+			while(r = reg.exec(str)){
+				console.log(r[1]);//分别输出a,d,j,k,l,s
+				if(index<r[0].length){
+					index = r[0].length;
+					value = r[1];
+				}
+			}
+			
+			console.log("最多的字母:"+value+",长度为"+index);//s 17
+		}
+		getLengthAndValue('assssjdssskssalsssdkjsssdss');
+		
+		//使用replace+回调函数中的$0,$1来达到目的
+		function getLengthAndValue2(str){
+			str = str.split('').sort().join('');
+			var index = 0,value='';
+			var reg = /(\w)\1*/g;
+			//$0保存的是每次匹配到的内容即aa，bbb等，$1则为(\w)匹配的内容即a，b等
+			var r = [];
+			str.replace(reg,function($0,$1){
+				console.log($1);//分别输出a,d,j,k,l,s
+				if(index<$0.length){
+					index = $0.length;
+					value = $1;
+				}
+			});
+			
+			console.log("最多的字母:"+value+",长度为"+index);//s 17
+		}
+		getLengthAndValue2('assssjdssskssalsssdkjsssdss');
+		
+		/*
+			{n,m}：至少出现n次，最多m次
+			{n,} :至少n次
+			* :任意次 相当于{0,}
+			？ ：零次或一次 相当于{0,1}
+			+ ：一次或任意次相当于 {1,}
+			{n}： 正好n次
+		*/
+		
+		console.log("-----{n,m}-----");
+		//匹配包括n和m，从左右到右开始匹配，若很长一段满足条件例如下面的语句，先匹配完最大值6，然后从最后位置开始继续匹配
+		console.log("efeaaawfaaaaaaaaaefwf".match(/a{3,6}/g));//["aaa","aaaaaa","aaa"];
+		//(ab)作为一个整体进行匹配
+		console.log("efabababababababababefe".match(/(ab){3,6}/g));//["abababababab", "ababab"]
+		//匹配正好n个字符，如果很长一段满足条件则同{n,m}，从上一个成功的位置后继续匹配
+		console.log("efeaaawfaaaaaaaaefwf".match(/a{3}/g));//["aaa","aaa","aaa"]
+		//至少匹配3次
+		console.log("feaaafewfaaaaaaaa".match(/a{3,}/g));//["aaa", "aaaaaaaa"]
+		//返回null，即不允许{,m}设定最大匹配数量，可用{1,m}来设定
+		console.log("feaaafeawaafaaaaaaaa".match(/a{,6}/g));//null
+		//当设置最小匹配次数为0时，每个不符合的字符也进行匹配，返回空字符,最后多一个空字符
+		console.log("feaaafeawaafaaaaaaaa".match(/a{0,6}/g));//["", "", "aaa", "", "", "a", "", "aa", "", "aaaaaa", "aa", ""]
+		//(ab)作为整体使用{0,6}的结果相同
+		console.log("ffabaa".match(/(ab){0,6}/g));//["", "", "ab", "", "", ""]
+		//?相当于{0,1}
+		console.log("efaabcfeabf".match(/abc?/g));//["abc", "ab"]
+		console.log("efaabcfeabf".match(/(abc)?/g));//["","","","abc","","","","","",""]
+		//+相当于{1,}
+		console.log("efaabccccfeabfabcewf".match(/abc+/g));//["abcccc", "abc"]
+		//*相当于{0,}，更多用在一定能匹配到的字符+另一个不一定需要匹配到的字符，这样就不会因为最低匹配次数为0而匹配出空字符
+		console.log("efaabccccfeabfabcewf".match(/abc*/g));//["abcccc", "ab","abc"]
+		
+		console.log("456465".match(/\d{(2|6)}/g));//null
+		console.log("456465".match(/^((\d{2})|(\d{6}))$/g));//["456465"]
+		
+		
+		
+		//^ : 放在正则的最开始位置，就代表起始的意思，注意  /[^a] /和  /^[a]/是不一样的，前者是排除的意思，后者是代表首位。
+		//$ : 正则的最后位置 , 就代表结束的意思
+		console.log(/^fa/.test("fafawefe"));//true
+		console.log(/^af/.test("fafafwefe"));//false
+		console.log(/fe$/.test("fafawefe"));//true
+		console.log(/ef$/.test("faefawefe"));//false
+		
+		//验证qq号格式：首位为1-9，长度有6位数、9位数、10位数
+		function testQQNum(num){
+			num = num.toString();
+//			console.log(num);
+			//3种长度分别用括号括起来写，整体还需要一个括号
+			var reg = /^([1-9]((\d{5})|(\d{8})|(\d{9})))$/;
+//			var reg = /^[1-9]\d{[589]}$/;//错误
+//			console.log(reg.test(num));
+			if(reg.test(num)){
+				console.log("格式正确");
+			}else{
+				console.log("格式错误");
+			}
+		}
+		testQQNum("156548");//格式正确
+		testQQNum("156484598");//格式正确
+		
+		//传入一个字符串，去掉首尾的空格
+		function trim(str){
+			var reg = /^\s+|\s+$/g;
+			//返回替换后的字符串
+			str = str.replace(reg,function(){
+				return "";
+			});
+			//可简写成：
+			/*
+				str = str.replace(reg,"");
+			*/
+//			console.log(reg.test(str));
+			console.log(str+"   length:"+str.length);
+		}
+		trim("    aewfaef  ");//aewfaef
+		trim("aewfaef  ");//aewfaef
+		trim("    aewfaef");//aewfaef
+		
+		/*
+			匹配中文：[\u4e00-\u9fa5] //中文ACALL码的范围
+			行首行尾空格：^\s*|\s*$ //首行出现任意个空格或者尾行出现任意个空格（任意表示也可以没有空格）
+			
+			Email：^\w+@[a-z0-9]+(\.[a-z]+){1,3}$  
+			      //起始至少为一个字符(\w字母，数字或者下划线)，然后匹配@,接着为任意个字母或者数字，
+			      \.代表真正的点，.后面为至少一个的字符（a-z）,同时这个(比如.com)整体为一个子项作为结束，
+			      可以出现1-3次。因为有的邮箱是这样的.cn.net。（xxxx.@qq.com xxxx.@163.com xxxx.@16.cn.net ）
+			
+			网址：[a-zA-z]+://[^\s]*   http://......
+			  //匹配不分大小写的任意字母，接着是//,后面是非空格的任意字符
+			
+			邮政编码：[1-9]\d{5}  //起始数字不能为0，然后是5个数字
+			身份证：[1-9]\d{14}|[1-9]\d{17}|[1-9]\d{16}x
+		*/
+		
+		//用正则表达式验证邮箱
+		function email(str){
+			str = str.toLowerCase();
+			var reg = /^\w+@[0-9a-z]+(\.[a-z]+){1,3}$/;
+			console.log(reg.test(str));
+		}
+		email("kazilagui@163.com");//true
+		
+		
+		function testOr(){
+			var reg1 = /1|2|3/g;
+			console.log("1ef23s2ef5".match(reg1));//["1","2","3","2"]
+			var reg2 = /[a-zA-Z]+|\s+|\d+/g;
+			console.log("aefAEF  15ewf fsdf sefe".match(reg2));//["aefAEF", "  ", "15", "ewf", " ", "fsdf", " ", "sefe"]
+			var reg3 = /[a-zA-Z]+|(\s|\d)+/g;
+			console.log("aefAEF  15ewf fsdf sefe".match(reg3));//["aefAEF", "  15", "ewf", " ", "fsdf", " ", "sefe"]
+			
+		}
+		testOr();
+		
+		
+		//贪婪模式与非贪婪模式：
+		//贪婪模式在匹配成功的前提下匹配更长的字符串
+		//费贪婪模式在匹配成功额的前提下匹配更短的字符串
+		{
+			let str = "aa<div>test1</div>bb<div>test2</div>cc";
+			let reg = /<div>.*<\/div>/g;
+			let reg2 = /<div>.*?<\/div>/g;
+			console.log(str.match(reg));//["<div>test1</div>bb<div>test2</div>"]
+			console.log(str.match(reg2));//["<div>test1</div>", "<div>test2</div>"]
+			let reg3 = /<div>.*<\/div>bb/;
+			let reg4 = /<div>.*?<\/div>cc/;
+			console.log(str.match(reg3));//["<div>test1</div>bb"]
+			console.log(str.match(reg4));//["<div>test1</div>bb<div>test2</div>cc"]
+		}
+		
+		//m:启用多行，并对每行都进行匹配
+		{
+			let str = "hello world\n hello life \n world\n ejf";
+			let reg = /world$/g;
+			let reg2 = /world$/mg;
+			console.log(str.match(reg));//null没有启用多行，遇到\n的时候字符串换行，字符串末尾为life
+			console.log(str.match(reg2));//["world","world"]，启用了多行，每一行都进行匹配，第一行和第三行匹配到了world
+		}
+		
+		{
+			let reg1 = /<(\/?)(\w+)([^>]*?)>/g,
+		    str1 = "<div class='hello'><b>hello</b><i>regexp</i></div>";
+			let matches = [];
+			while(matches = reg1.exec(str1)){
+				console.log(matches);//输出了六次，每次匹配到一个<>之间的内容
+			}
+		}
+		
+		//正则表达式构造函数的静态属性
+		/*
+		长属性名			短属性名		说明
+		input			$_			最近一次要匹配的字符串
+		lastMatch		$&			最近一次的匹配项
+		lastParen		$+			最近一次匹配的捕获组
+		leftContext		$`			input字符串中lastMatch之前的文本
+		multiline		$*			布尔值，表示是否所有表达式都使用多行模式
+		rightContext	$’			input字符串中lastMatch之后的文本
+		*/
+		{
+			let reg = /\d+/;
+			let str = "efef1566efgeg";
+			console.log(str.match(reg));//["1566"]
+			console.log(RegExp.input);//efef1566efgeg
+			console.log(RegExp.lastMatch);//1566
+			console.log(RegExp.lastParen);//""
+			console.log(RegExp.leftContext);//efef
+			console.log(RegExp.multiline);//undefined
+			console.log(RegExp.rightContext);//efgeg
+		}
+		
+		{
+			let str = "iaaauosi";
+			str = str.replace("aaa","kal");
+			console.log(str);
+		}
+		
+		//replace()方法回调的多个参数,在有子项的情况下，第一个参数为子项，紧接着是正则表达式内()表示的子项，数量与()数一致
+		//然后是子项在字符串的位置，再然后为原字符串
+		//没有子项的情况下，只有子项、子项位置和原字符串3个参数
+		{
+			let str = "156-156-156";
+			let reg = /\d+/g,reg2 = /(\d+)/g;
+			str.replace(reg,function(a,b,c,d){
+				console.log(a+","+b+","+c+","+d);
+				//输出如下：
+				/*
+				156,0,156-156-156,undefined
+				156,4,156-156-156,undefined
+				156,8,156-156-156,undefined
+				*/
+			});
+			str.replace(reg2,function(a,b,c,d){
+				console.log(a+","+b+","+c+","+d);
+				//输出如下：
+				/*
+				156,156,0,156-156-156
+				156,156,4,156-156-156
+				156,156,8,156-156-156
+				*/
+			});
+		}
+		
+		//split(pattern[,many])方法,第一个参数为用作分隔得字符串可以是正则表达式，第二个为返回的数组的最大长度
+		{
+			let str = "hello world i am Jack!";
+			let reg = /\s+/g;
+			console.log(str.split(reg));//["hello", "world", "i", "am", "Jack!"]
+			console.log(str.split(" "));//["hello", "world", "i", "am", "Jack!"]
+			console.log(str.split(reg,3));//["hello", "world", "i"]
+		}
+		
+		console.log("\u0057");//W
+		
+		//由于RegExp构造函数的模式参数是字符串，所以在某些情况下需要双重转义。
+		{
+			//匹配:"[abc]"这个字符串使用以下两种方式的正则表达式
+			let reg1 = /\[abc\]/;
+			let reg2 = new RegExp("\\[abc\\]");//双重转义
+		}
+		
+		{
+			let str = '.abc.def.xyz.com',
+		    reg = /(.\w+){2,3}/;
+			console.log(str.match(reg));// [".abc.def.xyz", ".xyz"];匹配了3次，.xyz作为最后的子项
+		}
+		
+		{
+			let str = 'zabc//.def.xyz.com';
+			let reg = /(.\w+\/*)*/;
+			let reg2 = /(.\w+\/+)+/;
+			console.log(str.match(reg));//[".abc//.def.xyz.com", ".com", index: 0, input: ".abc//.def.xyz.com"]
+			console.log(str.match(reg2));//[".abc//", ".abc//", index: 0, input: ".abc//.def.xyz.com"]
+		}
+		
+		{
+			let str = 'a b c',reg = /(\w\s)+/g;
+			//括号将\w\s合成了一个整体，正则表达式将它们以一个组合的形式进行匹配
+   			console.log(str.match(reg));//["a b "]
+		}
+		
+		{
+			let str = "20170809";
+			let str2 = "20170808";
+			let reg = /(\d{4})(\d{2})(\d{2})/;
+			let reg2 = /(\d{4})(\d{2})\2/;
+			//$1,$2,$3...可以直接在字符串内使用
+			console.log(str.replace(reg,"$1-$2-$3"));//2017-08-09
+			//下面语句输出false，是因为reg2的\2是引用的(\d{2})的内容，
+			//而字符串str对应08，所以相当于用20170808来匹配str，所以失败
+			console.log(reg2.test(str));//false
+			console.log(str2.match(reg2));//["20170808", "2017", "08", index: 0, input: "20170808"]
+			//要使子项不被捕获可使用(?:),非获取捕获
+			let reg3 = /(?:\d{4})(\d{2})(\d{2})/;
+			console.log(str2.replace(reg3,"$1"));//08
+			console.log(str2.match(reg3));//["20170808", "08", "08", index: 0, input: "20170808"]
+		}
+		
+		{
+			let str = "Windows2000";
+			let reg = /Windows(?=95|98|NT|2000)/;
+			console.log(str.match(reg));//["Windows", index: 0, input: "Windows2000"]
+		}
+		
+		{
+			let str = "p+1>";
+			let reg = /p\b/;
+			console.log(str.match(reg));//["p", index: 0, input: "p>"]
+		}
+		
+		{
+			let str = "fe_23SS";
+			let reg = /[a-zA-Z0-9_]/g;
+			console.log(str.match(reg));
+		}
+		
+		{
+			let str = "industryjifeindustries";
+			let reg = /industr(?:y|ies)/;
+			let str2 = "industryjifeindustries";
+			let reg2 = /industr(y|ies)/;
+			//没有保存子项的y
+			console.log(str.match(reg));//["industry", index: 0, input: "industryjifeindustries"]
+			//保存了子项的y
+			console.log(str2.match(reg2));//["industry", "y", index: 0, input: "industryjifeindustries"]
+		}
+		
+		{
+			let str = "efWindows2000";
+			let reg = /Windows(?=95|98|NT|2000)/;
+			console.log(str.match(reg));//["Windows", index: 0, input: "Windows2000"]
+			let str2 = "Windows96";
+			let reg2 = /Windows(?=95|98|NT|2000)/;
+			console.log(str2.match(reg2));//null
+		}
+		
+		//零宽断言：使用括号内的表达式去匹配，但是不返回括号内的内容
+		//又分为正向和负向，正向：/xxx(?=)/,负向：/xxx(?<=)/，作用相等，但是匹配对应的顺序相反
+		//反向匹配:?!和?<!
+		//匹配到的断言不会消耗原字符串，即匹配到之后还从返回的位置开始向后匹配，而不会从断言结束的位置开始
+		{
+			//?!与?=匹配条件相反，但效果一样
+			//匹配的时候忽略?=或?!匹配到结果后只返回其他部分的值
+			let str = "Windows2000abc";
+			let reg = /Windows(?!95|98|NT|2000)/;
+			console.log(str.match(reg));//null
+			let str2 = "Windows96";
+			let reg2 = /Windows(?!95|98|NT|2000)/;
+			console.log(str2.match(reg2));//["Windows", index: 0, input: "Windows96"]
+		}
+		
+		{
+			//要匹配的"中国"在前面，?=匹配不到，使用?<=就匹配到了
+			let str = "中国人";
+			let str2 = "德国人";
+			let reg = /(?=中国)人/;
+			let reg2 = /(?<=中国)人/;
+			console.log(str.match(reg));//null
+			console.log(str2.match(reg));//null
+			console.log(str.match(reg2));//["人", index: 2, input: "中国人"]
+			console.log(str2.match(reg2));//null
+		}
+		
+		function threeNumAddComma(str){
+			var reg = /\d(\d{2})/g;
+			//本来想用\b来使匹配从后面往前，但还是不能实现，最终还是采用截取字符串的方式
+//			var reg = /\d(\d{2})(?=(\b)?)/g;
+			//网上的，未成功
+//			let reg2 = /((?<=\d)\d{3})*\b/;
+			console.log(str.length);
+			var str1 = str.substr(0,str.length%3);
+			var str2 = str.substr(str.length%3);
+//			console.log(str.match(reg2));//["", undefined, index: 0, input: "496484984984653246579841321654984"]
+			var result = '';
+			result = str1 + str2.replace(reg,function($0,$1){
+				return ','+$0;
+			});
+			console.log(result);
+			return result;
+		}
+		
+		threeNumAddComma("1496484984984653246579841321654984");
+		
+		{
+			//找出一个数，并断言这个数后面开始到结尾的数能够达成3个为一组的规则，通过?=使匹配到的后面的数"丢弃",
+			//从丢弃点继续向后匹配
+			let reg = /(\d)(?=(\d{3})+$)/g;
+			let reg2 = /(\d)(?:(\d{3})+$)/g;
+			let str = '12334565632';
+			console.log(str.match(reg));//["2", "4", "5"]
+			console.log(str.match(reg2));//["2334565632"]
+			let str2 = str.replace(reg,function($0){
+				return $0 + ",";
+			})
+			console.log(str2);
+		}
+		
+		
+		function testTelePhoneNum(){
+			let str = '0715-85624582-234',
+   			str2 = '027-51486325';
+			let reg = /^\d{3,4}-\d{8}(?:-\d{3})?$/;
+			let reg2 = /^\d{3,4}-\d{8}(-\d{3})?$/;
+			console.log(str.match(reg));//["0715-85624582-234", index: 0, input: "0715-85624582-234"]
+			console.log(str2.match(reg));//["027-51486325", index: 0, input: "027-51486325"]
+			console.log(str.match(reg2));//["0715-85624582-234", "-234", index: 0, input: "0715-85624582-234"]
+			console.log(str2.match(reg2));//["027-51486325", undefined, index: 0, input: "027-51486325"]
+		}
+		
+		testTelePhoneNum();
+		
+		{
+			let str = '17985642351',
+   			reg = /^1[34578]\d{9}$/;
+   			console.log(str.match(reg));
+		}
+		
+		{
+			let reg = /^(\-)?\d+(\.\d{1,2})?$/;
+			let str = "111";
+			console.log(reg.test(str));//true
+		}
+		
+		//验证中文
+		{
+			let reg = /[\u4e00-\u9fa5]/;
+			let str = "就是呀";
+			console.log(reg.test(str));//true
+		}
+		
+		
+		{
+			let reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/;
+			let str1 = "esdAsfeAE";
+			let str2 = "15ef6eef";
+			let str3 = "15616E4F";
+			let str4 = "ef1efD15";
+			console.log(reg.test(str1));//false
+			console.log(reg.test(str2));//false
+			console.log(reg.test(str3));//false
+			console.log(reg.test(str4));//true
+		}
+		
+		//验证邮编是否正确
+		{
+			let reg = /[1-9]\d{5}(?!\d)/;//网上的
+			let reg2 = /^[1-9]\d{5}(?!\d)/;
+			let str = "0155645";
+			console.log(reg.test(str));//true
+			console.log(reg2.test(str));//false
+		}
+		
+		{
+			let reg = /a+/g;
+			let reg2 = /a+/g;
+			let str = "aaa-aa-a";
+			//每次执行exec()会保存当前匹配结束的位置
+			console.log(reg.exec(str));//["aaa", index: 0, input: "aaa-aa-a"]
+			console.log(reg2.exec(str));//["aa", index: 4, input: "aaa-aa-a"]
+		}
+		
+		{
+			let str = 'name=hirara&psw=123456&qq=1125073664';
+			let reg = /[\w,=]+?&/g;
+			let paramsArr = str.split('&');
+			let obj = {};
+			for(let i=0;i<paramsArr.length;i++){
+				obj[paramsArr[i].split('=')[0]] = paramsArr[i].split('=')[1];
+			}
+			console.log(obj);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>

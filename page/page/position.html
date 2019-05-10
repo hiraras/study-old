@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="myDiv">
+			<button onclick="getPosition()" value="点击">点击</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var oDiv = document.getElementById("myDiv");
+		function getPosition(){
+			if(navigator.geolocation){
+				navigator.geolocation.getCurrentPosition(showPosition);
+				console.log(1);
+			}else{
+				alert("sorry，您的浏览器不支持该功能！");
+			}
+		}
+		
+		function showPosition(position){
+			console.log(position.coords.altitude);
+		}
+	</script>
+</html>

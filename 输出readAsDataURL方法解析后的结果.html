@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml" >
+	<head>
+		<meta charset="utf-8" />
+		<title> </title>
+		<script type = "text/javascript" >
+			function ProcessFile( e ) { 
+				var file = document.getElementById('file').files[0];
+				console.log(file);
+				var fileData = '';
+				if ( file ) {
+					var reader = new FileReader();
+					reader.onload = function ( event ) { 
+						var txt = event.target.result;
+						var img = document.createElement("img");
+						img.src = txt;
+						document.getElementById("result").appendChild(img);
+						
+						console.log(reader.result);
+					};
+					reader.readAsDataURL( file );
+					
+				}
+			}
+		</script>
+	</head>
+	<body>
+		请选取一个图像文件: <input type = "file" id = "file" name = "file" onchange="ProcessFile()" />
+		<div id = "result"> </div>
+	</body>
+</html>

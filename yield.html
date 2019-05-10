@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function* doSomething(){
+			let value = '', temp = '456';
+		    console.log("start");
+			console.log(value); // ''
+		    value = yield temp;
+		    console.log(value); // '321'
+		
+		    console.log("finish");
+		}
+		
+		var fun1 = doSomething(); // 返回一个控制器，控制器包含next()方法，用来控制函数的执行
+		
+		// 并没有开始执行函数，第一个next()执行后才开始
+		// 执行next()后返回一个对象，对象有两个值
+//		{
+//			value: '123', // 函数内被阻塞时yield后面的值
+//			done: true|false, // 函数是否执行完毕，执行完毕后如果继续调用next()方法则总是返回value=undefined，done=true
+//		}
+		
+		var it1 = fun1.next();//没执行一个next() 就停在一个yield中，相当于断点
+		console.log(it1);
+		// next()方法可传参，参数会作为函数中新开始位置的返回值
+		fun1.next('321');
+//		fun1.next();
+	</script>
+</html>

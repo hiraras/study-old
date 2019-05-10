@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			.hack{
+				width: 400px;
+				height: 300px;
+				background: red;
+				/*属性和\9要贴在一起*/
+				background: blue\9;
+				*+background: purple;/*ie7可以，ie6没测*/
+			}
+		</style>
+	</head>
+	<body>
+		<div class="hack">
+			
+		</div>
+	</body>
+</html>

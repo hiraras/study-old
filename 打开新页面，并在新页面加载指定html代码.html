@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<iframe id='iframe' class='iframe'></iframe>
+		<button id='openBtn'>Open</button>
+	</body>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script>
+		function init() {
+			var openBtn = document.getElementById('openBtn');
+			openBtn.addEventListener('click', getPageData, false);
+		}
+		init();
+		
+		function getPageData(){
+			$.ajax({
+				type: 'get',
+				async: true,
+				url: 'http://dev.jiayouxueba.cn/admin/trainingNew/index',
+				headers: {
+					token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjcmVhdGUiOjE1NDI4NDg1NTMwNDIsImRvbWFpbkNvZGUiOjMsImFkbWluSW5mbyI6eyJtb2JpbGUiOiIxNzg4ODg4ODg4OCIsIm5hbWUiOiJoaXJhcmEiLCJpZCI6MTA5LCJnbXRDcmVhdGUiOjE1MzYyMjE1NDQsInBlcm1pdFNldCI6WzEsMiwzLDQsNSw2LDcsMTEsMTIsMTMsMTQsMTUsMTYsMTcsMTgsNDAzLDE5LDQwNCwyMSwyMiwyNCwyNSwyNywxNTYsMzEsMzIsMzMsMzUsMzYsMzcsMzgsMzksNDAsMjAwLDIyMCwyMjEsMjIyLDEwMDEsMTAwMiwxMDAzLDEwMDQsMTAwNSwxMDA2LDEwMDcsMTAwOCwxMDA5LDI1MF0sInN0YXR1cyI6MH0sInNlc3Npb24iOiIyMzMyNmJmNS0yOWFiLTRhNDAtYmRlYi1hYWRmOWRhMjYyYzkiLCJleHBpcmUiOjE1NDU0NDA1NTMwNDJ9.H8ARQrwXVcRH7lJEsRSEVhnAothUOfq02HXUYCMdWlY'
+				},
+				success: function(res) {
+					var newWindow = window.open('');
+					newWindow.document.getElementsByTagName('html')[0].innerHTML = res;
+					
+				}
+			});
+		}
+	</script>
+</html>

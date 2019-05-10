@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.div1{
+				background: url(../img/1.jpg);
+				width: 300px;
+				height:200px;
+			}
+			.div1 img{
+				width: 600px;
+				height: 300px
+			}
+			p{
+				display: inline-block;
+				background-color: gray;
+				width:300px;
+			}
+			.c1{
+				position: absolute;
+				top:0;
+				left:0;
+				z-index: 4;
+				height:300px;
+				width:350px;
+				display: none;
+			}
+			#container{
+				position:relative;
+			}
+		</style>
+	</head>
+	<body >
+		<div class="div1" style="background: url(../img/2.jpg);"></div>
+		<img src="../img/1.jpg" alt="error" width="100px" height="60px" />
+		<p>
+			sadfef
+		</p>
+		<br />
+		-----------------------滤镜是微软自己搞得样式，只在一些ie浏览器中适用-----------------------------
+		<br />
+		原始图像:
+		<br />
+		<img src="../img/6.jpeg" alt="moe" width='250' height="250" />
+		<br />
+		旋转:
+		<br />
+		<img src="../img/6.jpeg" alt="moe" width='250' height="250" style="filter:flipv()" />
+		<br />
+		<hr />
+		<img src="../img/2.jpg" alt="" />
+		<!--
+        	作者：kazilagui@163.com
+        	时间：2017-08-12
+        	描述：实现剪切图片如下：截取的图片大小取决于div的大小，坐标轴：左上角为原点，x轴向左，y轴向上
+        -->
+		<div style="width:200px;height:150px;background: url(../img/2.jpg) -20px -40px;">
+			
+		</div>
+		<br />
+		遮罩：
+		<br />
+		<div id="container">
+			<img src="../img/1.jpg" alt="" class="c1" />
+			<!--
+            	作者：kazilagui@163.com
+            	时间：2017-08-12
+            	描述：z-index相同时，从上往下后面标签遮住前面的标签
+            -->
+			<div class="c1" style="opacity:0.5;filter:Alpha(Opacity='50');background: black;z-index: 5;"></div>
+		</div>
+		<hr />
+		<!--
+        	作者：kazilagui@163.com
+        	时间：2017-08-12
+        	描述：embed的作用仅仅只是下载文件，而后调用播放器，当src为网络地址时，就会先下载文件再播放
+        -->
+		<embed src="../video/爱剪辑-我的视频.mp4" controls="console" style="width: 800px;height:600px;" />
+		<object data="../video/爱剪辑-我的视频.mp4" type="video/mpeg">
+			<param name="movie" value="../video/爱剪辑-我的视频.mp4" />
+			<param name="allowScriptAcess" value="semeDomain" />
+		</object>
+		<object width="420" height="360"
+		classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
+		codebase="http://www.apple.com/qtactivex/qtplugin.cab">
+			<param name="src" value="../video/爱剪辑-我的视频.mp4" />
+			<param name="controller" value="true" />
+		</object>
+	</body>
+	<script>
+		var myImg = new Image();
+		myImg.src = "../img/1.jpg";
+		myImg.style.width = 400 + "px";
+		myImg.style.height = 350 + "px";
+		myImg.alt = "myImg";
+		document.body.appendChild(myImg);
+		myImg.onmouseover = function(e){
+			e = e||event;
+			var target = e.target||e.srcElement;
+			if(target.tagName.toLowerCase() == "img"){
+//				console.log("mouseover");
+				with(target.style){
+					width = 450 + "px";
+					height = 400 + "px";
+				}
+			}
+		}
+		myImg.onmouseout = function(e){
+			e = e||event;
+			var target = e.target||e.srcElement;
+			if(target.tagName.toLowerCase()=="img"){
+//				console.log("mouseout");
+				with(target.style){
+					width = 400 + "px";
+					height = 350 + "px";
+				}
+			}
+		}
+		myImg.style.display = "none";
+		function init(a){
+			console.log(a);
+		}
+		window.onload = init(3);
+	</script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div style="height: 0px;border:1px solid gray;overflow: hidden;">
+			<a href="#">aaaa</a>
+		</div>
+		<form action="" method="get" onsubmit="submitFunc()">
+			<input type="text" />
+			<!<!--
+            	作者：kazilagui@163.com
+            	时间：2017-08-07
+            	描述：按下键盘enter键时，input元素会自动提交数据
+            -->>
+		</form>
+	</body>
+	<script>
+		function submitFunc(){
+			alert(111);
+		}
+		//挡在标签上使用onkeyup=''(或者通过代码onkeyup=function(){})时，一个onkeyup匿名函数就被创建了，系统
+		//会调用这个函数，并且在FF下系统会给匿名函数传递一个事件对象作为参数，问题是在代码中可以通过给匿名函数指定参数名来引用这个参数
+		//例如onkeyup=function(e){alert(e)},而在标签中的引用只能通过参数对象arguments来获取，例如：
+		//<textarea onkeyup='func(this.value,arguments[0])'></textarea>
+		/*
+		function func(keyword,e){
+			e = e || event;
+			console.log(e.keyCode);
+		}
+		*/
+		/*
+		//在IE中生成表单元素方法
+		document.createElement("<input type = radio name = 'group1' checked />");
+		//在FF中生成表单元素方法（一般方法）
+		var n1 = document.createElement("input");
+		n1.type = 'radio';
+		n1.name = 'group1';
+		n1.checked = true;
+		//要想兼容两种浏览器，以下方法是错误的,因为IE在动态生成input元素时，必须直接通过createElement接口生成，之后的任何附加属性那个都无效
+		var n1 = document.createElement("input");
+		n1.type = 'radio';
+		n1.name = 'group1';
+		n1.checked = true;
+		var n2 = document.createElement("input");
+		n2.type = 'radio';
+		n2.name = 'group1';
+		n2.checked = true;
+		//正确的兼容方法如下：
+		var n1;
+		var n2;
+		try{
+			//IE专用
+			n1 = document.createElement("<input type=radio name='group1' checked />");
+			n2 = document.createElement("<input type=radio name='group1' />");
+		}catch(e){
+			//非IE专用
+			n1 = document.createElement("input");
+			n2 = document.createElement("input");
+		}
+		n1.type = n2.type = 'radio';
+		n1.name = n2.name = 'group1';
+		n1.checked = true;
+		document.body.appendChild(n1);
+		document.body.appendChild(n2);
+		*/
+		var mailBoxs = '@163.com @126.com @129.com @yeah.net';
+		var matchs = mailBoxs.match(new RegExp(''+"[^ ]+","gm"));
+//		matchs = matchs.join('').replace(/ $/,'').split(' ');
+		console.log(matchs);
+		
+		
+	</script>
+</html>

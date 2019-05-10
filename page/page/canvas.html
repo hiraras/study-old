@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <style>
+    		*{
+    			margin:0;
+    			padding:0;
+    			
+    		}
+    		html,body{
+    			height:100%;
+    			width: 100%;
+    		}
+    		.canvas{
+    			
+    			background:url(../../img/1.jpg) no-repeat center center;
+    			background-size: 100% 100%;
+    			border: 2px solid black;
+    			margin: 100 0 auto auto;
+    		}
+    </style>
+</head>
+<body>
+	<canvas class="canvas" id="canvas" width="800px" height="600px"></canvas>
+	<br />
+	<canvas class="canvas" id="canvas2" width="800px" height="600px"></canvas>
+	<script type="text/javascript">
+		//为canvas设置不同手机屏幕的高宽
+    		var screenW = document.documentElement.offsetWidth||document.body.offsetWidth;
+    		var screenH = document.documentElement.offsetHeight||document.body.offsetHeight;
+    		var canvas = document.getElementById("canvas2");
+//  		获取canvas对象
+    		var ctx = canvas.getContext("2d");
+    		var isMouseDown = false;
+    		var target = "";
+    		var obj = {x:0, y:0};
+    		var isPan = 
+    		canvas.onmousedown = function(ev){
+    			isMouseDown = true;
+    			ev = ev || window.event;
+    			target = ev.target || ev.srcElement;
+    			obj.x = ev.pageX -  target.offsetLeft;
+    			obj.y = ev.pageY -  target.offsetTop;
+    			ctx.beginPath();
+    			ctx.moveTo(obj.x,obj.y);
+    		}
+    		canvas.onmouseup = function(){
+    			isMouseDown = false;
+    		}
+    		canvas.onmouseout = function(){
+    			isMouseDown = false;
+    		}
+    		
+    		canvas.onmousemove = function(ev){
+    			if(isMouseDown){
+    				ev = ev || window.event;
+    				target = ev.target || ev.srcElement;
+//  				ctx.beginPath();
+//  				ctx.moveTo(obj.x,obj.y);
+    				obj.x = ev.pageX -  target.offsetLeft;
+    				obj.y = ev.pageY -  target.offsetTop;
+    				ctx.lineTo(obj.x,obj.y);
+    				ctx.stroke();
+    				ctx.moveTo(obj.x,obj.y);
+    				ctx.closePath();
+//  				console.log(ev.pageY);
+//  				console.log(target);
+    			}
+    		}
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+    		
+   		
+    </script>
+</body>
+</html>

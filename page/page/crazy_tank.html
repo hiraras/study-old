@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<style>
+				*{
+					margin: 0;
+					padding: 0;
+				}
+				#container{
+					position: absolute;
+					left: 100px;
+					border:1px solid blue;
+					background: gray;
+					width: 800px;
+					height: 600px;
+				}
+			</style>
+		<title></title>
+	</head>
+	<body>
+		<div id="container"></div>
+	</body>
+	<script>
+		forbidRight();
+		//屏蔽浏览器中鼠标右键时弹出的菜单
+		function forbidRight(){
+　　　　　　　	if (window.Event) 
+				//捕获事件mouseup
+                document.captureEvents(Event.MOUSEUP); 
+            function nocontextmenu(){
+                event.cancelBubble = true
+                event.returnValue = false;
+                return false;
+            }
+            function norightclick(e){
+                if (window.Event){
+                      if(e.which == 2 || e.which == 3)
+                       return false;
+                }else if(event.button == 2 || event.button == 3){
+					event.cancelBubble = true
+					event.returnValue = false;
+					return false;
+                }
+            }
+            document.oncontextmenu = nocontextmenu;  // for IE5+
+            document.onmousedown = norightclick;  // for all others
+　　　		}　
+
+		function selects(){
+			var selector = document.createElement("div");
+			with(selector.style){
+				border = "1px solid blue";
+				backgroundColor = "rgba(150,150,150,0.5)";
+				position = "absolute";
+				width = 0;
+				height = 0;
+				overflow = "hidden";
+			}
+			document.body.appendChild(selector);
+			document.onmousedown = function(e){
+				e = e||event;
+				if(e.button == 0){
+					var srcX = e.clientX;
+					var srcY = e.clientY;
+					
+					document.onmousemove = function(e){
+						selector.style.display = "block";
+						e = e||event;
+						var desX = e.clientX;
+						var desY = e.clientY;
+						if(desX<=srcX){
+							selector.style.left = desX + "px";
+						}else{
+							selector.style.left = srcX + "px";
+						}
+						if(desY<=srcY){
+							selector.style.top = desY + "px";
+						}else{
+							selector.style.top = srcY + "px";
+						}
+						selector.style.width = Math.abs(desX-srcX) + "px";
+						selector.style.height = Math.abs(desY-srcY) + "px";
+					}
+					document.onmouseup = function(){
+						selector.style.display = "none";
+						document.onmousemove = null;
+						document.onmouseup = null;
+						
+					}
+				}
+			}
+		}
+		
+		/*
+		 * 找出所有路径思路（自己）：用递归和栈的思想，判断一个点四周8个点是否满足条件（条件为：没有超出数组，数值不为0，该点不在当前路径上），
+		 * 若满足则递归调用，开始判断新的点，（注意：递归调用时，判断四周所有点是否都已经判断完的变量num，在回到这次递归时，数值保留原来的值，而不会重新开始
+		 * ，也就是每次执行的num都保持各自独立的值）,当新的点为最后一个点时，保存当前数组（用深度克隆的方法，不然保存的数组只为引用的地址，当path改变时
+		 * paths也会改变）。num的值不论是当前点不满足条件（不满足时，自然要加一），或下一个点为最后点（最后点时，说明这个方位已经测试过了 ），
+		 * 或下一个点满足条件但不为最后一个点时（满足此条件时，当遇到一个分支，若不加一，会因为有分支而少一个点，而不会pop当前点）都要加一，用来判断
+		 * 四周点都遍历完全了， 这个操作的结果即为最后path的值为空数组。
+		 * 
+		 */
+		//map为二位数组，start为一个包含x和y的object表示开始寻找的位置，end同start表示最后的位置
+		function findPath(map,start,end){
+//			console.log(typeof map.prototype)
+			var paths = new Array();
+			var path = new Array();
+			
+			var x = 0,y = 0;
+			var obj = new Object();
+			obj.x = start.x;
+			obj.y = start.y;
+			//obj.flag = 1;
+			path.push(obj);
+			nextStep(obj,path);
+//			print(paths);
+//			console.log(paths);
+//			console.log(path);
+			function nextStep(obj,path){
+				var around = [];
+				var num = 0;
+				around[0] = {x:obj.x+1,y:obj.y+1};
+				around[1] = {x:obj.x,y:obj.y+1};
+				around[2] = {x:obj.x-1,y:obj.y+1};
+				around[3] = {x:obj.x-1,y:obj.y};
+				around[4] = {x:obj.x-1,y:obj.y-1};
+				around[5] = {x:obj.x,y:obj.y-1};
+				around[6] = {x:obj.x+1,y:obj.y-1};
+				around[7] = {x:obj.x+1,y:obj.y};
+
+				/* 周围数组
+
+				around[0] = map[obj.x+1][obj.y+1];
+				around[1] = map[obj.x+1][obj.y];
+				around[2] = map[obj.x+1][obj.y-1];
+				around[3] = map[obj.x][obj.y-1];
+				around[4] = map[obj.x-1][obj.y-1];
+				around[5] = map[obj.x-1][obj.y];
+				around[6] = map[obj.x-1][obj.y+1];
+				around[7] = map[obj.x][obj.y+1];
+				*/
+				
+				for(var i=0,l=around.length;i<l;i++){
+//					console.log((map[0].length-1));
+//					console.log(around[i].x+":"+around[i].y+":"+i);
+					if(around[i].x<0||around[i].y<0||around[i].x>(map[0].length-1)||around[i].y>(map.length-1)
+					||map[around[i].x][around[i].y]==0||inPath(around[i],path)){
+						num++;
+					}else{
+						path.push(around[i]);
+						if(around[i].x==end.x&&around[i].y==end.y){
+							paths.push(clone(path));
+							//要定义变量j呀，使用i就和上面的for重了，导致结果错误
+//							for(var j=0;j<path.length;j++){
+//								console.log("path"+paths.length+":"+path[j].x+":"+path[j].y);
+//							}
+							path.pop();
+							num++;
+						}else{
+							num++;
+							nextStep(around[i],path);
+						}
+					}
+				}
+				if(num==around.length){
+					path.pop();
+					return;
+				}
+			}
+			
+			//判断当前点是否在当前path中
+			function inPath(obj,path){
+//				console.log(obj.y)
+//				console.log(path[0].x)
+				//当num值等于path的长度时，说明不在path数组里
+				var num = 0;
+				for(var i=0;i<path.length;i++){
+					if(path[i].x==obj.x&&path[i].y==obj.y){
+						return true;
+					}else{
+						num++;
+					}
+				}
+//				console.log("path.length:"+path.length+"num:"+num)
+				if(num==path.length)
+					return false;
+				else
+					return true;
+			}
+			//输出传递过来的参数，若为数组或object对象，则递归调用，"深度"输出
+			function print(obj){
+				var n = isObjOrArr(obj);
+				if(n==0){
+					console.log(obj);
+				}else{
+					for(var x in obj){
+						if(isObjOrArr(obj[x])){
+							print(obj[x]);
+						}else{
+							console.log(x+":"+obj[x]);
+						}
+					}
+				}
+				
+			}
+			//深度克隆object和array
+			function clone(path){
+				var n = isObjOrArr(path);
+//				console.log(n);
+				if(n==1){
+					var result = new Object();
+				}
+				if(n==2){
+					var result = new Array();
+				}
+				if(n==0){
+					result = path;
+				}else{
+					for(var x in path){
+						if(isObjOrArr(path[x])){
+							result[x] = clone(path[x]);
+						}else{
+							result[x] = path[x];
+						}
+					}
+				}
+				return result;
+			}
+			//判断给定变量是数组类型、object类型或其他类型
+			function isObjOrArr(obj){
+				if(obj instanceof Array){
+					return 2;
+				}
+				if(obj instanceof Object){
+					return 1;
+				}
+				return 0;
+			}
+			function getShortestPath(paths){
+				var min = 0;
+				for(var i=1;i<paths.length;i++){
+					if(paths[i-1].length>paths[i].length){
+						min = i;
+					}
+				}
+				return paths[min];
+			}
+			var minestPath = getShortestPath(paths);
+			return minestPath;
+		}
+		
+		function initMap(){
+			var container = document.getElementById("container");
+			var l = "<table border='0' cellspacing='0' cellpadding='0' style='position:relative;left:0;top:0;' width='800' height='600'>"
+			for(var i=0;i<5;i++){
+				
+				l += "<tr height='120px'>";
+				for(var j=0;j<5;j++){
+					l += "<td style='"+"background:url(../img/7.jpg )"+(-j*160) +"px "+(-i*120)+"px;'"+
+					" width='160px' height='120px' onmousedown='move(this,arguments[0])'></td>";
+				}
+				l += "</tr>";
+			}
+			l += "</table>";
+			container.innerHTML = l;
+		}
+		function move(obj,e){
+			e = e||event;
+			//若鼠标点击的按钮不为右键则退出函数
+			if(e.button!=2){
+				return;
+			}
+			//分别保存了行index，和列index
+//			console.log(obj.parentNode.rowIndex+":"+obj.cellIndex);
+			var srcX = obj.parentNode.rowIndex;
+			var srcY = obj.cellIndex;
+			var end = {
+				x:srcX,
+				y:srcY
+			}
+			var start = {
+				x:player.x,
+				y:player.y
+			}
+			var path = findPath(map,start,end);
+			anime(path);
+		}
+		function anime(path){
+			var fps = 24;
+			var spf = 1000/fps;
+			var time = [];
+			var num = 0;
+			for(var ele in path){
+				ele = parseInt(ele);
+//				console.log(path[ele].y)
+				if(path[ele+1]){
+//					time[ele] = setTimeout(anime2(ele,fps,spf),(ele*1000+1));
+					//定一个函数来设定setTimeout以达到想要的效果，如果不在另外的函数里设置，
+					//在for里面的所有setTimeout的延时会使用相同的ele(setTimeout设置的事件非常短，
+					//在下一次循环之前就申请完了)，而达不到目的
+					anime2(ele,fps,spf,path);
+				}
+			}
+		}
+		function anime2(ele,fps,spf,path){
+//			console.log(ele)
+			setTimeout(function (){
+				var offX = (path[ele+1].y - path[ele].y)*160;
+				var offY = (path[ele+1].x - path[ele].x)*120;
+//				console.log(offX+":"+offY);
+				var num = 0;
+				var time2 = setInterval(function(){
+					if(num >= 24){
+						clearInterval(time2);
+						num = 0;
+						console.log(parseInt(player.style.left));
+//						player.style.left += offX;
+//						player.style.top += offY;
+					}
+					var offX2 = offX/fps;
+//					console.log(offX2);
+					var offY2 = offY/fps;
+//					console.log(offY2);
+					console.log(player.style.left);
+					player.style.left = parseFloat(player.style.left)+offX2+"px";
+					player.style.top = parseFloat(player.style.top)+offY2+"px";
+					num ++;
+//					console.log(num);
+				},spf);
+				player.x = path[ele+1].x;
+				player.y = path[ele+1].y;
+			},ele*1000);
+		}
+		var map = [
+			[1,0,1,0,0],
+			[0,1,1,1,0],
+			[1,0,0,0,1],
+			[0,1,1,0,0],
+			[1,0,1,1,1]
+		];
+		var start = {x:0,y:0};
+		var end = {x:4,y:4};
+		selects();
+		initMap();
+		var resultPath = findPath(map,start,end);
+//		console.log(resultPath);
+		var player = document.createElement("div");
+		player.style.width = 60 + "px";
+		player.style.height = 60 + "px";
+		player.style.position = "absolute";
+		player.style.left = 100 + 50 + "px";
+		player.style.top = 0 + 30 + "px";
+		player.x = 0;
+		player.y = 0;
+		var img = new Image();
+		img.src = "../img/myPlane.png";
+		img.style.width = 60 + "px";
+		img.style.height = 60 + "px";
+		player.appendChild(img);
+		document.body.appendChild(player);
+//		var path = findPath(map,start,end);
+//		console.log(path);
+//		anime(path);
+	</script>
+</html>
